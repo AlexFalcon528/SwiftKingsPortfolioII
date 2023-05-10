@@ -7,7 +7,7 @@ public class playerController : MonoBehaviour//, IDamage
 {
     [Header("~~~~~~~Components~~~~~~~")]
     [SerializeField] CharacterController controller;
-    [Header("~~~~~~~Stats~~~~~~~")]
+    [Header("\n~~~~~~~Stats~~~~~~~")]
     [Header("~~~Player~~~")]
     [SerializeField] int hp;
     [SerializeField] float speed;
@@ -15,7 +15,7 @@ public class playerController : MonoBehaviour//, IDamage
     [SerializeField] float jumpHeight;
     [SerializeField] float gravity;
     [SerializeField] int jumps;
-    [Header("~~~Weapon~~~")]
+    [Header("\n~~~Weapon~~~")]
     [SerializeField] int shootDist;
     [SerializeField] float shootRate;
     [SerializeField] int shootDamage;
