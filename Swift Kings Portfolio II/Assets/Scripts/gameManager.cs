@@ -39,14 +39,14 @@ public class gameManager : MonoBehaviour
             
         }
     }
-    void PauseState()
+    public void PauseState()
     {
         isPaused = true;//Pause
         Time.timeScale = 0; //Stop physics and time
         Cursor.visible = true; //Make cursor visible but confined within the screen of the game
         Cursor.lockState = CursorLockMode.Confined;
     }
-    void UnpauseState()
+    public void UnpauseState()
     {
         Time.timeScale = originalTimeScale; //Reset time
         Cursor.visible = false; //Relock mouse and make it invisible
@@ -55,7 +55,7 @@ public class gameManager : MonoBehaviour
         activeMenu.SetActive(false); //Deactivate current menu
         activeMenu = null;//Unstore current menu
     }
-    void YouLose()
+    public void YouLose()
     {
         PauseState(); //Pause
         activeMenu = lose; //Set current menu to the lose menu

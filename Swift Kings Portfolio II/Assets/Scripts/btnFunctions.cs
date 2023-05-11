@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class btnFunctions : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public void Resume() {
+        gameManager.instance.UnpauseState();
+        gameManager.instance.isPaused = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void Restart() {
+        //
+    }
+
+    public void Exit() {
+        Application.Quit();
+    }
+
+    public void Respawn() {
+        //
     }
 }
