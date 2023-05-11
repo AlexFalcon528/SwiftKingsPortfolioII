@@ -22,6 +22,7 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        
         instance = this; //Only one instance of singleton
         player = GameObject.FindWithTag("Player"); //Find player
         spawnPoint = GameObject.FindWithTag("Spawnpoint"); //Find spawnpoint
@@ -60,5 +61,9 @@ public class gameManager : MonoBehaviour
         PauseState(); //Pause
         activeMenu = lose; //Set current menu to the lose menu
         activeMenu.SetActive(true); //Show lose menu
+    }
+    public void UpdateMinionsCounter(int amount)
+    {
+        numberOfMinions += amount;
     }
 }

@@ -52,7 +52,7 @@ MonoBehaviour:
   dmg: 10
   speed: 100
   rb: {fileID: 8116298408177600474}
-  timer: 2
+  timer: 1
 --- !u!33 &8116298408177600479
 MeshFilter:
   m_ObjectHideFlags: 0

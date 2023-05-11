@@ -59,7 +59,7 @@ MonoBehaviour:
   shootAngle: 20
   viewCone: 85
   projectile: {fileID: 8116298408177600472, guid: beb0e72c0419d584593ba45169d416a5, type: 3}
-  fireRate: 1.02
+  fireRate: 0.5
 --- !u!195 &-1967139152464445983
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -51,6 +51,8 @@ MonoBehaviour:
   pause: {fileID: 0}
   lose: {fileID: 0}
   isPaused: 0
+  numberOfMinions: 0
+  maxNumberOfMinions: 4
 --- !u!1 &8164116278394113408
 GameObject:
   m_ObjectHideFlags: 0
