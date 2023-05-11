@@ -103,7 +103,7 @@ public class necromancerAI : MonoBehaviour,IDamage
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * turnSpeed);
     }
-    void TakeDamage(int dmg)
+    public void TakeDamage(int dmg)
     {
         hp -= dmg;
         if(hp<=0)

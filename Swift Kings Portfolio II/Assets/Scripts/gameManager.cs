@@ -26,6 +26,7 @@ public class gameManager : MonoBehaviour
         instance = this; //Only one instance of singleton
         player = GameObject.FindWithTag("Player"); //Find player
         spawnPoint = GameObject.FindWithTag("Spawnpoint"); //Find spawnpoint
+        pScript = player.GetComponent<playerController>();
         originalTimeScale = Time.timeScale; //Save original time scale for later use
     }
 

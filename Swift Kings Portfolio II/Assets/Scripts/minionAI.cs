@@ -36,7 +36,7 @@ public class minionAI : MonoBehaviour,IDamage
             StartCoroutine(Shoot());
         }    
     }
-    void TakeDamage(int dmg)
+    public void TakeDamage(int dmg)
     {
         hp -= dmg;
         DamageColor();

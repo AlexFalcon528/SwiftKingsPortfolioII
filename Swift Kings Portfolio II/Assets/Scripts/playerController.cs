@@ -83,6 +83,7 @@ public class playerController : MonoBehaviour, IDamage
     IEnumerator Shoot()
     {
         isShooting = true; //Shoot
+        Debug.Log("Shoot");
         RaycastHit hit;
         if(Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f,0.5f)),out hit, shootDist))
         {
@@ -100,7 +101,7 @@ public class playerController : MonoBehaviour, IDamage
         hp -= dmg;//Subtract damage taken
         if(hp <= 0)//If hp is less than or = to 0
         {
-//            gameManager.instance.YouLose(); //Lose the game
+            gameManager.instance.YouLose(); //Lose the game
         }
     }
     public void SpawnPlayer()
