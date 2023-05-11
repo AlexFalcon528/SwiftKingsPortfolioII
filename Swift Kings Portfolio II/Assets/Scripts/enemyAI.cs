@@ -31,7 +31,7 @@ public class enemyAI : MonoBehaviour,IDamage
     void Start()
     {
         colorOrig = model.material.color;
-        
+        gameManager.instance.UpdateGameGoal(+1);
 
     }
 
@@ -87,12 +87,16 @@ public class enemyAI : MonoBehaviour,IDamage
     public void TakeDamage(int dmg)
     {
         hp -= dmg;
-        DamageColor();
+        playerInRange = true;
+        agent.SetDestination(gameManager.instance.player.transform.position);
+       StartCoroutine( DamageColor());
         if (hp <= 0)
         {
+            gameManager.instance.UpdateGameGoal(-1);
             Destroy(gameObject);
         }
-        playerInRange = true;// allows enemy to notice player when they get shot
+       
+        // allows enemy to notice player when they get shot
     }
     IEnumerator DamageColor()//enemy blinks red when they take damage
     {

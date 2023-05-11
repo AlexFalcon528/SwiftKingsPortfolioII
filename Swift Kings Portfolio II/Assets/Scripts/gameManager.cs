@@ -14,8 +14,10 @@ public class gameManager : MonoBehaviour
     public GameObject activeMenu;
     public GameObject pause;
     public GameObject lose;
+    public GameObject win;
     public bool isPaused;
     float originalTimeScale;
+    public int enemiesRemaining;
     [Header("\n~~~~~~~~Minions Tracker~~~~~~~~~~~")]
     public int numberOfMinions;
     [Range(1, 30)] [SerializeField] public int maxNumberOfMinions;
@@ -62,9 +64,23 @@ public class gameManager : MonoBehaviour
         PauseState(); //Pause
         activeMenu = lose; //Set current menu to the lose menu
         activeMenu.SetActive(true); //Show lose menu
+    } 
+    public void YouWin()
+    {
+        PauseState(); //Pause
+        activeMenu = win; //Set current menu to the lose menu
+        activeMenu.SetActive(true); //Show win menu
     }
     public void UpdateMinionsCounter(int amount)
     {
         numberOfMinions += amount;
+    }
+public void UpdateGameGoal(int amount)
+    {
+        enemiesRemaining += amount;
+        if (enemiesRemaining <= 0)
+        {
+            YouWin();
+        }
     }
 }

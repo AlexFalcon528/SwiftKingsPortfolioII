@@ -35,7 +35,7 @@ public class necromancerAI : MonoBehaviour,IDamage
     void Start()
     {
         colorOrig = model.material.color;
-
+        gameManager.instance.UpdateGameGoal(+1);
 
     }
 
@@ -91,6 +91,12 @@ public class necromancerAI : MonoBehaviour,IDamage
 
         return false;
     }
+    IEnumerator DamageColor()//enemy blinks red when they take damage
+    {
+        model.material.color = Color.red;
+        yield return new WaitForSeconds(.1f);
+        model.material.color = colorOrig;
+    }
     IEnumerator shoot()
     {
         isShooting = true;
@@ -106,10 +112,15 @@ public class necromancerAI : MonoBehaviour,IDamage
     public void TakeDamage(int dmg)
     {
         hp -= dmg;
+        StartCoroutine(DamageColor());
+        playerInRange = true;
+        agent.SetDestination(gameManager.instance.player.transform.position);
         if(hp<=0)
         {
+            gameManager.instance.UpdateGameGoal(-1);
             Destroy(gameObject);
         }
+       
 
     }
     private void OnTriggerEnter(Collider other)

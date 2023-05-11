@@ -22,6 +22,7 @@ public class minionAI : MonoBehaviour,IDamage
     {
         colorOrig = model.material.color;
         gameManager.instance.UpdateMinionsCounter(+1);
+        
     }
     
     // Update is called once per frame
@@ -39,10 +40,11 @@ public class minionAI : MonoBehaviour,IDamage
     public void TakeDamage(int dmg)
     {
         hp -= dmg;
-        DamageColor();
+       StartCoroutine( DamageColor());
         if (hp <= 0)
         {
             gameManager.instance.UpdateMinionsCounter(-1);
+            
             Destroy(gameObject);
         }
 

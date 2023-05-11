@@ -54,7 +54,7 @@ MonoBehaviour:
   agent: {fileID: -1967139152464445983}
   shootPos: {fileID: 317449059835509198}
   headPos: {fileID: 3468450349055152742}
-  hp: 61
+  hp: 10
   turnSpeed: 300
   shootAngle: 20
   viewCone: 85
@@ -110,7 +110,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9d5f92a71e0e19a4a99c1f7785e13a17, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

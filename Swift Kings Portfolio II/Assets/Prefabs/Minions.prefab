@@ -53,7 +53,7 @@ MonoBehaviour:
   projectile: {fileID: 8116298408177600472, guid: beb0e72c0419d584593ba45169d416a5, type: 3}
   model: {fileID: 3215846047005421439}
   agent: {fileID: 383645450073051687}
-  hp: 100
+  hp: 30
   turnSpeed: 600
   fireRate: 2
 --- !u!33 &3215846047005421436

@@ -32,6 +32,7 @@ public class playerController : MonoBehaviour, IDamage
     void Start()
     {
         hpOriginal = hp; //Store original health for respawn system
+        SpawnPlayer();
     }
 
     // Update is called once per frame
@@ -39,9 +40,12 @@ public class playerController : MonoBehaviour, IDamage
     {
         Sprint(); //Find out if the player is sprinting
         Movement(); //Move player
-        if (Input.GetButton("Shoot") && !isShooting) //If the player is pressing the shoot button and not already shooting
+        if (gameManager.instance.activeMenu == null)
         {
-            StartCoroutine(Shoot());
+            if (Input.GetButton("Shoot") && !isShooting) //If the player is pressing the shoot button and not already shooting
+            {
+                StartCoroutine(Shoot());
+            }
         }
     }
     void Movement()
@@ -83,7 +87,6 @@ public class playerController : MonoBehaviour, IDamage
     IEnumerator Shoot()
     {
         isShooting = true; //Shoot
-        Debug.Log("Shoot");
         RaycastHit hit;
         if(Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f,0.5f)),out hit, shootDist))
         {
