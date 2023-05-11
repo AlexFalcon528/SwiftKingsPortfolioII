@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class btnFunctions : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class btnFunctions : MonoBehaviour
     }
 
     public void Restart() {
-        //
+        Resume();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void Exit() {
@@ -18,6 +20,7 @@ public class btnFunctions : MonoBehaviour
     }
 
     public void Respawn() {
-        //
+        gameManager.instance.UnpauseState();
+        gameManager.instance.pScript.SpawnPlayer();
     }
 }
