@@ -12,7 +12,8 @@ public class projectile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        Destroy(gameObject, timer);
+        rb.velocity = transform.forward * speed;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -20,7 +21,7 @@ public class projectile : MonoBehaviour
         IDamage damageable = other.GetComponent<IDamage>();
         if (damageable != null)
         {
-            damageable.takeDamage(dmg);
+            damageable.TakeDamage(dmg);
         }
     }
 }
