@@ -16,6 +16,9 @@ public class gameManager : MonoBehaviour
     public GameObject lose;
     public bool isPaused;
     float originalTimeScale;
+    [Header("\n~~~~~~~~Minions Tracker~~~~~~~~~~~")]
+    public int numberOfMinions;
+    [Range(1, 30)] [SerializeField] public int maxNumberOfMinions;
     // Start is called before the first frame update
     void Awake()
     {
