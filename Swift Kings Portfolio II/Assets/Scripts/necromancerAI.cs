@@ -10,41 +10,44 @@ public class necromancerAI : MonoBehaviour,IDamage
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Transform minionSpawnPoint;//where minions spawn from
     [SerializeField] Transform headPos;
+    [SerializeField] Transform shootPos;
 
     [Header("\n----Enemy Stats------")]
     [Range(1, 100)] [SerializeField] int hp;
     [SerializeField] int turnSpeed;
     [SerializeField] int shootAngle;
-
+    [SerializeField]  float viewCone;
     [Header("\n-----Enemy Weapon------")]
     
     [SerializeField] GameObject minions;
     [SerializeField] float minionSpawnRate;
     [SerializeField] GameObject projectile;
-    [Range(1, 3)] [SerializeField] float fireRate;
+    [Range(.1f, 3)] [SerializeField] float fireRate;
     
     
     bool isShooting;
+    bool isSpawning;
     bool playerInRange;
-    float viewCone;
+ 
     float angleToPlayer;
     Vector3 playerDir;
     Color colorOrig;
     void Start()
     {
         colorOrig = model.material.color;
-
+        gameManager.instance.UpdateGameGoal(+1);
 
     }
 
     // Update is called once per frame
     IEnumerator spawnMinions()
-    {if(gameManager.instance.numberOfMinions< gameManager.instance.maxNumberOfMinions)
-        isShooting = true;
-        Instantiate(minions, minionSpawnPoint.position, transform.rotation);
-        yield return new WaitForSeconds(minionSpawnRate);
-        isShooting = false;
-        
+    {if (gameManager.instance.numberOfMinions < gameManager.instance.maxNumberOfMinions)
+        {
+            isSpawning = true;
+            Instantiate(minions, minionSpawnPoint.position, transform.rotation);
+            yield return new WaitForSeconds(minionSpawnRate);
+            isSpawning = false;
+        }
         
     }
   
@@ -71,9 +74,13 @@ public class necromancerAI : MonoBehaviour,IDamage
                 {
                     FacePlayer();
                 }
-                StartCoroutine(spawnMinions());
-                if (!isShooting && angleToPlayer <= shootAngle)
+                if(!isSpawning)
                 {
+                    StartCoroutine(spawnMinions());
+                }
+                
+                if (!isShooting && angleToPlayer <= shootAngle)
+                {   
                     StartCoroutine(shoot());
                 }
                 return true;
@@ -83,6 +90,12 @@ public class necromancerAI : MonoBehaviour,IDamage
 
 
         return false;
+    }
+    IEnumerator DamageColor()//enemy blinks red when they take damage
+    {
+        model.material.color = Color.red;
+        yield return new WaitForSeconds(.1f);
+        model.material.color = colorOrig;
     }
     IEnumerator shoot()
     {
@@ -96,13 +109,18 @@ public class necromancerAI : MonoBehaviour,IDamage
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * turnSpeed);
     }
-    void TakeDamage(int dmg)
+    public void TakeDamage(int dmg)
     {
         hp -= dmg;
+        StartCoroutine(DamageColor());
+        playerInRange = true;
+        agent.SetDestination(gameManager.instance.player.transform.position);
         if(hp<=0)
         {
+            gameManager.instance.UpdateGameGoal(-1);
             Destroy(gameObject);
         }
+       
 
     }
     private void OnTriggerEnter(Collider other)

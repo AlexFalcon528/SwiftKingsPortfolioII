@@ -32,6 +32,7 @@ public class playerController : MonoBehaviour, IDamage
     void Start()
     {
         hpOriginal = hp; //Store original health for respawn system
+        SpawnPlayer();
     }
 
     // Update is called once per frame
@@ -39,9 +40,12 @@ public class playerController : MonoBehaviour, IDamage
     {
         Sprint(); //Find out if the player is sprinting
         Movement(); //Move player
-        if (Input.GetButton("Shoot") && !isShooting) //If the player is pressing the shoot button and not already shooting
+        if (gameManager.instance.activeMenu == null)
         {
-            StartCoroutine(Shoot());
+            if (Input.GetButton("Shoot") && !isShooting) //If the player is pressing the shoot button and not already shooting
+            {
+                StartCoroutine(Shoot());
+            }
         }
     }
     void Movement()
@@ -100,7 +104,7 @@ public class playerController : MonoBehaviour, IDamage
         hp -= dmg;//Subtract damage taken
         if(hp <= 0)//If hp is less than or = to 0
         {
-//            gameManager.instance.YouLose(); //Lose the game
+            gameManager.instance.YouLose(); //Lose the game
         }
     }
     public void SpawnPlayer()

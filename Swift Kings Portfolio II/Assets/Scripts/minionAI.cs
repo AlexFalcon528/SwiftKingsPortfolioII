@@ -21,21 +21,30 @@ public class minionAI : MonoBehaviour,IDamage
     void Start()
     {
         colorOrig = model.material.color;
-        gameManager.instance.numberOfMinions++;
+        gameManager.instance.UpdateMinionsCounter(+1);
+        
     }
     
     // Update is called once per frame
     void Update()
     {
-        
+        playerDir = gameManager.instance.player.transform.position - transform.position;
+       agent.SetDestination(playerDir);
+        FacePlayer();
+        if (!isShooting)
+        {
+            
+            StartCoroutine(Shoot());
+        }    
     }
-    void TakeDamage(int dmg)
+    public void TakeDamage(int dmg)
     {
         hp -= dmg;
-        DamageColor();
+       StartCoroutine( DamageColor());
         if (hp <= 0)
         {
-            gameManager.instance.numberOfMinions--;
+            gameManager.instance.UpdateMinionsCounter(-1);
+            
             Destroy(gameObject);
         }
 
@@ -49,8 +58,8 @@ public class minionAI : MonoBehaviour,IDamage
     }
     void FacePlayer()
     {
-        playerDir = gameManager.instance.player.transform.position - transform.position;
-        Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
+
+        Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, playerDir.y, playerDir.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * turnSpeed);
     }
     IEnumerator DamageColor()
@@ -59,4 +68,6 @@ public class minionAI : MonoBehaviour,IDamage
         yield return new WaitForSeconds(.1f);
         model.material.color = colorOrig;
     }
+   
+
 }
