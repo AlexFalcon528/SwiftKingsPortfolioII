@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using UnityEngine;
 
-public class playerController : MonoBehaviour//, IDamage
+public class playerController : MonoBehaviour, IDamage
 {
     [Header("~~~~~~~Components~~~~~~~")]
     [SerializeField] CharacterController controller;
@@ -41,7 +41,7 @@ public class playerController : MonoBehaviour//, IDamage
         Movement(); //Move player
         if (Input.GetButton("Shoot") && !isShooting) //If the player is pressing the shoot button and not already shooting
         {
-//            StartCoroutine(Shoot());
+            StartCoroutine(Shoot());
         }
     }
     void Movement()
@@ -80,7 +80,7 @@ public class playerController : MonoBehaviour//, IDamage
             speed /= sprintMult; //Unapply speed multiplier
         }
     }
-/*    IEnumerator Shoot()
+    IEnumerator Shoot()
     {
         isShooting = true; //Shoot
         RaycastHit hit;
@@ -92,7 +92,9 @@ public class playerController : MonoBehaviour//, IDamage
                 obj.TakeDamage(shootDamage);
             }
         }
-    }*/
+        yield return new WaitForSeconds(shootRate);
+        isShooting = false;
+    }
     public void TakeDamage(int dmg)
     {
         hp -= dmg;//Subtract damage taken
@@ -104,7 +106,7 @@ public class playerController : MonoBehaviour//, IDamage
     public void SpawnPlayer()
     {
         controller.enabled = false; //Disable CharacterController to allow manual position setting
-//      transform.position = gameManager.instance.playerSpawnPos.transform.position; //Set the position to where the player is supposed to spawn
+        transform.position = gameManager.instance.spawnPoint.transform.position; //Set the position to where the player is supposed to spawn
         controller.enabled = true; //Reenable controller to allow for the movement functions to work
         hp = hpOriginal; //Reset the player's hp to the original amount
     }
