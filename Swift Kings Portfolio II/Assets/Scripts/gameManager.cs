@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class gameManager : MonoBehaviour
 {
@@ -15,20 +16,21 @@ public class gameManager : MonoBehaviour
     public GameObject pause;
     public GameObject lose;
     public GameObject win;
+    public GameObject reticle;
     public bool isPaused;
     float originalTimeScale;
     public int enemiesRemaining;
     [Header("\n~~~~~~~~Minions Tracker~~~~~~~~~~~")]
     public int numberOfMinions;
     [Range(1, 30)] [SerializeField] public int maxNumberOfMinions;
+
     // Start is called before the first frame update
     void Awake()
     {
-        
         instance = this; //Only one instance of singleton
         player = GameObject.FindWithTag("Player"); //Find player
         spawnPoint = GameObject.FindWithTag("Spawnpoint"); //Find spawnpoint
-        pScript = player.GetComponent<playerController>();
+        if(SceneManager.GetActiveScene().name != "LandingScene") pScript = player.GetComponent<playerController>();
         originalTimeScale = Time.timeScale; //Save original time scale for later use
     }
 
