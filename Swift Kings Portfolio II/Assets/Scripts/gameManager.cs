@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class gameManager : MonoBehaviour
 {
@@ -15,20 +16,21 @@ public class gameManager : MonoBehaviour
     public GameObject pause;
     public GameObject lose;
     public GameObject win;
+    public GameObject reticle;
     public bool isPaused;
     float originalTimeScale;
     public int enemiesRemaining;
     [Header("\n~~~~~~~~Minions Tracker~~~~~~~~~~~")]
     public int numberOfMinions;
     [Range(1, 30)] [SerializeField] public int maxNumberOfMinions;
+
     // Start is called before the first frame update
     void Awake()
     {
-        
         instance = this; //Only one instance of singleton
         player = GameObject.FindWithTag("Player"); //Find player
         spawnPoint = GameObject.FindWithTag("Spawnpoint"); //Find spawnpoint
-        pScript = player.GetComponent<playerController>();
+        if(SceneManager.GetActiveScene().name != "LandingScene") pScript = player.GetComponent<playerController>();
         originalTimeScale = Time.timeScale; //Save original time scale for later use
     }
 
@@ -49,6 +51,7 @@ public class gameManager : MonoBehaviour
         Time.timeScale = 0; //Stop physics and time
         Cursor.visible = true; //Make cursor visible but confined within the screen of the game
         Cursor.lockState = CursorLockMode.Confined;
+        reticle.SetActive(false); // Disable the reticle
     }
     public void UnpauseState()
     {
@@ -58,6 +61,13 @@ public class gameManager : MonoBehaviour
         isPaused = false; //Unpause
         activeMenu.SetActive(false); //Deactivate current menu
         activeMenu = null;//Unstore current menu
+        reticle.SetActive(true); // Reactive the reticle
+    }
+    public void HandleReturnMenu() {
+        Time.timeScale = originalTimeScale; //Reset time
+        isPaused = false; //Unpause
+        activeMenu.SetActive(false); //Deactivate current menu
+        activeMenu = null; //Unstore current menu
     }
     public void YouLose()
     {
