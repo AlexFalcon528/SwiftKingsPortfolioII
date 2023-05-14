@@ -15,6 +15,11 @@ public class btnFunctions : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
     }
 
+    public void ReturnMenu() {
+        gameManager.instance.HandleReturnMenu();
+        SceneManager.LoadScene("LandingScene"); // Load Menu Scene
+    }
+
     public void Exit() {
         Application.Quit(); // Quit the application
     }
@@ -25,11 +30,15 @@ public class btnFunctions : MonoBehaviour
     }
 
 
+    /**
+     * Main Menu
+     * */
     public void Play() {
-        SceneManager.LoadScene("SampleScene");
+        // TODO: Expand for gamemode / map selection
+        SceneManager.LoadScene("SampleScene"); // Load the Sample Scene
     }
 
     public void Options() {
-        //
+        // TODO: Expand for Game Settings (i.e. reticle color)
     }
 }

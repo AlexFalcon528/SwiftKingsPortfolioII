@@ -51,6 +51,7 @@ public class gameManager : MonoBehaviour
         Time.timeScale = 0; //Stop physics and time
         Cursor.visible = true; //Make cursor visible but confined within the screen of the game
         Cursor.lockState = CursorLockMode.Confined;
+        reticle.SetActive(false); // Disable the reticle
     }
     public void UnpauseState()
     {
@@ -60,6 +61,13 @@ public class gameManager : MonoBehaviour
         isPaused = false; //Unpause
         activeMenu.SetActive(false); //Deactivate current menu
         activeMenu = null;//Unstore current menu
+        reticle.SetActive(true); // Reactive the reticle
+    }
+    public void HandleReturnMenu() {
+        Time.timeScale = originalTimeScale; //Reset time
+        isPaused = false; //Unpause
+        activeMenu.SetActive(false); //Deactivate current menu
+        activeMenu = null; //Unstore current menu
     }
     public void YouLose()
     {
