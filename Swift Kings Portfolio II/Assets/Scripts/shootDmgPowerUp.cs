@@ -9,8 +9,11 @@ public class shootDmgPowerUp : MonoBehaviour
         gameManager.instance.pScript.powerUpDMG();
     }
 
-    private void OnTriggerExit(Collider other)
+    private void Update()
     {
-        Destroy(gameObject);
+        if (gameManager.instance.pScript.isPoweredUp)
+        {
+            Destroy(gameObject);
+        }
     }
 }

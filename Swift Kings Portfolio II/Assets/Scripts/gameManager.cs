@@ -31,6 +31,8 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI healthBarText;
     public GameObject weaponAmmoParent;
     public TextMeshProUGUI weaponAmmoText;
+    
+   
     public bool isPaused;
     public bool nextWave;
     float originalTimeScale;
@@ -128,4 +130,6 @@ public class gameManager : MonoBehaviour
         weaponAmmoParent.SetActive(active); // Active/Deactivate the Weapons Ammo Display
         objectiveParent.SetActive(active); // Active/Deactivate the Objective
     }
+
+    
 }

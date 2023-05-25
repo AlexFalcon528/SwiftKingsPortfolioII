@@ -12,9 +12,14 @@ public class powerUpSpeed : MonoBehaviour
         gameManager.instance.pScript.powerUpSpeed();
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        Destroy(gameObject);
+    
 
+    private void Update()
+    {
+        if(gameManager.instance.pScript.isPoweredUp)
+        {
+            Destroy(gameObject);
+        }
     }
+
 }

@@ -41,7 +41,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     bool isShooting;
     int hpOriginal;
     bool stepIsPlaying;
-
+    public bool isPoweredUp;
     // Start is called before the first frame update
     void Start()
     {
@@ -185,18 +185,20 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     public void powerUpSpeed()
     {
         speed += 2;
-
+        isPoweredUp = true;
     }
 
 
     public void powerUpHP()
     {
         hp += 5;
+        isPoweredUp = true;
     }
 
     public void powerUpDMG()
     {
         shootDamage += 5;
+        isPoweredUp = true;
     }
 
 }
