@@ -26,6 +26,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [SerializeField] MeshFilter gunModel;
     [SerializeField] MeshRenderer gunMat;
     public int selectedGun;
+    Vector3 pushBack;
 
     [Header("----- Audio -----")]
     [SerializeField] AudioClip[] audJump;
@@ -38,7 +39,6 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     int grenadeNum;
     int jumped;
     Vector3 move;
-    private Vector3 pushBack;
     Vector3 velocity;
     bool isGrounded;
     bool isSprinting;

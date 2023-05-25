@@ -23,14 +23,16 @@ public class projectile : MonoBehaviour
         if (damageable != null)
         {
             damageable.TakeDamage(dmg);
-            Destroy(gameObject);
         }
         IPhysics physicsable = other.GetComponent<IPhysics>();
-        if (physicsable!=null){
-            Vector3 dir =  other.transform.position-transform.position;
+        if (physicsable != null)
+        {
+            Vector3 dir = other.transform.position - transform.position;
             physicsable.TakePushBack(dir * pushbackAmount);
         }
-        
+       
         Destroy(gameObject);
+
+
     }
 }

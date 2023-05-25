@@ -3,20 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class necromancerAI : MonoBehaviour,IDamage
+public class necromancerAI : MonoBehaviour,IDamage,IPhysics
 {
     [Header("-----Components------")]
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
+    [SerializeField] Animator anim;
     [SerializeField] Transform minionSpawnPoint;//where minions spawn from
     [SerializeField] Transform headPos;
     [SerializeField] Transform shootPos;
-
+   
     [Header("\n----Enemy Stats------")]
     [Range(1, 100)] [SerializeField] int hp;
     [SerializeField] int turnSpeed;
     [SerializeField] int shootAngle;
     [SerializeField]  float viewCone;
+    [SerializeField] float animTranSpeed;
+    [SerializeField] int roamDistance;
+    [SerializeField] int roamPauseTime;
     [Header("\n-----Enemy Weapon------")]
     
     [SerializeField] GameObject minions;
@@ -31,12 +35,17 @@ public class necromancerAI : MonoBehaviour,IDamage
  
     float angleToPlayer;
     Vector3 playerDir;
+    Vector3 startingPos;
     Color colorOrig;
+    bool destinationChosen;
+    float stoppingDistOrig;
+    float speed;
     void Start()
     {
         colorOrig = model.material.color;
         gameManager.instance.UpdateGameGoal(+1);
-
+        startingPos = transform.position;
+        stoppingDistOrig = agent.stoppingDistance;
     }
 
     // Update is called once per frame
@@ -53,9 +62,20 @@ public class necromancerAI : MonoBehaviour,IDamage
   
     void Update()
     {
-        if (playerInRange && CanSeePlayer())
+        if (agent.isActiveAndEnabled)
         {
+            speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTranSpeed);
+            anim.SetFloat("Speed", speed);
+            if (playerInRange && !CanSeePlayer())
+            {
 
+                StartCoroutine(Roam());
+
+            }
+            else if (agent.destination != gameManager.instance.player.transform.position)
+            {
+                StartCoroutine(Roam());
+            }
         }
     }
     bool CanSeePlayer()
@@ -69,7 +89,9 @@ public class necromancerAI : MonoBehaviour,IDamage
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewCone)
             {
+                agent.stoppingDistance = stoppingDistOrig;
                 agent.SetDestination(gameManager.instance.player.transform.position);
+                destinationChosen = true;
                 if (agent.remainingDistance <= agent.stoppingDistance)
                 {
                     FacePlayer();
@@ -84,6 +106,10 @@ public class necromancerAI : MonoBehaviour,IDamage
                     StartCoroutine(shoot());
                 }
                 return true;
+            }
+            else
+            {
+                agent.stoppingDistance = 0;
             }
         }
 
@@ -100,9 +126,16 @@ public class necromancerAI : MonoBehaviour,IDamage
     IEnumerator shoot()
     {
         isShooting = true;
-        Instantiate(projectile, transform.position, transform.rotation);
+        anim.SetTrigger("Shoot");
+
         yield return new WaitForSeconds(fireRate);
         isShooting = false;
+    }
+ 
+
+    public void CreateBullet()
+    {
+        Instantiate(projectile, shootPos.position, transform.rotation);
     }
     void FacePlayer()
     {
@@ -112,21 +145,33 @@ public class necromancerAI : MonoBehaviour,IDamage
     public void TakeDamage(int dmg)
     {
         hp -= dmg;
-        StartCoroutine(DamageColor());
-        playerInRange = true;
-        agent.SetDestination(gameManager.instance.player.transform.position);
-        if(hp<=0)
-        {
-            gameManager.instance.UpdateGameGoal(-1);
-            Destroy(gameObject);
-        }
-       
 
+        if (hp <= 0)
+        {
+
+            gameManager.instance.UpdateGameGoal(-1);
+            anim.SetBool("Dead", true);
+            agent.enabled = false;
+            GetComponent<CapsuleCollider>().enabled = false;
+        }
+        else
+        {
+            anim.SetTrigger("Damage");
+           agent.SetDestination(gameManager.instance.player.transform.position);
+            playerInRange = true;
+            StartCoroutine(DamageColor());
+        }
+
+    }
+    public void TakePushBack(Vector3 dir)
+    {
+        agent.velocity += dir;//enemy gets pushed by our shots
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            agent.stoppingDistance = stoppingDistOrig;
             playerInRange = true;
         }
     }
@@ -135,6 +180,25 @@ public class necromancerAI : MonoBehaviour,IDamage
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
+            agent.stoppingDistance = 0;
+        }
+    }
+    IEnumerator Roam()
+    {
+        if (!destinationChosen && agent.remainingDistance < 0.05f)
+        {
+            destinationChosen = true;
+            agent.stoppingDistance = 0;
+            yield return new WaitForSeconds(roamPauseTime);
+            destinationChosen = false;
+
+            Vector3 ranPos = Random.insideUnitSphere * roamDistance;
+            ranPos += startingPos;
+
+            NavMeshHit hit;
+            NavMesh.SamplePosition(ranPos, out hit, roamDistance, 1);
+
+            agent.SetDestination(hit.position);
         }
     }
 

@@ -10,13 +10,15 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     [SerializeField] public NavMeshAgent agent;
     [SerializeField] Transform shootPos;
     [SerializeField] Transform headPos;
-
+    [SerializeField] Animator anim;
     [Header("\n-----Enemy Stats------")]
     [Range(1, 100)] [SerializeField] int hp;
     [SerializeField] int turnSpeed;
     [SerializeField] int shootAngle;
     [SerializeField]float viewCone;
-
+    [SerializeField] int roamDistance;
+    [SerializeField] int roamPauseTime;
+    [SerializeField] float animTranSpeed;
 
     [Header("\n-----Enemy Weapon------")]
     [SerializeField] GameObject projectile;
@@ -24,58 +26,86 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
 
     bool isShooting;
     bool playerInRange;
-   
+    Vector3 startingPos;
     float angleToPlayer;
     Vector3 playerDir;
     Color colorOrig;
+    bool destinationChosen;
+    float stoppingDistOrig;
+    float speed;
     void Start()
     {
+        startingPos = transform.position;
         colorOrig = model.material.color;
+        gameManager.instance.UpdateGameGoal(1);
+        stoppingDistOrig = agent.stoppingDistance;
     }
 
     // Update is called once per frame
     IEnumerator Shoot()//shooting function
     {
         isShooting = true;
-        Instantiate(projectile, transform.position, transform.rotation);
+        anim.SetTrigger("Shoot");
+
         yield return new WaitForSeconds(fireRate);
         isShooting = false;
-        
+
+    }
+    public void CreateBullet()
+    {
+        Instantiate(projectile, shootPos.position, transform.rotation);
     }
     void Update()
     {
-        agent.SetDestination(gameManager.instance.player.transform.position);
-        if (playerInRange&&CanSeePlayer())
+        if (agent.isActiveAndEnabled)
         {
+            speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTranSpeed);
+            anim.SetFloat("Speed", speed);
+            if (playerInRange && !CanSeePlayer())
+            {
 
+                StartCoroutine(Roam());
+
+            }
+            else if (agent.destination != gameManager.instance.player.transform.position)
+            {
+                StartCoroutine(Roam());
+            }
         }
     }
     bool CanSeePlayer()
     {
-        playerDir = gameManager.instance.player.transform.position - headPos.position;//gatting direction of player
-        angleToPlayer = Vector3.Angle(transform.forward, playerDir);//angle between enemy sight and player
+
+        playerDir = gameManager.instance.player.transform.position - headPos.position;
+        angleToPlayer = Vector3.Angle(playerDir, transform.forward);
         Debug.DrawRay(headPos.position, playerDir);
         Debug.Log(angleToPlayer);
-        RaycastHit hit;//variable for object hit by ray
-        if(Physics.Raycast(headPos.position,playerDir,out hit))//shoots ray in direction of players and returns object hit
+        RaycastHit hit;
+        if (Physics.Raycast(headPos.position, playerDir, out hit))
         {
-            if(hit.collider.CompareTag("Player")&&angleToPlayer<=viewCone)//if no object is blocking sight and if player is in the enemy's view cone 
-            { agent.SetDestination(gameManager.instance.player.transform.position);//enemy moves towards player
-                if(agent.remainingDistance<=agent.stoppingDistance)
+            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewCone)
+            {
+                agent.stoppingDistance = stoppingDistOrig;
+                agent.SetDestination(gameManager.instance.player.transform.position);
+                destinationChosen = true;
+                if (agent.remainingDistance <= agent.stoppingDistance)
                 {
-                    FacePlayer();//makes enemy turn to player
+                    FacePlayer();
                 }
-                if(!isShooting&&angleToPlayer<=shootAngle)//starts shooting if enemy's aim is close to player
-                {
-                    StartCoroutine(Shoot());
-                }
+                if (!isShooting && angleToPlayer <= shootAngle)
+                { StartCoroutine(Shoot()); }
                 return true;
             }
+            else
+            {
+                agent.stoppingDistance = 0;
+            }
         }
-
-
-
         return false;
+
+
+
+       
     }
     void FacePlayer() //turn to player function
     {
@@ -86,18 +116,24 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     public void TakeDamage(int dmg)
     {
         hp -= dmg;
-        playerInRange = true;
-        agent.SetDestination(gameManager.instance.player.transform.position);
-       StartCoroutine( DamageColor());
         if (hp <= 0)
         {
+
             gameManager.instance.UpdateGameGoal(-1);
-            Destroy(gameObject);
+            anim.SetBool("Dead", true);
+            agent.enabled = false;
+            GetComponent<CapsuleCollider>().enabled = false;
         }
-       
-        // allows enemy to notice player when they get shot
+        else
+        {
+            anim.SetTrigger("Damage");
+            
+            agent.SetDestination(gameManager.instance.player.transform.position);
+            playerInRange = true;
+            StartCoroutine(DamageColor());
+        }
     }
-    public void takePushBack(Vector3 dir)
+    public void TakePushBack(Vector3 dir)
     {
         agent.velocity += dir;//enemy gets pushed by our shots
     }
@@ -111,6 +147,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     {
         if (other.CompareTag("Player"))
         {
+            agent.stoppingDistance = stoppingDistOrig;
             playerInRange = true;//lets enemy know player is in range
         }
     } private void OnTriggerExit(Collider other)
@@ -118,6 +155,25 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
         if (other.CompareTag("Player"))
         {
             playerInRange = false;// lets enemy know player left range
+            agent.stoppingDistance = 0;
+        }
+    }
+    IEnumerator Roam()
+    {
+        if (!destinationChosen && agent.remainingDistance < 0.05f)
+        {
+            destinationChosen = true;
+            agent.stoppingDistance = 0;
+            yield return new WaitForSeconds(roamPauseTime);
+            destinationChosen = false;
+
+            Vector3 ranPos = Random.insideUnitSphere * roamDistance;
+            ranPos += startingPos;
+
+            NavMeshHit hit;
+            NavMesh.SamplePosition(ranPos, out hit, roamDistance, 1);
+
+            agent.SetDestination(hit.position);
         }
     }
 }
