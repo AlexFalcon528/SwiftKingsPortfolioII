@@ -7,6 +7,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
 {
     [Header("~~~~~~~Components~~~~~~~")]
     [SerializeField] CharacterController controller;
+    [SerializeField] AudioSource aud;
     [Header("\n~~~~~~~Stats~~~~~~~")]
     [Header("~~~Player~~~")]
     [SerializeField] int hp;
@@ -22,15 +23,25 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [SerializeField] int shootDamage;
     [SerializeField] int push;
 
+    [Header("----- Audio -----")]
+    [SerializeField] AudioClip[] audJump;
+    [SerializeField] [Range(0, 1)] float audJumpVol;
+    [SerializeField] AudioClip[] audDamage;
+    [SerializeField] [Range(0, 1)] float audDamageVol;
+    [SerializeField] AudioClip[] audSteps;
+    [SerializeField] [Range(0, 1)] float audStepsVol;
+
     int grenadeNum;
     int jumped;
     Vector3 move;
+    private Vector3 pushBack;
     Vector3 velocity;
     Vector3 pushBack;
     bool isGrounded;
     bool isSprinting;
     bool isShooting;
     int hpOriginal;
+    bool stepIsPlaying;
 
     // Start is called before the first frame update
     void Start()
@@ -54,11 +65,19 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     }
     void Movement()
     {
-        isGrounded = controller.isGrounded; //Check for grounded
-        if (isGrounded && velocity.y < 0) //If grounded and experiencing gravity
+        groundedPlayer = controller.isGrounded; //Check for grounded
+        if (groundedPlayer) //If grounded and experiencing gravity
         {
-            velocity.y = 0f; //Reset vertical velocity
-            jumped = 0; //Reset times jumped
+
+            if (!stepIsPlaying && move.normalized.magnitude > 0.5f)
+                StartCoroutine(playSteps());
+           
+            if(velocity.y < 0)
+            {
+                velocity.y = 0f; //Reset vertical velocity
+                jumped = 0; //Reset times jumped
+            }
+
         }
         move = (transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical"));
         controller.Move(move * Time.deltaTime * speed);
@@ -66,6 +85,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         //Jump functionality
         if (Input.GetButtonDown("Jump") && jumped < jumps) //If press jump and haven't jumped more than jumps
         {
+            aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
             jumped++; //Jump
             velocity.y += jumpHeight; //Move up
         }
@@ -75,6 +95,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         controller.Move((velocity + pushBack) * Time.deltaTime);
         pushBack = Vector3.Lerp(pushBack, Vector3.zero, Time.deltaTime * pushBackResolve);
     }
+
     void Sprint()
     {
         //If holding down sprint button
@@ -89,6 +110,18 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
             speed /= sprintMult; //Unapply speed multiplier
         }
     }
+
+    IEnumerator playSteps()
+    {
+        stepIsPlaying = true;
+        aud.PlayOneShot(audSteps[Random.Range(0, audSteps.Length)], audStepsVol);
+        if (!isSprinting)
+            yield return new WaitForSeconds(0.5f);
+        else
+            yield return new WaitForSeconds(0.3f);
+        stepIsPlaying = false;
+    }
+
     IEnumerator Shoot()
     {
         isShooting = true; //Shoot
@@ -121,6 +154,8 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     public void TakePushBack(Vector3 dir)
     {
         pushBack -= dir;// bullets and explosions push 
+
+        UpdateUI(); // Update the UI since variables updated
     }
     public void SpawnPlayer()
     {
@@ -128,9 +163,22 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         transform.position = gameManager.instance.spawnPoint.transform.position; //Set the position to where the player is supposed to spawn
         controller.enabled = true; //Reenable controller to allow for the movement functions to work
         hp = hpOriginal; //Reset the player's hp to the original amount
+        UpdateUI(); // Update the UI since variables updated
     }
     public void HealPlayer(int amount)
     {
         hp += amount; //Increase hp
+        UpdateUI(); // Update the UI since variables updated
     }
+
+    void UpdateUI() {
+        gameManager.instance.Healthbar.fillAmount = (float)hp / hpOriginal; // Set Healthbar fill to the amount of hp compared to original
+        gameManager.instance.healthBarText.text = hp.ToString(); // numerical display of hp
+
+        // Update Weapon Ammo Display
+        /*
+        if (gunList.Count > 0)
+            gameManager.instance.weaponAmmoText.text = $"{gunList[selectedGun].ammoCur} / {gunList[selectedGun].ammoMax}";
+        */
+     }
 }

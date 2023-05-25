@@ -23,6 +23,7 @@ public class projectile : MonoBehaviour
         if (damageable != null)
         {
             damageable.TakeDamage(dmg);
+            Destroy(gameObject);
         }
         IPhysics physicsable = other.GetComponent<IPhysics>();
         {
