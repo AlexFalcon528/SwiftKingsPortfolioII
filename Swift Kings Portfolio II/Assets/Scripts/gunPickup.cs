@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class gunPickUp : MonoBehaviour
+public class gunPickup : MonoBehaviour
 {
     [SerializeField] gunStats gun;
     MeshFilter model;

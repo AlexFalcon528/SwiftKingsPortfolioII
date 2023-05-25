@@ -26,6 +26,7 @@ public class explosiveProjectile : MonoBehaviour
             damageable.TakeDamage(dmg);
         }
         IPhysics physicsable = other.GetComponent<IPhysics>();
+        if( physicsable != null )
         {
             Vector3 dir = other.transform.position - transform.position;
             physicsable.TakePushBack(dir * pushbackAmount);

@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cb62e66522e4924899a53e1d05a24e2, type: 3}
   m_Name: Gun - Thompson M1A1
   m_EditorClassIdentifier: 
-  shootDist: 0
-  shootRate: 0
-  shootDamage: 0
-  reloadRate: 0
-  maxAmmo: 0
-  currAmmo: 0
-  model: {fileID: 0}
+  shootDist: 30
+  shootRate: 0.2
+  shootDamage: 3
+  reloadRate: 3
+  maxAmmo: 30
+  currAmmo: 30
+  model: {fileID: 5494625650325380441, guid: 944f765b84e4c4012876d61f4dfc7b5a, type: 3}
   hitEffect: {fileID: 0}
   muzzleFlash: {fileID: 0}
-  gunshotAud: {fileID: 0}
-  gunshotAudVol: 0
-  reloadAud: {fileID: 0}
-  reloadAudVol: 0
-  reloadOverAud: {fileID: 0}
-  reloadOverAudVol: 0
+  gunshotAud: {fileID: 8300000, guid: c09352b684877bf499bbd0cf00744e38, type: 3}
+  gunshotAudVol: 0.5
+  reloadAud: {fileID: 8300000, guid: 92e7aeff88063cd488e45b205887dcfc, type: 3}
+  reloadAudVol: 0.5
+  reloadOverAud: {fileID: 8300000, guid: 0a579fdef1f9f6d4e800a3f984a3a1d0, type: 3}
+  reloadOverAudVol: 0.6
