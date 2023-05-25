@@ -26,6 +26,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [SerializeField] MeshFilter gunModel;
     [SerializeField] MeshRenderer gunMat;
     public int selectedGun;
+    Vector3 pushBack;
 
     [Header("----- Audio -----")]
     [SerializeField] AudioClip[] audJump;
