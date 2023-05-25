@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 3115329607362736410}
   - component: {fileID: 3115329607362736409}
   - component: {fileID: 86546200}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -136,15 +136,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 3115329607362736409}
   aud: {fileID: 86546200}
-  hp: 10
+  hp: 5000
   speed: 5
   sprintMult: 1.3
   jumpHeight: 5
   gravity: 9
   jumps: 2
+  pushBackResolve: 15
   shootDist: 500
   shootRate: 0.2
   shootDamage: 4
+  push: 1
   audJump:
   - {fileID: 8300000, guid: d40c896f3d4b96b4c9faf39f64627183, type: 3}
   - {fileID: 8300000, guid: 4dcf5e770659d574f867978e18d76441, type: 3}

@@ -7222,7 +7222,7 @@ MonoBehaviour:
   isPaused: 0
   enemiesRemaining: 0
   numberOfMinions: 0
-  maxNumberOfMinions: 0
+  maxNumberOfMinions: 1
 --- !u!114 &8164116278104777306
 MonoBehaviour:
   m_ObjectHideFlags: 0
