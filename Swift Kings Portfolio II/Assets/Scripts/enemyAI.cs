@@ -47,7 +47,7 @@ public class enemyAI : MonoBehaviour,IDamage
     }
     void Update()
     {
-        agent.SetDestination(gameManager.instance.player.transform.position);
+        
         if (playerInRange&&CanSeePlayer())
         {
 
