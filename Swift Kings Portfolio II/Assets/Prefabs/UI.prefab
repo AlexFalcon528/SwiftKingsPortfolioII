@@ -1856,7 +1856,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8164116278104777306}
         m_TargetAssemblyTypeName: btnFunctions, Assembly-CSharp
-        m_MethodName: Play
+        m_MethodName: PlayElminate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2548,7 +2548,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8164116278104777306}
         m_TargetAssemblyTypeName: btnFunctions, Assembly-CSharp
-        m_MethodName: Options
+        m_MethodName: PlaySurvive
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2683,7 +2683,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8164116278104777306}
         m_TargetAssemblyTypeName: btnFunctions, Assembly-CSharp
-        m_MethodName: Exit
+        m_MethodName: Back
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7209,6 +7209,8 @@ MonoBehaviour:
   pause: {fileID: 1736512954}
   lose: {fileID: 17042897}
   win: {fileID: 1885670146}
+  mainMenu: {fileID: 1003136480}
+  gamemodes: {fileID: 60774632}
   reticle: {fileID: 1046220465423295312}
   objectiveParent: {fileID: 1611000850}
   objectiveText: {fileID: 1611000852}

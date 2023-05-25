@@ -19,6 +19,8 @@ public class gameManager : MonoBehaviour
     public GameObject pause;
     public GameObject lose;
     public GameObject win;
+    public GameObject mainMenu;
+    public GameObject gamemodes;
     public GameObject reticle;
     public GameObject objectiveParent;
     public TextMeshProUGUI objectiveText;
