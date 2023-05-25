@@ -16,12 +16,12 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [SerializeField] float jumpHeight;
     [SerializeField] float gravity;
     [SerializeField] int jumps;
-    [SerializeField] float pushbackResolve = 3;
-
+    [SerializeField] float pushBackResolve;
     [Header("\n~~~Weapon~~~")]
     [SerializeField] int shootDist;
     [SerializeField] float shootRate;
     [SerializeField] int shootDamage;
+    [SerializeField] int push;
 
     [Header("----- Audio -----")]
     [SerializeField] AudioClip[] audJump;
@@ -31,11 +31,13 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [SerializeField] AudioClip[] audSteps;
     [SerializeField] [Range(0, 1)] float audStepsVol;
 
+    int grenadeNum;
     int jumped;
     Vector3 move;
     private Vector3 pushBack;
     Vector3 velocity;
-    private bool groundedPlayer;
+    Vector3 pushBack;
+    bool isGrounded;
     bool isSprinting;
     bool isShooting;
     int hpOriginal;
@@ -90,14 +92,8 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
 
         //Gravity
         velocity.y -= gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
-
-        // Pushback
-        pushBack = Vector3.Lerp(pushBack, Vector3.zero, Time.deltaTime * pushbackResolve);
-    }
-
-    public void TakePushBack(Vector3 dir) {
-        pushBack += dir; // Add direction to pushback
+        controller.Move((velocity + pushBack) * Time.deltaTime);
+        pushBack = Vector3.Lerp(pushBack, Vector3.zero, Time.deltaTime * pushBackResolve);
     }
 
     void Sprint()
@@ -131,12 +127,18 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         isShooting = true; //Shoot
         RaycastHit hit;
         if(Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f,0.5f)),out hit, shootDist))
-        {
+        { IPhysics physicsable = hit.collider.GetComponent<IPhysics>();
+            if(physicsable!= null)
+            {
+                Vector3 dirPush = hit.transform.position - transform.position;//push direction
+                physicsable.TakePushBack(dirPush * push);//push them
+            }
             IDamage obj = hit.collider.GetComponent<IDamage>();
             if(obj != null)
             {
                 obj.TakeDamage(shootDamage);
             }
+           
         }
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
@@ -148,6 +150,10 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         {
             gameManager.instance.YouLose(); //Lose the game
         }
+    }
+    public void TakePushBack(Vector3 dir)
+    {
+        pushBack -= dir;// bullets and explosions push 
 
         UpdateUI(); // Update the UI since variables updated
     }

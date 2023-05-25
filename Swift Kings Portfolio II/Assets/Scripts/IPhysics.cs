@@ -1,5 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public interface IPhysics {
-    void TakePushBack(Vector3 dir);
+public interface IPhysics
+{
+    public void TakePushBack(Vector3 dir)
+    {
+
+    }
 }

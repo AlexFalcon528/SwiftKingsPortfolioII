@@ -51,6 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmg: 2
   speed: 100
+  pushbackAmount: 3
   rb: {fileID: 8116298408177600474}
   timer: 1
 --- !u!33 &8116298408177600479
