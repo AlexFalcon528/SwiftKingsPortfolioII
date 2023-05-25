@@ -137,6 +137,8 @@ public class playerController : MonoBehaviour, IDamage
         {
             gameManager.instance.YouLose(); //Lose the game
         }
+
+        UpdateUI(); // Update the UI since variables updated
     }
     public void SpawnPlayer()
     {
@@ -144,9 +146,16 @@ public class playerController : MonoBehaviour, IDamage
         transform.position = gameManager.instance.spawnPoint.transform.position; //Set the position to where the player is supposed to spawn
         controller.enabled = true; //Reenable controller to allow for the movement functions to work
         hp = hpOriginal; //Reset the player's hp to the original amount
+        UpdateUI(); // Update the UI since variables updated
     }
     public void HealPlayer(int amount)
     {
         hp += amount; //Increase hp
+        UpdateUI(); // Update the UI since variables updated
+    }
+
+    void UpdateUI() {
+        gameManager.instance.Healthbar.fillAmount = (float)hp / hpOriginal; // Set Healthbar fill to the amount of hp compared to original
+        gameManager.instance.healthBarText.text = hp.ToString(); // numerical display of hp
     }
 }

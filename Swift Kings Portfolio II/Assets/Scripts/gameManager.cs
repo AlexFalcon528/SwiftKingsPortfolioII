@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class gameManager : MonoBehaviour
 {
@@ -17,6 +20,10 @@ public class gameManager : MonoBehaviour
     public GameObject lose;
     public GameObject win;
     public GameObject reticle;
+    public TextMeshProUGUI waveText;
+    public GameObject HealthbarParent;
+    public Image Healthbar;
+    public TextMeshProUGUI healthBarText;
     public bool isPaused;
     float originalTimeScale;
     public int enemiesRemaining;
@@ -45,14 +52,16 @@ public class gameManager : MonoBehaviour
             
         }
     }
+
     public void PauseState()
     {
         isPaused = true;//Pause
         Time.timeScale = 0; //Stop physics and time
         Cursor.visible = true; //Make cursor visible but confined within the screen of the game
         Cursor.lockState = CursorLockMode.Confined;
-        reticle.SetActive(false); // Disable the reticle
+        handleGameUI(false); // Disable Gameplay UI Component
     }
+
     public void UnpauseState()
     {
         Time.timeScale = originalTimeScale; //Reset time
@@ -61,36 +70,46 @@ public class gameManager : MonoBehaviour
         isPaused = false; //Unpause
         activeMenu.SetActive(false); //Deactivate current menu
         activeMenu = null;//Unstore current menu
-        reticle.SetActive(true); // Reactive the reticle
+        handleGameUI(true); // Reactivate Gameplay UI Component
     }
+
     public void HandleReturnMenu() {
         Time.timeScale = originalTimeScale; //Reset time
         isPaused = false; //Unpause
         activeMenu.SetActive(false); //Deactivate current menu
         activeMenu = null; //Unstore current menu
     }
+
     public void YouLose()
     {
         PauseState(); //Pause
         activeMenu = lose; //Set current menu to the lose menu
         activeMenu.SetActive(true); //Show lose menu
-    } 
+    }
+
     public void YouWin()
     {
         PauseState(); //Pause
         activeMenu = win; //Set current menu to the lose menu
         activeMenu.SetActive(true); //Show win menu
     }
+
     public void UpdateMinionsCounter(int amount)
     {
         numberOfMinions += amount;
     }
-public void UpdateGameGoal(int amount)
+
+    public void UpdateGameGoal(int amount)
     {
         enemiesRemaining += amount;
         if (enemiesRemaining <= 0)
         {
             YouWin();
         }
+    }
+
+    void handleGameUI(bool active) {
+        reticle.SetActive(active); // Active/Deactivate the reticle
+        HealthbarParent.SetActive(active); // Active/Deactivate the healthbar
     }
 }
