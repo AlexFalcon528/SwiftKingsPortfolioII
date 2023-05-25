@@ -173,7 +173,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
                     Vector3 dirPush = hit.transform.position - transform.position;//push direction
                     physicsable.TakePushBack(dirPush * push);//push them
                 }
-                //Instantiate(guns[selectedGun].hitEffect, hit.point, guns[selectedGun].hitEffect.transform.rotation);
+                Instantiate(guns[selectedGun].hitEffect, hit.point, guns[selectedGun].hitEffect.transform.rotation);
             }
 
             yield return new WaitForSeconds(shootRate);
