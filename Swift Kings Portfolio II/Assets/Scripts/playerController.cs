@@ -46,7 +46,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     bool isReloading;
     int hpOriginal;
     bool stepIsPlaying;
-
+    public bool isPoweredUp;
     // Start is called before the first frame update
     void Start()
     {
@@ -173,7 +173,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
                     Vector3 dirPush = hit.transform.position - transform.position;//push direction
                     physicsable.TakePushBack(dirPush * push);//push them
                 }
-                //Instantiate(guns[selectedGun].hitEffect, hit.point, guns[selectedGun].hitEffect.transform.rotation);
+                Instantiate(guns[selectedGun].hitEffect, hit.point, guns[selectedGun].hitEffect.transform.rotation);
             }
 
             yield return new WaitForSeconds(shootRate);
@@ -291,18 +291,20 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     public void powerUpSpeed()
     {
         speed += 2;
-
+        isPoweredUp = true;
     }
 
 
     public void powerUpHP()
     {
         hp += 5;
+        isPoweredUp = true;
     }
 
     public void powerUpDMG()
     {
         shootDamage += 5;
+        isPoweredUp = true;
     }
 
 }

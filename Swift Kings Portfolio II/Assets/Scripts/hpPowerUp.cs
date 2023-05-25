@@ -9,8 +9,11 @@ public class hpPowerUp : MonoBehaviour
         gameManager.instance.pScript.powerUpHP();
     }
 
-    private void OnTriggerExit(Collider other)
+    private void Update()
     {
-        Destroy(gameObject);
+        if (gameManager.instance.pScript.isPoweredUp)
+        {
+            Destroy(gameObject);
+        }
     }
 }
