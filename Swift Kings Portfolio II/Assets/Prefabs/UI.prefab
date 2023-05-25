@@ -7341,8 +7341,6 @@ MonoBehaviour:
   player: {fileID: 0}
   pScript: {fileID: 0}
   spawnPoint: {fileID: 0}
-  wave: 0
-  finalWave: 0
   activeMenu: {fileID: 0}
   pause: {fileID: 1736512954}
   lose: {fileID: 17042897}
@@ -7358,11 +7356,7 @@ MonoBehaviour:
   healthBarText: {fileID: 1514023565}
   weaponAmmoParent: {fileID: 1000166153}
   weaponAmmoText: {fileID: 1000166155}
-  speedPU: {fileID: 0}
-  hpPU: {fileID: 0}
-  dmgPU: {fileID: 0}
   isPaused: 0
-  nextWave: 0
   enemiesRemaining: 0
   wave: 1
   finalWave: 3

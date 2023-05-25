@@ -54,7 +54,7 @@ MonoBehaviour:
   agent: {fileID: -1967139152464445983}
   shootPos: {fileID: 317449059835509198}
   headPos: {fileID: 3468450349055152742}
-  hp: 10
+  hp: 5
   turnSpeed: 300
   shootAngle: 20
   viewCone: 85
