@@ -18,10 +18,14 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [SerializeField] int jumps;
     [SerializeField] float pushBackResolve;
     [Header("\n~~~Weapon~~~")]
+    public List<gunStats> guns = new List<gunStats>();
     [SerializeField] int shootDist;
     [SerializeField] float shootRate;
     [SerializeField] int shootDamage;
     [SerializeField] int push;
+    [SerializeField] MeshFilter gunModel;
+    [SerializeField] MeshRenderer gunMat;
+    public int selectedGun;
 
     [Header("----- Audio -----")]
     [SerializeField] AudioClip[] audJump;
@@ -35,10 +39,10 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     int jumped;
     Vector3 move;
     Vector3 velocity;
-    Vector3 pushBack;
     bool isGrounded;
     bool isSprinting;
     bool isShooting;
+    bool isReloading;
     int hpOriginal;
     bool stepIsPlaying;
 
@@ -53,12 +57,20 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     void Update()
     {
         Sprint(); //Find out if the player is sprinting
-        Movement(); //Move player
         if (gameManager.instance.activeMenu == null)
         {
-            if (Input.GetButton("Shoot") && !isShooting) //If the player is pressing the shoot button and not already shooting
+            Movement(); //Move player
+            ChangeGun();
+            if (gameManager.instance.activeMenu == null)
             {
-                StartCoroutine(Shoot());
+                if (guns.Count > 0 && Input.GetButton("Shoot") && !isShooting && !isReloading) //If the player is pressing the shoot button and not already shooting
+                {
+                    StartCoroutine(Shoot());
+                }
+                if (guns.Count > 0 && Input.GetButton("Reload") && !isReloading && !isShooting)
+                {
+                    StartCoroutine(Reload());
+                }
             }
         }
     }
@@ -120,27 +132,119 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
             yield return new WaitForSeconds(0.3f);
         stepIsPlaying = false;
     }
+    public void gunPickup(gunStats gunStat)
+    {
+        guns.Add(gunStat);
+
+        shootDamage = gunStat.shootDamage;
+        shootDist = gunStat.shootDist;
+        shootRate = gunStat.shootRate;
+
+        gunModel.mesh = gunStat.model.GetComponent<MeshFilter>().sharedMesh;
+        gunMat.material = gunStat.model.GetComponent<MeshRenderer>().sharedMaterial;
+
+        selectedGun = guns.Count - 1;
+        UpdateUI();
+    }
 
     IEnumerator Shoot()
     {
-        isShooting = true; //Shoot
-        RaycastHit hit;
-        if(Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f,0.5f)),out hit, shootDist))
-        { IPhysics physicsable = hit.collider.GetComponent<IPhysics>();
-            if(physicsable!= null)
+        if (guns[selectedGun].currAmmo > 0)
+        {
+            guns[selectedGun].currAmmo--;
+
+            aud.PlayOneShot(guns[selectedGun].gunshotAud, guns[selectedGun].gunshotAudVol);
+
+            isShooting = true;
+            UpdateUI();
+
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
             {
-                Vector3 dirPush = hit.transform.position - transform.position;//push direction
-                physicsable.TakePushBack(dirPush * push);//push them
+                IDamage damageable = hit.collider.GetComponent<IDamage>();
+                if (damageable != null)
+                {
+                    damageable.TakeDamage(shootDamage);
+                }
+                IPhysics physicsable = hit.collider.GetComponent<IPhysics>();
+                if (physicsable != null)
+                {
+                    Vector3 dirPush = hit.transform.position - transform.position;//push direction
+                    physicsable.TakePushBack(dirPush * push);//push them
+                }
+                //Instantiate(guns[selectedGun].hitEffect, hit.point, guns[selectedGun].hitEffect.transform.rotation);
             }
-            IDamage obj = hit.collider.GetComponent<IDamage>();
-            if(obj != null)
-            {
-                obj.TakeDamage(shootDamage);
-            }
-           
+
+            yield return new WaitForSeconds(shootRate);
+
+            isShooting = false;
         }
-        yield return new WaitForSeconds(shootRate);
-        isShooting = false;
+        else
+        {
+            StartCoroutine(Reload());
+        }
+    }
+    IEnumerator Reload()
+    {
+        isReloading = true;
+        while (guns[selectedGun].currAmmo < guns[selectedGun].maxAmmo)
+        {
+            guns[selectedGun].currAmmo++;
+            if (guns[selectedGun].currAmmo == guns[selectedGun].maxAmmo)
+            {
+                aud.PlayOneShot(guns[selectedGun].reloadOverAud, guns[selectedGun].reloadOverAudVol);
+            }
+            else
+            {
+                aud.PlayOneShot(guns[selectedGun].reloadAud, guns[selectedGun].reloadAudVol);
+            }
+
+            UpdateUI();
+            yield return new WaitForSeconds((float)guns[selectedGun].reloadRate / guns[selectedGun].maxAmmo);
+
+        }
+
+        isReloading = false;
+    }
+    void ChangeGun()
+    {
+
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            if(selectedGun < guns.Count - 1)
+            {
+                selectedGun++;
+            }
+            else
+            {
+                selectedGun = 0;
+            }
+            
+            ChangeGunStats();
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            if(selectedGun > 0)
+            {
+                selectedGun--;
+            }
+            else
+            {
+                selectedGun = guns.Count-1; ;
+            }
+            ChangeGunStats();
+        }
+
+    }
+    void ChangeGunStats()
+    {
+        shootDamage = guns[selectedGun].shootDamage;
+        shootDist = guns[selectedGun].shootDist;
+        shootRate = guns[selectedGun].shootRate;
+
+        gunModel.mesh = guns[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
+        gunMat.material = guns[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
+        UpdateUI();
     }
     public void TakeDamage(int dmg)
     {
@@ -149,6 +253,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         {
             gameManager.instance.YouLose(); //Lose the game
         }
+        UpdateUI();
     }
     public void TakePushBack(Vector3 dir)
     {
@@ -175,9 +280,28 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         gameManager.instance.healthBarText.text = hp.ToString(); // numerical display of hp
 
         // Update Weapon Ammo Display
-        /*
-        if (gunList.Count > 0)
-            gameManager.instance.weaponAmmoText.text = $"{gunList[selectedGun].ammoCur} / {gunList[selectedGun].ammoMax}";
-        */
+        
+        if (guns.Count > 0)
+            gameManager.instance.weaponAmmoText.text = $"{guns[selectedGun].currAmmo} / {guns[selectedGun].maxAmmo}";
+        
      }
+
+
+    public void powerUpSpeed()
+    {
+        speed += 2;
+
+    }
+
+
+    public void powerUpHP()
+    {
+        hp += 5;
+    }
+
+    public void powerUpDMG()
+    {
+        shootDamage += 5;
+    }
+
 }

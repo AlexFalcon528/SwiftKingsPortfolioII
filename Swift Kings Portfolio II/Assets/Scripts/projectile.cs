@@ -6,7 +6,7 @@ public class projectile : MonoBehaviour
 {
     [Range(0, 100)] [SerializeField] int dmg;
     [Range(0, 100)] [SerializeField] int speed;
-    [SerializeField] int pushbackAmount;
+    [SerializeField] float pushbackAmount;
     [SerializeField] Rigidbody rb;
     [SerializeField] int timer;
 

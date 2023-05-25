@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7143777565772103172
+--- !u!1 &525286309859739122
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,62 +8,61 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8397537226833951522}
-  - component: {fileID: 3931892097107179012}
-  - component: {fileID: 6633267616263552091}
-  - component: {fileID: 4291819164043751922}
-  - component: {fileID: 5036824327808063113}
+  - component: {fileID: 865220754732523336}
+  - component: {fileID: 2475767935280385932}
+  - component: {fileID: 4300438622562128109}
+  - component: {fileID: 2038667651894436903}
+  - component: {fileID: 6654637932902690325}
   m_Layer: 0
-  m_Name: Wall
+  m_Name: Pickup -M1 Garand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 1
-  m_StaticEditorFlags: 8
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8397537226833951522
+--- !u!4 &865220754732523336
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7143777565772103172}
+  m_GameObject: {fileID: 525286309859739122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: 2, z: -3}
-  m_LocalScale: {x: 1, y: 4, z: 15}
+  m_LocalPosition: {x: 3.208613, y: 0.6977951, z: 5.536856}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3931892097107179012
+--- !u!114 &2475767935280385932
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7143777565772103172}
+  m_GameObject: {fileID: 525286309859739122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d525deac06adef4290f82dffca955f0, type: 3}
+  m_Script: {fileID: 11500000, guid: 21a0c1c06d69cbe44a0b6d893722ccf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 0}
-  col: {fileID: 0}
---- !u!33 &6633267616263552091
+  gun: {fileID: 11400000, guid: c3f5cb963f24fa445bb67581b911f606, type: 2}
+--- !u!33 &4300438622562128109
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7143777565772103172}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &4291819164043751922
+  m_GameObject: {fileID: 525286309859739122}
+  m_Mesh: {fileID: -6642371431653917376, guid: e23ab8f095718425c967ae1e8ad24cf5, type: 3}
+--- !u!23 &2038667651894436903
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7143777565772103172}
+  m_GameObject: {fileID: 525286309859739122}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -77,7 +76,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dd3ae38c0294a9a4cab0c1f8d6647dc9, type: 2}
+  - {fileID: 2100000, guid: a3f8898e8f9af43a3b665c72458d32e9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,16 +98,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5036824327808063113
+--- !u!65 &6654637932902690325
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7143777565772103172}
+  m_GameObject: {fileID: 525286309859739122}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.9, y: 1.06, z: 2.7652621}
+  m_Center: {x: 0, y: -0.18, z: 0}
