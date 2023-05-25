@@ -32,6 +32,7 @@ public class enemyAI : MonoBehaviour,IDamage
     {
         colorOrig = model.material.color;
         gameManager.instance.UpdateGameGoal(+1);
+        
 
     }
 
@@ -46,7 +47,8 @@ public class enemyAI : MonoBehaviour,IDamage
     }
     void Update()
     {
-        if(playerInRange&&CanSeePlayer())
+        agent.SetDestination(gameManager.instance.player.transform.position);
+        if (playerInRange&&CanSeePlayer())
         {
 
         }
