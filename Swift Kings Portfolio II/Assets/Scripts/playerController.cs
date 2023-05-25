@@ -18,10 +18,14 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [SerializeField] int jumps;
     [SerializeField] float pushBackResolve;
     [Header("\n~~~Weapon~~~")]
+    public List<gunStats> guns = new List<gunStats>();
     [SerializeField] int shootDist;
     [SerializeField] float shootRate;
     [SerializeField] int shootDamage;
     [SerializeField] int push;
+    [SerializeField] MeshFilter gunModel;
+    [SerializeField] MeshRenderer gunMat;
+    public int selectedGun;
 
     [Header("----- Audio -----")]
     [SerializeField] AudioClip[] audJump;
@@ -120,6 +124,20 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
             yield return new WaitForSeconds(0.3f);
         stepIsPlaying = false;
     }
+    public void gunPickup(gunStats gunStat)
+    {
+        guns.Add(gunStat);
+
+        shootDamage = gunStat.shootDamage;
+        shootDist = gunStat.shootDist;
+        shootRate = gunStat.shootRate;
+
+        gunModel.mesh = gunStat.model.GetComponent<MeshFilter>().sharedMesh;
+        gunMat.material = gunStat.model.GetComponent<MeshRenderer>().sharedMaterial;
+
+        selectedGun = guns.Count - 1;
+        UpdateUI();
+    }
 
     IEnumerator Shoot()
     {
@@ -149,6 +167,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         {
             gameManager.instance.YouLose(); //Lose the game
         }
+        UpdateUI();
     }
     public void TakePushBack(Vector3 dir)
     {

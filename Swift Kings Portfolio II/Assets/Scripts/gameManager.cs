@@ -15,8 +15,6 @@ public class gameManager : MonoBehaviour
     public playerController pScript;
     public GameObject spawnPoint;
     [Header("\n~~~~~~~User Interface~~~~~~~")]
-    public int wave;
-    [SerializeField]int finalWave;
     public GameObject activeMenu;
     public GameObject pause;
     public GameObject lose;
@@ -26,15 +24,19 @@ public class gameManager : MonoBehaviour
     public GameObject reticle;
     public GameObject objectiveParent;
     public TextMeshProUGUI objectiveText;
+    public TextMeshProUGUI waveText;
     public GameObject HealthbarParent;
     public Image Healthbar;
     public TextMeshProUGUI healthBarText;
     public GameObject weaponAmmoParent;
     public TextMeshProUGUI weaponAmmoText;
-    public bool isPaused;
-    public bool nextWave;
-    float originalTimeScale;
+    public bool isPaused; 
     public int enemiesRemaining;
+    [Header("\n~~~~~~~~Gameplay~~~~~~~~~~~")]
+    public int wave;
+    [SerializeField] int finalWave;
+    float originalTimeScale;
+    public bool nextWave;
     [Header("\n~~~~~~~~Minions Tracker~~~~~~~~~~~")]
     public int numberOfMinions;
     [Range(1, 30)] [SerializeField] public int maxNumberOfMinions;
@@ -47,6 +49,7 @@ public class gameManager : MonoBehaviour
         spawnPoint = GameObject.FindWithTag("Spawnpoint"); //Find spawnpoint
         if(SceneManager.GetActiveScene().name != "LandingScene") pScript = player.GetComponent<playerController>();
         originalTimeScale = Time.timeScale; //Save original time scale for later use
+        nextWave = true;
     }
 
     // Update is called once per frame
@@ -111,8 +114,8 @@ public class gameManager : MonoBehaviour
                 StartCoroutine(YouWin());
             }
         }
-            ;
         objectiveText.text = $"Enemies: {enemiesRemaining}";
+        waveText.text = $"Wave: {wave}";
     }
 
     IEnumerator YouWin() {

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cb62e66522e4924899a53e1d05a24e2, type: 3}
+  m_Name: Gun - M1918 Bar
+  m_EditorClassIdentifier: 
+  shootDist: 0
+  shootRate: 0
+  shootDamage: 0
+  reloadRate: 0
+  maxAmmo: 0
+  currAmmo: 0
+  model: {fileID: 0}
+  hitEffect: {fileID: 0}
+  muzzleFlash: {fileID: 0}
+  gunshotAud: {fileID: 0}
+  gunshotAudVol: 0
+  reloadAud: {fileID: 0}
+  reloadAudVol: 0
+  reloadOverAud: {fileID: 0}
+  reloadOverAudVol: 0
