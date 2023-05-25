@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class enemyAI : MonoBehaviour,IDamage
+public class enemyAI : MonoBehaviour,IDamage,IPhysics
 {
     [Header("-----Components------")]
     [SerializeField] Renderer model;
-    [SerializeField] NavMeshAgent agent;
+    [SerializeField] public NavMeshAgent agent;
     [SerializeField] Transform shootPos;
     [SerializeField] Transform headPos;
 
@@ -32,6 +32,7 @@ public class enemyAI : MonoBehaviour,IDamage
     {
         colorOrig = model.material.color;
         gameManager.instance.UpdateGameGoal(+1);
+        
 
     }
 
@@ -46,7 +47,8 @@ public class enemyAI : MonoBehaviour,IDamage
     }
     void Update()
     {
-        if(playerInRange&&CanSeePlayer())
+        agent.SetDestination(gameManager.instance.player.transform.position);
+        if (playerInRange&&CanSeePlayer())
         {
 
         }
@@ -97,6 +99,10 @@ public class enemyAI : MonoBehaviour,IDamage
         }
        
         // allows enemy to notice player when they get shot
+    }
+    public void takePushBack(Vector3 dir)
+    {
+        agent.velocity += dir;//enemy gets pushed by our shots
     }
     IEnumerator DamageColor()//enemy blinks red when they take damage
     {

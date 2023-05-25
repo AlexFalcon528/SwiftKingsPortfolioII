@@ -6,6 +6,7 @@ public class projectile : MonoBehaviour
 {
     [Range(0, 100)] [SerializeField] int dmg;
     [Range(0, 100)] [SerializeField] int speed;
+    [SerializeField] int pushbackAmount;
     [SerializeField] Rigidbody rb;
     [SerializeField] int timer;
 
@@ -22,6 +23,14 @@ public class projectile : MonoBehaviour
         if (damageable != null)
         {
             damageable.TakeDamage(dmg);
+            Destroy(gameObject);
         }
+        IPhysics physicsable = other.GetComponent<IPhysics>();
+        {
+            Vector3 dir =  other.transform.position-transform.position ;
+            physicsable.TakePushBack(dir * pushbackAmount);
+        }
+        
+        Destroy(gameObject);
     }
 }

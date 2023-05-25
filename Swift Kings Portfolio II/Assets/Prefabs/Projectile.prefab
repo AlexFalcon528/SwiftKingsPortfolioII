@@ -49,8 +49,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9beab26ba2d2299428c077ae4c6b2cae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 10
+  dmg: 2
   speed: 100
+  pushbackAmount: 3
   rb: {fileID: 8116298408177600474}
   timer: 1
 --- !u!33 &8116298408177600479
@@ -111,7 +112,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8116298408177600472}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5

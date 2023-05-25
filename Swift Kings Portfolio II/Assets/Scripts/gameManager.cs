@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class gameManager : MonoBehaviour
 {
@@ -15,20 +19,30 @@ public class gameManager : MonoBehaviour
     public GameObject pause;
     public GameObject lose;
     public GameObject win;
+    public GameObject mainMenu;
+    public GameObject gamemodes;
+    public GameObject reticle;
+    public GameObject objectiveParent;
+    public TextMeshProUGUI objectiveText;
+    public GameObject HealthbarParent;
+    public Image Healthbar;
+    public TextMeshProUGUI healthBarText;
+    public GameObject weaponAmmoParent;
+    public TextMeshProUGUI weaponAmmoText;
     public bool isPaused;
     float originalTimeScale;
     public int enemiesRemaining;
     [Header("\n~~~~~~~~Minions Tracker~~~~~~~~~~~")]
     public int numberOfMinions;
     [Range(1, 30)] [SerializeField] public int maxNumberOfMinions;
+
     // Start is called before the first frame update
     void Awake()
     {
-        
         instance = this; //Only one instance of singleton
         player = GameObject.FindWithTag("Player"); //Find player
         spawnPoint = GameObject.FindWithTag("Spawnpoint"); //Find spawnpoint
-        pScript = player.GetComponent<playerController>();
+        if(SceneManager.GetActiveScene().name != "LandingScene") pScript = player.GetComponent<playerController>();
         originalTimeScale = Time.timeScale; //Save original time scale for later use
     }
 
@@ -43,13 +57,16 @@ public class gameManager : MonoBehaviour
             
         }
     }
+
     public void PauseState()
     {
         isPaused = true;//Pause
         Time.timeScale = 0; //Stop physics and time
         Cursor.visible = true; //Make cursor visible but confined within the screen of the game
         Cursor.lockState = CursorLockMode.Confined;
+        handleGameUI(false); // Disable Gameplay UI Component
     }
+
     public void UnpauseState()
     {
         Time.timeScale = originalTimeScale; //Reset time
@@ -58,29 +75,45 @@ public class gameManager : MonoBehaviour
         isPaused = false; //Unpause
         activeMenu.SetActive(false); //Deactivate current menu
         activeMenu = null;//Unstore current menu
+        handleGameUI(true); // Reactivate Gameplay UI Component
     }
+
+    public void HandleReturnMenu() {
+        Time.timeScale = originalTimeScale; //Reset time
+        isPaused = false; //Unpause
+        activeMenu.SetActive(false); //Deactivate current menu
+        activeMenu = null; //Unstore current menu
+    }
+
     public void YouLose()
     {
         PauseState(); //Pause
         activeMenu = lose; //Set current menu to the lose menu
         activeMenu.SetActive(true); //Show lose menu
-    } 
-    public void YouWin()
-    {
-        PauseState(); //Pause
-        activeMenu = win; //Set current menu to the lose menu
-        activeMenu.SetActive(true); //Show win menu
     }
+
     public void UpdateMinionsCounter(int amount)
     {
         numberOfMinions += amount;
     }
-public void UpdateGameGoal(int amount)
-    {
+
+    public void UpdateGameGoal(int amount) {
         enemiesRemaining += amount;
-        if (enemiesRemaining <= 0)
-        {
-            YouWin();
-        }
+        if (enemiesRemaining <= 0) StartCoroutine(YouWin());
+        objectiveText.text = $"Enemies: {enemiesRemaining}";
+    }
+
+    IEnumerator YouWin() {
+        yield return new WaitForSeconds(1);
+        PauseState();
+        activeMenu = win;
+        activeMenu.SetActive(true);
+    }
+
+    void handleGameUI(bool active) {
+        reticle.SetActive(active); // Active/Deactivate the reticle
+        HealthbarParent.SetActive(active); // Active/Deactivate the healthbar
+        weaponAmmoParent.SetActive(active); // Active/Deactivate the Weapons Ammo Display
+        objectiveParent.SetActive(active); // Active/Deactivate the Objective
     }
 }
