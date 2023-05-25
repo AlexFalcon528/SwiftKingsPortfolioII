@@ -59,6 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmg: 2
   speed: 100
+  pushbackAmount: 5
   rb: {fileID: 8116298408177600474}
   timer: 2
   particleExplosion: {fileID: 4065274728145197509, guid: ff1f755a8a182cc4cb8837e353b7a527, type: 3}
@@ -112,7 +113,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8116298408177600472}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5

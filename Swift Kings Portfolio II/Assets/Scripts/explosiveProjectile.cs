@@ -6,6 +6,7 @@ public class explosiveProjectile : MonoBehaviour
 {
     [Range(0, 100)] [SerializeField] int dmg;
     [Range(0, 100)] [SerializeField] int speed;
+    [SerializeField] int pushbackAmount;
     [SerializeField] Rigidbody rb;
     [SerializeField] int timer;
     [SerializeField] GameObject particleExplosion;
@@ -17,15 +18,19 @@ public class explosiveProjectile : MonoBehaviour
         rb.velocity = transform.forward * speed;
     }
    
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
-        IDamage damageable = other.collider.GetComponent<IDamage>();
+        IDamage damageable = other.GetComponent<IDamage>();
         if (damageable != null)
         {
             damageable.TakeDamage(dmg);
         }
-           
-            Instantiate(particleExplosion, rb.position, rb.rotation);
+        IPhysics physicsable = other.GetComponent<IPhysics>();
+        {
+            Vector3 dir = other.transform.position - transform.position;
+            physicsable.TakePushBack(dir * pushbackAmount);
+        }
+        Instantiate(particleExplosion, rb.position, rb.rotation);
             Destroy(gameObject);
         
     }
