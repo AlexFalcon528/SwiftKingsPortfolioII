@@ -15,6 +15,8 @@ public class gameManager : MonoBehaviour
     public playerController pScript;
     public GameObject spawnPoint;
     [Header("\n~~~~~~~User Interface~~~~~~~")]
+    public int wave;
+    [SerializeField]int finalWave;
     public GameObject activeMenu;
     public GameObject pause;
     public GameObject lose;
@@ -30,6 +32,7 @@ public class gameManager : MonoBehaviour
     public GameObject weaponAmmoParent;
     public TextMeshProUGUI weaponAmmoText;
     public bool isPaused;
+    public bool nextWave;
     float originalTimeScale;
     public int enemiesRemaining;
     [Header("\n~~~~~~~~Minions Tracker~~~~~~~~~~~")]
@@ -99,7 +102,16 @@ public class gameManager : MonoBehaviour
 
     public void UpdateGameGoal(int amount) {
         enemiesRemaining += amount;
-        if (enemiesRemaining <= 0) StartCoroutine(YouWin());
+        if (enemiesRemaining <= 0)
+        {
+            nextWave = true;
+            wave++;
+            if (wave > finalWave)
+            {
+                StartCoroutine(YouWin());
+            }
+        }
+            ;
         objectiveText.text = $"Enemies: {enemiesRemaining}";
     }
 
