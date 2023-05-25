@@ -20,7 +20,7 @@ public class gameManager : MonoBehaviour
     public GameObject lose;
     public GameObject win;
     public GameObject reticle;
-    public TextMeshProUGUI waveText;
+    public TextMeshProUGUI objectiveText;
     public GameObject HealthbarParent;
     public Image Healthbar;
     public TextMeshProUGUI healthBarText;
@@ -87,25 +87,22 @@ public class gameManager : MonoBehaviour
         activeMenu.SetActive(true); //Show lose menu
     }
 
-    public void YouWin()
-    {
-        PauseState(); //Pause
-        activeMenu = win; //Set current menu to the lose menu
-        activeMenu.SetActive(true); //Show win menu
-    }
-
     public void UpdateMinionsCounter(int amount)
     {
         numberOfMinions += amount;
     }
 
-    public void UpdateGameGoal(int amount)
-    {
+    public void UpdateGameGoal(int amount) {
         enemiesRemaining += amount;
-        if (enemiesRemaining <= 0)
-        {
-            YouWin();
-        }
+        if (enemiesRemaining <= 0) StartCoroutine(YouWin());
+        objectiveText.text = $"Enemies: {enemiesRemaining}";
+    }
+
+    IEnumerator YouWin() {
+        yield return new WaitForSeconds(1);
+        PauseState();
+        activeMenu = win;
+        activeMenu.SetActive(true);
     }
 
     void handleGameUI(bool active) {
