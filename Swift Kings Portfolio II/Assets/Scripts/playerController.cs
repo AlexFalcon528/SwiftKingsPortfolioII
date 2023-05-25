@@ -199,4 +199,23 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
             gameManager.instance.weaponAmmoText.text = $"{gunList[selectedGun].ammoCur} / {gunList[selectedGun].ammoMax}";
         */
      }
+
+
+    public void powerUpSpeed()
+    {
+        speed += 2;
+
+    }
+
+
+    public void powerUpHP()
+    {
+        hp += 5;
+    }
+
+    public void powerUpDMG()
+    {
+        shootDamage += 5;
+    }
+
 }
