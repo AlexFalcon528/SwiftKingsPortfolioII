@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class enemyAI : MonoBehaviour,IDamage
+public class enemyAI : MonoBehaviour, IDamage, IPhysics
 {
     [Header("-----Components------")]
     [SerializeField] Renderer model;
@@ -100,6 +100,11 @@ public class enemyAI : MonoBehaviour,IDamage
        
         // allows enemy to notice player when they get shot
     }
+
+    public void TakePushBack(Vector3 dir) {
+        agent.velocity += dir;
+    }
+
     IEnumerator DamageColor()//enemy blinks red when they take damage
     {
         model.material.color = Color.red;

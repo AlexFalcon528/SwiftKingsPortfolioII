@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using UnityEngine;
 
-public class playerController : MonoBehaviour, IDamage
+public class playerController : MonoBehaviour, IDamage, IPhysics
 {
     [Header("~~~~~~~Components~~~~~~~")]
     [SerializeField] CharacterController controller;
@@ -16,6 +16,8 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float jumpHeight;
     [SerializeField] float gravity;
     [SerializeField] int jumps;
+    [SerializeField] float pushbackResolve = 3;
+
     [Header("\n~~~Weapon~~~")]
     [SerializeField] int shootDist;
     [SerializeField] float shootRate;
@@ -31,6 +33,7 @@ public class playerController : MonoBehaviour, IDamage
 
     int jumped;
     Vector3 move;
+    private Vector3 pushBack;
     Vector3 velocity;
     private bool groundedPlayer;
     bool isSprinting;
@@ -89,6 +92,11 @@ public class playerController : MonoBehaviour, IDamage
         velocity.y -= gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
+
+    public void TakePushBack(Vector3 dir) {
+        pushBack += dir;
+    }
+
     void Sprint()
     {
         //If holding down sprint button
