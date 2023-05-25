@@ -36,7 +36,6 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     Vector3 move;
     private Vector3 pushBack;
     Vector3 velocity;
-    Vector3 pushBack;
     bool isGrounded;
     bool isSprinting;
     bool isShooting;
@@ -65,8 +64,8 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     }
     void Movement()
     {
-        groundedPlayer = controller.isGrounded; //Check for grounded
-        if (groundedPlayer) //If grounded and experiencing gravity
+        isGrounded = controller.isGrounded; //Check for grounded
+        if (isGrounded) //If grounded and experiencing gravity
         {
 
             if (!stepIsPlaying && move.normalized.magnitude > 0.5f)

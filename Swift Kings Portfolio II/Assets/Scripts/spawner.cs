@@ -19,25 +19,42 @@ public class spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        // gameManager.instance.UpdateGameGoal(numberToSpawn); //update goal for non-wave
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        /*if (other.CompareTag("Player"))
         {
             playerInRange = true;
-        }
+        }*/
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerInRange && !isSpawning && numberSpawned < numberToSpawn)
+        if (numberSpawned == 0 && gameManager.instance.nextWave)
+        {
+            gameManager.instance.UpdateGameGoal(numberToSpawn);
+        }
+        if (!isSpawning && numberSpawned < numberToSpawn && gameManager.instance.nextWave) //Code for wave-based survival mode
         {
             StartCoroutine(spawn());
         }
+        if(numberSpawned == numberToSpawn)
+        {
+            gameManager.instance.nextWave = false;
+            numberSpawned = 0;
+        }
     }
+    /*void Update()
+    {
+        if (playerInRange && !isSpawning && numberSpawned < numberToSpawn) //Code for non-wave gamemode
+        {
+            StartCoroutine(spawn());
+        }
+        gameObject.SetActive(false);
+    }*/
 
 
     IEnumerator spawn()

@@ -2097,6 +2097,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Necromancer
       objectReference: {fileID: 0}
+    - target: {fileID: 3983615315531525849, guid: 91bad211c6b016b43994dfb95202a86e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91bad211c6b016b43994dfb95202a86e, type: 3}
 --- !u!1 &574430578
@@ -10235,6 +10239,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3115329607362736413, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
+      propertyPath: pushBackResolve
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3115329607362736414, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -10390,7 +10398,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4934520513591018812, guid: 4eeea86cd17c5894382039ea64938a79, type: 3}
       propertyPath: timeBetweenSpawns
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6145943866617583126, guid: 4eeea86cd17c5894382039ea64938a79, type: 3}
       propertyPath: m_Name
@@ -10621,6 +10629,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8164116276935540264, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
+      propertyPath: wave
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164116276935540264, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
+      propertyPath: finalWave
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8164116276935540264, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
       propertyPath: maxNumberOfMinions
       value: 1

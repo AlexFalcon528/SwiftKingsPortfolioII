@@ -12,6 +12,7 @@ public class btnFunctions : MonoBehaviour
 
     public void Restart() {
         Resume(); // Run the Resume Function above
+        gameManager.instance.wave = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
     }
 
@@ -44,6 +45,7 @@ public class btnFunctions : MonoBehaviour
 
     public void PlaySurvive() {
         SceneManager.LoadScene("Survive"); // Load the Survival Scene (Survival Wave Gamemode)
+        gameManager.instance.nextWave = true;
     }
 
     public void Options() {
