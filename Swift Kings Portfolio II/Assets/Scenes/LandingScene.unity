@@ -2530,11 +2530,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1000166153, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1003136480, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1485138425, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1611000850, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

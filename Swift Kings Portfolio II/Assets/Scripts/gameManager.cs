@@ -20,10 +20,13 @@ public class gameManager : MonoBehaviour
     public GameObject lose;
     public GameObject win;
     public GameObject reticle;
+    public GameObject objectiveParent;
     public TextMeshProUGUI objectiveText;
     public GameObject HealthbarParent;
     public Image Healthbar;
     public TextMeshProUGUI healthBarText;
+    public GameObject weaponAmmoParent;
+    public TextMeshProUGUI weaponAmmoText;
     public bool isPaused;
     float originalTimeScale;
     public int enemiesRemaining;
@@ -108,5 +111,7 @@ public class gameManager : MonoBehaviour
     void handleGameUI(bool active) {
         reticle.SetActive(active); // Active/Deactivate the reticle
         HealthbarParent.SetActive(active); // Active/Deactivate the healthbar
+        weaponAmmoParent.SetActive(active); // Active/Deactivate the Weapons Ammo Display
+        objectiveParent.SetActive(active); // Active/Deactivate the Objective
     }
 }

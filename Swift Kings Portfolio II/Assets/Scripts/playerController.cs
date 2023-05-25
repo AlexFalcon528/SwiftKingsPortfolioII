@@ -168,5 +168,11 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     void UpdateUI() {
         gameManager.instance.Healthbar.fillAmount = (float)hp / hpOriginal; // Set Healthbar fill to the amount of hp compared to original
         gameManager.instance.healthBarText.text = hp.ToString(); // numerical display of hp
-    }
+
+        // Update Weapon Ammo Display
+        /*
+        if (gunList.Count > 0)
+            gameManager.instance.weaponAmmoText.text = $"{gunList[selectedGun].ammoCur} / {gunList[selectedGun].ammoMax}";
+        */
+     }
 }
