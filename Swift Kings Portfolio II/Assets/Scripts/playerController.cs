@@ -91,10 +91,13 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         //Gravity
         velocity.y -= gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
+        // Pushback
+        pushBack = Vector3.Lerp(pushBack, Vector3.zero, Time.deltaTime * pushbackResolve);
     }
 
     public void TakePushBack(Vector3 dir) {
-        pushBack += dir;
+        pushBack += dir; // Add direction to pushback
     }
 
     void Sprint()
