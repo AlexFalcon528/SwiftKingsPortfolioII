@@ -37,7 +37,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     {
         startingPos = transform.position;
         colorOrig = model.material.color;
-        gameManager.instance.UpdateGameGoal(1);
+        
         stoppingDistOrig = agent.stoppingDistance;
     }
 
