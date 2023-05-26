@@ -313,7 +313,7 @@ MonoBehaviour:
   shootPos: {fileID: 317449059835509198}
   headPos: {fileID: 3468450349055152742}
   anim: {fileID: 1012194361}
-  hp: 10
+  hp: 5
   turnSpeed: 300
   shootAngle: 20
   viewCone: 85

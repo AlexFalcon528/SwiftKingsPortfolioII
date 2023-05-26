@@ -24,22 +24,24 @@ public class spawner : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        /*if (other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             playerInRange = true;
-        }*/
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (numberSpawned == 0 && gameManager.instance.nextWave)
+        
+        if (!isSpawning && numberSpawned < numberToSpawn && gameManager.instance.nextWave && playerInRange) //Code for wave-based survival mode
         {
-            gameManager.instance.UpdateGameGoal(numberToSpawn);
-        }
-        if (!isSpawning && numberSpawned < numberToSpawn && gameManager.instance.nextWave) //Code for wave-based survival mode
-        {
+            if (numberSpawned == 0 && gameManager.instance.nextWave)
+            {
+                gameManager.instance.UpdateGameGoal(numberToSpawn);
+            }
             StartCoroutine(spawn());
+
         }
         if(numberSpawned == numberToSpawn)
         {

@@ -37,7 +37,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     {
         startingPos = transform.position;
         colorOrig = model.material.color;
-        gameManager.instance.UpdateGameGoal(1);
+        
         stoppingDistOrig = agent.stoppingDistance;
     }
 
@@ -122,6 +122,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
             gameManager.instance.UpdateGameGoal(-1);
             anim.SetBool("Dead", true);
             agent.enabled = false;
+            StopAllCoroutines();
             GetComponent<CapsuleCollider>().enabled = false;
             StopAllCoroutines();
             Destroy(gameObject, 30);

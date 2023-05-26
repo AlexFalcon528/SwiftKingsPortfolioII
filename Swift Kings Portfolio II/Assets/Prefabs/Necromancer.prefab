@@ -280,7 +280,7 @@ MonoBehaviour:
   minionSpawnPoint: {fileID: 8281827460251760363}
   headPos: {fileID: 1898650533312247373}
   shootPos: {fileID: 2414759262797777262}
-  hp: 20
+  hp: 10
   turnSpeed: 600
   shootAngle: 20
   viewCone: 180
