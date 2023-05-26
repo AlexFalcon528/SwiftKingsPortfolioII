@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Gun - Thompson M1A1
   m_EditorClassIdentifier: 
   shootDist: 30
-  shootRate: 0.2
+  shootRate: 0.1
   shootDamage: 3
-  reloadRate: 3
-  maxAmmo: 30
-  currAmmo: 30
+  reloadRate: 4
+  maxAmmo: 40
+  currAmmo: 9
   model: {fileID: 5494625650325380441, guid: 944f765b84e4c4012876d61f4dfc7b5a, type: 3}
   hitEffect: {fileID: 6222642400925431900, guid: 28721e2c70f38c04b87deb8bd17f57d1, type: 3}
   muzzleFlash: {fileID: 1391847458487284, guid: 9bf79f2d846a57440a981c168c87c617, type: 3}

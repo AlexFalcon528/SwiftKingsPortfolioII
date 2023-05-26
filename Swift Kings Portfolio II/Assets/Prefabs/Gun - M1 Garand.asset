@@ -13,11 +13,6 @@ MonoBehaviour:
   m_Name: Gun - M1 Garand
   m_EditorClassIdentifier: 
   shootDist: 25
-  shootRate: 1
-  shootDamage: 2
-  reloadRate: 3
-  maxAmmo: 4
-  currAmmo: 0
   model: {fileID: 4698201593948852689, guid: 185ce04d44da342739f0bef843698e6c, type: 3}
   hitEffect: {fileID: 6222642400925431900, guid: 28721e2c70f38c04b87deb8bd17f57d1, type: 3}
   muzzleFlash: {fileID: 1391847458487284, guid: 9bf79f2d846a57440a981c168c87c617, type: 3}

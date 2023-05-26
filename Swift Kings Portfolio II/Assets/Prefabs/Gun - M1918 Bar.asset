@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Gun - M1918 Bar
   m_EditorClassIdentifier: 
   shootDist: 25
-  shootRate: 0.5
+  shootRate: 0.25
   shootDamage: 4
-  reloadRate: 3
-  maxAmmo: 12
-  currAmmo: 12
+  reloadRate: 2
+  maxAmmo: 18
+  currAmmo: 16
   model: {fileID: 5571641588984482722, guid: c303a18f1cbdd4156b139b9e5b35d6a9, type: 3}
   hitEffect: {fileID: 6222642400925431900, guid: 28721e2c70f38c04b87deb8bd17f57d1, type: 3}
   muzzleFlash: {fileID: 1391847458487284, guid: 9bf79f2d846a57440a981c168c87c617, type: 3}

@@ -137,7 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 3115329607362736409}
   aud: {fileID: 86546200}
-  hp: 10
+  hp: 20
   speed: 3
   sprintMult: 1.5
   jumpHeight: 5
@@ -148,7 +148,7 @@ MonoBehaviour:
   shootDist: 500
   shootRate: 0.2
   shootDamage: 4
-  push: 0
+  push: 1
   gunModel: {fileID: 4046358777234627150}
   gunMat: {fileID: 2288807826283982468}
   selectedGun: 0

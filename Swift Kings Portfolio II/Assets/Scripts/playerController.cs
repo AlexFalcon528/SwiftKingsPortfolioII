@@ -255,11 +255,13 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     public void TakeDamage(int dmg)
     {
         hp -= dmg;//Subtract damage taken
-        StartCoroutine(DamageFlash());
-        if(hp <= 0)//If hp is less than or = to 0
+
+        if (hp <= 0)//If hp is less than or = to 0
         {
             gameManager.instance.YouLose(); //Lose the game
         }
+        else {StartCoroutine(DamageFlash());
+    }
         UpdateUI();
     }
     public void TakePushBack(Vector3 dir)

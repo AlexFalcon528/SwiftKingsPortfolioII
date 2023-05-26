@@ -97,6 +97,7 @@ public class gameManager : MonoBehaviour
         PauseState(); //Pause
         activeMenu = lose; //Set current menu to the lose menu
         activeMenu.SetActive(true); //Show lose menu
+        playerDamageFlash.SetActive(false);
     }
 
     public void UpdateMinionsCounter(int amount)

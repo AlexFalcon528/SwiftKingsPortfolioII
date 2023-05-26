@@ -8,7 +8,7 @@ public class gunStats : ScriptableObject
     [Range(2, 300)] public int shootDist;
     [Range(0.1f, 3)] public float shootRate;
     [Range(1, 10)] public int shootDamage;
-    [Range(3, 6)] public int reloadRate;
+    [Range(1, 4)] public int reloadRate;
     [Range(1, 100)] public int maxAmmo;
     public int currAmmo;
     public GameObject model;
