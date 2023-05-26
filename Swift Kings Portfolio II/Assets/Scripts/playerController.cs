@@ -107,7 +107,12 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         controller.Move((velocity + pushBack) * Time.deltaTime);
         pushBack = Vector3.Lerp(pushBack, Vector3.zero, Time.deltaTime * pushBackResolve);
     }
-
+    IEnumerator DamageFlash()
+    {
+        gameManager.instance.playerDamageFlash.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        gameManager.instance.playerDamageFlash.SetActive(false);
+    }
     void Sprint()
     {
         //If holding down sprint button
@@ -250,6 +255,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     public void TakeDamage(int dmg)
     {
         hp -= dmg;//Subtract damage taken
+        StartCoroutine(DamageFlash());
         if(hp <= 0)//If hp is less than or = to 0
         {
             gameManager.instance.YouLose(); //Lose the game

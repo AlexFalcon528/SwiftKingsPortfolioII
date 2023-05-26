@@ -43,7 +43,6 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
     void Start()
     {
         colorOrig = model.material.color;
-        gameManager.instance.UpdateGameGoal(+1);
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
     }
@@ -153,6 +152,8 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
             anim.SetBool("Dead", true);
             agent.enabled = false;
             GetComponent<CapsuleCollider>().enabled = false;
+            StopAllCoroutines();
+            Destroy(gameObject, 30);
         }
         else
         {

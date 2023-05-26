@@ -1467,11 +1467,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 860b44754ce133a4ba455cf433eb3e21, type: 3}
---- !u!1 &329844751 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4518596967481129762, guid: e156df6ff80cc714abd0c34f363fdd96, type: 3}
-  m_PrefabInstance: {fileID: 4518596967222719277}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &341278587
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1791,11 +1786,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8397537226833951522, guid: 06d2c51a99099124988ff7398a5dac58, type: 3}
   m_PrefabInstance: {fileID: 398776968}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &416287754 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3379509198927196933, guid: e53e2988cafd20e46b3309806cdca757, type: 3}
-  m_PrefabInstance: {fileID: 3379509199341387535}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &418607589
 PrefabInstance:
@@ -10016,11 +10006,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2026953041}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &2042653026 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6361465823483913047, guid: 31c7b546d387db4449d45658c793bc40, type: 3}
-  m_PrefabInstance: {fileID: 6361465823328700981}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2043672397
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10694,6 +10679,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3115329607362736413, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
+      propertyPath: hp
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3115329607362736413, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
+      propertyPath: push
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3115329607362736414, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -11183,18 +11176,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8164116276935540264, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
-      propertyPath: hpPU
-      value: 
-      objectReference: {fileID: 416287754}
-    - target: {fileID: 8164116276935540264, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
-      propertyPath: dmgPU
-      value: 
-      objectReference: {fileID: 329844751}
-    - target: {fileID: 8164116276935540264, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
-      propertyPath: speedPU
-      value: 
-      objectReference: {fileID: 2042653026}
     - target: {fileID: 8164116278394113408, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
       propertyPath: m_Name
       value: UI

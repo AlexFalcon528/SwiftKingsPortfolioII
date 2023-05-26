@@ -142,13 +142,13 @@ MonoBehaviour:
   sprintMult: 1.5
   jumpHeight: 5
   gravity: 9
-  jumps: 2
-  pushBackResolve: 0
+  jumps: 1
+  pushBackResolve: 20
   guns: []
   shootDist: 500
   shootRate: 0.2
   shootDamage: 4
-  push: 0
+  push: 10
   gunModel: {fileID: 4046358777234627150}
   gunMat: {fileID: 2288807826283982468}
   selectedGun: 0
@@ -157,7 +157,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4dcf5e770659d574f867978e18d76441, type: 3}
   - {fileID: 8300000, guid: ac3813d514ba78545893546ee9874c40, type: 3}
   audJumpVol: 0.5
-  audDamage: []
+  audDamage:
+  - {fileID: 8300000, guid: 412c4c1191813e4489b50e23325757a7, type: 3}
+  - {fileID: 8300000, guid: 44c35e56228510747b714dbb122b377c, type: 3}
+  - {fileID: 8300000, guid: 4f064509cf937c0428174ff807e00ce2, type: 3}
+  - {fileID: 8300000, guid: 796a91f08a3c9b746a9743d0ea0a4b35, type: 3}
+  - {fileID: 8300000, guid: a184cdba9d4be7e458c28012a7deba72, type: 3}
+  - {fileID: 8300000, guid: 717a3d1c2ee454e4d946dd9ab6bf3f48, type: 3}
   audDamageVol: 0
   audSteps:
   - {fileID: 8300000, guid: 1c4975ccfd3ee474cb559271e5a79ad6, type: 3}
@@ -170,6 +176,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 347a196d80db8fa49b8fdf274eba5f4c, type: 3}
   - {fileID: 8300000, guid: 564000d8e3115ef4990c6f9394d94c49, type: 3}
   audStepsVol: 0.1
+  isPoweredUp: 0
 --- !u!33 &3115329607362736412
 MeshFilter:
   m_ObjectHideFlags: 0

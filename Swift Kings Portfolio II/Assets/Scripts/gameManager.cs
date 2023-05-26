@@ -32,6 +32,7 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI weaponAmmoText;
     public bool isPaused; 
     public int enemiesRemaining;
+    public GameObject playerDamageFlash;
     [Header("\n~~~~~~~~Gameplay~~~~~~~~~~~")]
     public int wave;
     [SerializeField] int finalWave;
