@@ -157,8 +157,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4dcf5e770659d574f867978e18d76441, type: 3}
   - {fileID: 8300000, guid: ac3813d514ba78545893546ee9874c40, type: 3}
   audJumpVol: 0.5
-  audDamage: []
-  audDamageVol: 0
+  audDamage:
+  - {fileID: 8300000, guid: 412c4c1191813e4489b50e23325757a7, type: 3}
+  - {fileID: 8300000, guid: 44c35e56228510747b714dbb122b377c, type: 3}
+  - {fileID: 8300000, guid: 4f064509cf937c0428174ff807e00ce2, type: 3}
+  - {fileID: 8300000, guid: 796a91f08a3c9b746a9743d0ea0a4b35, type: 3}
+  - {fileID: 8300000, guid: a184cdba9d4be7e458c28012a7deba72, type: 3}
+  - {fileID: 8300000, guid: 717a3d1c2ee454e4d946dd9ab6bf3f48, type: 3}
+  audDamageVol: 0.5
   audSteps:
   - {fileID: 8300000, guid: 1c4975ccfd3ee474cb559271e5a79ad6, type: 3}
   - {fileID: 8300000, guid: 38aade5bf2944d745a95193a004398b0, type: 3}

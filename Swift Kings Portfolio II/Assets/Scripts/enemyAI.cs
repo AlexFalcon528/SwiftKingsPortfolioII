@@ -122,6 +122,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
             gameManager.instance.UpdateGameGoal(-1);
             anim.SetBool("Dead", true);
             agent.enabled = false;
+            StopAllCoroutines();
             GetComponent<CapsuleCollider>().enabled = false;
         }
         else

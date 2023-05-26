@@ -43,7 +43,6 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
     void Start()
     {
         colorOrig = model.material.color;
-        gameManager.instance.UpdateGameGoal(+1);
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
     }
