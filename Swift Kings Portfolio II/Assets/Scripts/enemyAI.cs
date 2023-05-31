@@ -15,7 +15,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     [Range(1, 100)] [SerializeField] int hp;
     [SerializeField] int turnSpeed;
     [SerializeField] int shootAngle;
-    [SerializeField]float viewCone;
+    [SerializeField] int viewCone;
     [SerializeField] int roamDistance;
     [SerializeField] int roamPauseTime;
     [SerializeField] float animTranSpeed;
@@ -77,7 +77,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     {
 
         playerDir = gameManager.instance.player.transform.position - headPos.position;
-        angleToPlayer = Vector3.Angle(playerDir, transform.forward);
+        angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
         Debug.DrawRay(headPos.position, playerDir);
         Debug.Log(angleToPlayer);
         RaycastHit hit;
@@ -87,7 +87,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
             {
                 agent.stoppingDistance = stoppingDistOrig;
                 agent.SetDestination(gameManager.instance.player.transform.position);
-                destinationChosen = true;
+
                 if (agent.remainingDistance <= agent.stoppingDistance)
                 {
                     FacePlayer();
@@ -96,16 +96,10 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
                 { StartCoroutine(Shoot()); }
                 return true;
             }
-            else
-            {
-                agent.stoppingDistance = 0;
-            }
         }
+        agent.stoppingDistance = 0;
         return false;
-
-
-
-       
+    
     }
     void FacePlayer() //turn to player function
     {
