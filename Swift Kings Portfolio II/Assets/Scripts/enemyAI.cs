@@ -26,6 +26,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
 
     bool isShooting;
     bool playerInRange;
+    bool isRetreating;
     Vector3 startingPos;
     float angleToPlayer;
     Vector3 playerDir;
@@ -33,12 +34,17 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     bool destinationChosen;
     float stoppingDistOrig;
     float speed;
+    float retreatDistance;
+    int viewConeOrig;
     void Start()
     {
         startingPos = transform.position;
         colorOrig = model.material.color;
         
         stoppingDistOrig = agent.stoppingDistance;
+        retreatDistance = stoppingDistOrig - 3;
+
+        viewConeOrig = viewCone;
     }
 
     // Update is called once per frame
@@ -86,18 +92,33 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewCone)
             {
                 agent.stoppingDistance = stoppingDistOrig;
-                agent.SetDestination(gameManager.instance.player.transform.position);
+                if (isRetreating) 
+                {
+                    agent.SetDestination(transform.position - (playerDir.normalized * 15));
+                    isRetreating = false;
+                }
+                else 
+                {
+                    agent.SetDestination(gameManager.instance.player.transform.position);
+                }
 
                 if (agent.remainingDistance <= agent.stoppingDistance)
                 {
                     FacePlayer();
+                    if(agent.remainingDistance <= retreatDistance)
+                    {
+                        isRetreating = true;
+                    }
                 }
                 if (!isShooting && angleToPlayer <= shootAngle)
-                { StartCoroutine(Shoot()); }
+                { 
+                    StartCoroutine(Shoot());
+                }
                 return true;
             }
         }
         agent.stoppingDistance = 0;
+
         return false;
     
     }
@@ -144,7 +165,6 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     {
         if (other.CompareTag("Player"))
         {
-            agent.stoppingDistance = stoppingDistOrig;
             playerInRange = true;//lets enemy know player is in range
         }
     } private void OnTriggerExit(Collider other)
