@@ -34,6 +34,8 @@ public class gameManager : MonoBehaviour
     public int enemiesRemaining;
     public GameObject playerDamageFlash;
     [Header("\n~~~~~~~~Gameplay~~~~~~~~~~~")]
+    public audioManager audioManager;
+    [Header("\n~~~~~~~~Gameplay~~~~~~~~~~~")]
     public int wave;
     [SerializeField] int finalWave;
     float originalTimeScale;
@@ -48,7 +50,12 @@ public class gameManager : MonoBehaviour
         instance = this; //Only one instance of singleton
         player = GameObject.FindWithTag("Player"); //Find player
         spawnPoint = GameObject.FindWithTag("Spawnpoint"); //Find spawnpoint
-        if(SceneManager.GetActiveScene().name != "LandingScene") pScript = player.GetComponent<playerController>();
+        if (SceneManager.GetActiveScene().name != "LandingScene") {
+            pScript = player.GetComponent<playerController>();
+        }else {
+            // Start Menu Music
+            audioManager.playMenuMenu();
+        }
         originalTimeScale = Time.timeScale; //Save original time scale for later use
         nextWave = true;
     }

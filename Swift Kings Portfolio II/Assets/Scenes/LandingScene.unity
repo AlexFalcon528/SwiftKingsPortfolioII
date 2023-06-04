@@ -3929,6 +3929,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 832a83a87d8bd474fa4fbf238fd6e171, type: 3}
+--- !u!114 &1501149612 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8374172222634107503, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
+  m_PrefabInstance: {fileID: 6358105634231999760}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9cea9c75b54be74a90b660c7d1d74c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1513572064
 GameObject:
   m_ObjectHideFlags: 0
@@ -5684,6 +5695,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2985960342918018075, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 1501149612}
     - target: {fileID: 2985960344647124914, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -5731,6 +5746,54 @@ PrefabInstance:
     - target: {fileID: 2985960344647124915, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
       propertyPath: m_Name
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985931549999013131, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6248863897311160675, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6358105634104105274, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6358105634108911571, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6358105634221004118, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6358105634221004120, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6358105634658280394, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6358105634759394650, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6358105634759394652, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
+      propertyPath: Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6358105634759394653, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
+      propertyPath: audMenu
+      value: 
+      objectReference: {fileID: 8300000, guid: aad135df355c91643b35dae855382ec7, type: 3}
+    - target: {fileID: 6358105634759394653, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
+      propertyPath: audMusic
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7602746342430796678, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
