@@ -37,6 +37,9 @@ public class audioManager : MonoBehaviour {
 
     // Music Audio
     public void playMenuMenu() {
-        audMusic.PlayOneShot(audMenu, audMusicVol);
+        audMusic.clip = audMenu;
+        audMusic.volume = audMusicVol;
+        audMusic.loop = true;
+        audMusic.Play();
     }
 }
