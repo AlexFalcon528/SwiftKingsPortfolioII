@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class btnFunctions : MonoBehaviour
-{
+public class btnFunctions : MonoBehaviour {
+ 
+    /**
+     * Pause Menu
+     */
+
     public void Resume() {
         gameManager.instance.UnpauseState(); // Unpause the Game
         gameManager.instance.isPaused = false; // Set isPaused to False
