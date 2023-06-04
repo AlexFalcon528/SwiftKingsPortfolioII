@@ -56,7 +56,7 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Cancel")&&activeMenu == null) //When pressing cancel button and not in a menu already
+        if(SceneManager.GetActiveScene().name != "LandingScene" && Input.GetButtonDown("Cancel") && activeMenu == null) //When pressing cancel button and not in a menu already
         {
             PauseState();//Pause game
             activeMenu = pause; //Store pause menu as active menu
