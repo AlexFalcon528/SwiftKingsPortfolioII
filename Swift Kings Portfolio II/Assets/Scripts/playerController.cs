@@ -179,12 +179,12 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
                 {
                     damageable.TakeDamage(shootDamage);
                 }
-                IPhysics physicsable = hit.collider.GetComponent<IPhysics>();
-                if (physicsable != null)
-                {
-                    Vector3 dirPush = hit.transform.position - transform.position;//push direction
-                    physicsable.TakePushBack(dirPush * push);//push them
-                }
+                //IPhysics physicsable = hit.collider.GetComponent<IPhysics>();
+                //if (physicsable != null)
+                //{
+                //    Vector3 dirPush = hit.transform.position - transform.position;//push direction
+                //    physicsable.TakePushBack(dirPush * push);//push them
+                //}
                 Instantiate(guns[selectedGun].hitEffect, hit.point, guns[selectedGun].hitEffect.transform.rotation);
             }
 
