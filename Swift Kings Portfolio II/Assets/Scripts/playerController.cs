@@ -276,6 +276,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         }
         if (hp <= 0)//If hp is less than or = to 0
         {
+            gameManager.instance.HighHealth();
             gameManager.instance.YouLose(); //Lose the game
         }
         else {StartCoroutine(DamageFlash());

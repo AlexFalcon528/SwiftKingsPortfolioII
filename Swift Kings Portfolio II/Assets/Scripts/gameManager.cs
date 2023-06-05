@@ -146,7 +146,8 @@ public class gameManager : MonoBehaviour
     }
     public void HighHealth()
     {
-        lowHealthIndicator.SetActive(false);
         StopCoroutine(HeartBeat());
+        lowHealthIndicator.SetActive(false);
+        
     }
 }
