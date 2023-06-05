@@ -197,13 +197,12 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     {
         isRetreating = true;//sets retreating to true
         agent.stoppingDistance = 0;
-        Vector3 lastKnownPlayerPos = gameManager.instance.player.transform.position;//takes current player position when retreat starts
         agent.SetDestination(retreatPos);//Sets agent position to the desired retreat location
-        Debug.Log("I'm retreating!");
+
         yield return new WaitForSeconds(retreatTime);//how long the enemy will continue retreating for
 
-        Quaternion rot = Quaternion.LookRotation(new Vector3(lastKnownPlayerPos.x, 0, lastKnownPlayerPos.z));//selects direction to rotate
-        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * turnSpeed);//transforms enemy to look at last know location
+        agent.stoppingDistance = stoppingDistOrig;
+        agent.SetDestination(gameManager.instance.player.transform.position);
         isRetreating = false;//stops the retreat
     }
 }
