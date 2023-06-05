@@ -255,7 +255,14 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     public void TakeDamage(int dmg)
     {
         hp -= dmg;//Subtract damage taken
-
+        if(hp <= hpOriginal * 0.3)
+        {
+            gameManager.instance.LowHealth();
+        }
+        else
+        {
+            gameManager.instance.HighHealth();
+        }
         if (hp <= 0)//If hp is less than or = to 0
         {
             gameManager.instance.YouLose(); //Lose the game

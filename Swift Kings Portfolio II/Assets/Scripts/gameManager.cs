@@ -17,6 +17,7 @@ public class gameManager : MonoBehaviour
     [Header("\n~~~~~~~User Interface~~~~~~~")]
     private float origTimeScale;
 
+    [SerializeField] GameObject lowHealthIndicator;
     public GameObject reticle;
     public GameObject objectiveParent;
     public TextMeshProUGUI objectiveText;
@@ -121,5 +122,29 @@ public class gameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         PauseState();
         menuManager.instance.OpenWin();
+    }
+
+    public void LowHealth()
+    {
+        lowHealthIndicator.SetActive(true);
+        StartCoroutine(HeartBeat());
+        
+    }
+    IEnumerator HeartBeat() 
+    {
+        Image image = lowHealthIndicator.GetComponent<Image>();
+
+        while (true)
+        {
+            image.CrossFadeAlpha(0.1f, 2f, false);
+            yield return new WaitForSeconds(2f);
+            image.CrossFadeAlpha(0.5f, 2f, false);
+            yield return new WaitForSeconds(2f);
+        }
+    }
+    public void HighHealth()
+    {
+        lowHealthIndicator.SetActive(false);
+        StopCoroutine(HeartBeat());
     }
 }
