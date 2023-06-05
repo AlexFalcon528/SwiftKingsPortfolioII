@@ -379,7 +379,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4474341892480982077, guid: 797ad133b08385849ba7f0757d615a14, type: 3}
       propertyPath: runAwayDistance
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5906270252061613680, guid: 797ad133b08385849ba7f0757d615a14, type: 3}
       propertyPath: m_LocalPosition.x
