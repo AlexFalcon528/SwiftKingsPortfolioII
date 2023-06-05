@@ -42,10 +42,11 @@ public class gameManager : MonoBehaviour
         instance = this; //Only one instance of singleton
         player = GameObject.FindWithTag("Player"); //Find player
         spawnPoint = GameObject.FindWithTag("Spawnpoint"); //Find spawnpoint
-        mCamera = player.gameObject.GetComponent<Camera>();
 
-        if (SceneManager.GetActiveScene().name != "LandingScene")
+        if (SceneManager.GetActiveScene().name != "LandingScene") {
+            mCamera = player.gameObject.GetComponent<Camera>();
             pScript = player.GetComponent<playerController>();
+        }
 
         nextWave = true;
     }
