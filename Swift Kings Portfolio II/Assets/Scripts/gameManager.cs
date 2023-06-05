@@ -9,12 +9,13 @@ public class gameManager : MonoBehaviour
 {
     [Header("~~~~~~~Singleton~~~~~~~")]
     public static gameManager instance;
-    [Header("\n~~~~~~~Player~~~~~~~")]
+    [Header("~~~~~~~Player~~~~~~~")]
     public GameObject player;
     public Camera mCamera;
     public playerController pScript;
     public GameObject spawnPoint;
-    [Header("\n~~~~~~~User Interface~~~~~~~")]
+
+    [Header("~~~~~~~User Interface~~~~~~~")]
     private float origTimeScale;
 
     [SerializeField] GameObject lowHealthIndicator;
@@ -27,6 +28,7 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI healthBarText;
     public GameObject weaponAmmoParent;
     public TextMeshProUGUI weaponAmmoText;
+    public TextMeshProUGUI heldAmmo;
     public bool isPaused;
     public int enemiesRemaining;
     [Header("\n~~~~~~~~Gameplay~~~~~~~~~~~")]

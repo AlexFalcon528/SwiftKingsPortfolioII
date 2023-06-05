@@ -19,6 +19,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [SerializeField] float pushBackResolve;
     [Header("\n~~~Weapon~~~")]
     public List<gunStats> guns = new List<gunStats>();
+    [SerializeField] int heldAmmo;
     [SerializeField] int shootDist;
     [SerializeField] float shootRate;
     [SerializeField] int shootDamage;
@@ -68,7 +69,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
                 {
                     StartCoroutine(Shoot());
                 }
-                if (guns.Count > 0 && Input.GetButton("Reload") && !isReloading && !isShooting)
+                if (guns.Count > 0 && Input.GetButton("Reload") && !isReloading && !isShooting && heldAmmo >0)
                 {
                     StartCoroutine(Reload());
                 }
@@ -152,6 +153,11 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         selectedGun = guns.Count - 1;
         UpdateUI();
     }
+    public void ammoPickup(int ammo)
+    {
+        heldAmmo += ammo;
+        UpdateUI();
+    }
 
     IEnumerator Shoot()
     {
@@ -187,15 +193,20 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         }
         else
         {
-            StartCoroutine(Reload());
+            if (heldAmmo > 0)
+            {
+                StartCoroutine(Reload());
+            }
+            
         }
     }
     IEnumerator Reload()
     {
         isReloading = true;
-        while (guns[selectedGun].currAmmo < guns[selectedGun].maxAmmo)
+        while (guns[selectedGun].currAmmo < guns[selectedGun].maxAmmo && heldAmmo>0)
         {
             guns[selectedGun].currAmmo++;
+            heldAmmo--;
             if (guns[selectedGun].currAmmo == guns[selectedGun].maxAmmo)
             {
                 aud.PlayOneShot(guns[selectedGun].reloadOverAud, guns[selectedGun].reloadOverAudVol);
@@ -294,6 +305,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     void UpdateUI() {
         gameManager.instance.Healthbar.fillAmount = (float)hp / hpOriginal; // Set Healthbar fill to the amount of hp compared to original
         gameManager.instance.healthBarText.text = hp.ToString(); // numerical display of hp
+        gameManager.instance.heldAmmo.text = $"{heldAmmo}";
 
         // Update Weapon Ammo Display
         
