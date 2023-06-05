@@ -20,4 +20,8 @@ public class gunStats : ScriptableObject
     [Range(0, 1)] public float reloadAudVol;
     public AudioClip reloadOverAud;
     [Range(0, 1)] public float reloadOverAudVol;
+    void Start()
+    {
+        currAmmo = maxAmmo;
+    }
 }

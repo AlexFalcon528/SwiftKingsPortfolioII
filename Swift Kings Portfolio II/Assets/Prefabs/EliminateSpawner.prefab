@@ -381,7 +381,7 @@ MonoBehaviour:
   - {fileID: 2607169941167309680}
   - {fileID: 4716367602626115374}
   timeBetweenSpawns: 0
-  numberToSpawn: 0
+  numberToSpawn: 3
 --- !u!135 &4217954603560613485
 SphereCollider:
   m_ObjectHideFlags: 0

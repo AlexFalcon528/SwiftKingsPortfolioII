@@ -138,13 +138,14 @@ MonoBehaviour:
   controller: {fileID: 3115329607362736409}
   aud: {fileID: 86546200}
   hp: 20
-  speed: 5
+  speed: 8
   sprintMult: 1.5
   jumpHeight: 5
   gravity: 9
   jumps: 1
   pushBackResolve: 3
   guns: []
+  heldAmmo: 20
   shootDist: 500
   shootRate: 0.2
   shootDamage: 4
