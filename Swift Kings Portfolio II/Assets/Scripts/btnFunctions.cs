@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 
 public class btnFunctions : MonoBehaviour {
  
@@ -16,14 +19,15 @@ public class btnFunctions : MonoBehaviour {
     }
 
     public void Restart() {
+        StartCoroutine(RestartTransition());
         Resume(); // Run the Resume Function above
         gameManager.instance.wave = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
     }
 
     public void ReturnMenu() {
         gameManager.instance.HandleReturnMenu();
-        SceneManager.LoadScene("LandingScene"); // Load Menu Scene
+        StartCoroutine(SceneTransition("LandingScene")); // Load the Main Menu
+
     }
 
     public void Exit() {
@@ -45,11 +49,11 @@ public class btnFunctions : MonoBehaviour {
     }
 
     public void PlayElminate() {
-        SceneManager.LoadScene("SampleScene"); // Load the Sample Scene (Elminate All Enmies Gamemode)
+        StartCoroutine(SceneTransition("SampleScene")); // Load the Sample Scene (Elminate All Enmies Gamemode)
     }
 
     public void PlaySurvive() {
-        SceneManager.LoadScene("Survive"); // Load the Survival Scene (Survival Wave Gamemode)
+        StartCoroutine(SceneTransition("Survive")); // Load the Sample Scene (Survive Waves of Enemies Gamemode)
         gameManager.instance.nextWave = true;
     }
 
@@ -60,5 +64,22 @@ public class btnFunctions : MonoBehaviour {
     public void Back() {
         gameManager.instance.gamemodes.SetActive(false);
         gameManager.instance.mainMenu.SetActive(true);
+    }
+
+
+    /**
+     * Handle Scene Transitions
+     */
+    public IEnumerator SceneTransition(string SceneName) {
+        StartCoroutine(gameManager.instance.FadeBlack(true));
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(SceneName);
+    }
+
+    public IEnumerator RestartTransition() {
+        StartCoroutine(gameManager.instance.FadeBlack(true));
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
+        StartCoroutine(gameManager.instance.FadeBlack(false));
     }
 }

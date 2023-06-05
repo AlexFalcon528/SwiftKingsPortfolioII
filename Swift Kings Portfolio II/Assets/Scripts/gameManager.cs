@@ -23,6 +23,7 @@ public class gameManager : MonoBehaviour
     public GameObject gamemodes;
     public GameObject reticle;
     public GameObject objectiveParent;
+    public GameObject fadeBlackObj;
     public TextMeshProUGUI objectiveText;
     public TextMeshProUGUI waveText;
     public GameObject HealthbarParent;
@@ -58,6 +59,11 @@ public class gameManager : MonoBehaviour
         }
         originalTimeScale = Time.timeScale; //Save original time scale for later use
         nextWave = true;
+        fadeBlackObj.SetActive(true);
+    }
+
+    private void Start() {
+        StartCoroutine(WaitToUnfade());
     }
 
     // Update is called once per frame
@@ -139,5 +145,39 @@ public class gameManager : MonoBehaviour
         HealthbarParent.SetActive(active); // Active/Deactivate the healthbar
         weaponAmmoParent.SetActive(active); // Active/Deactivate the Weapons Ammo Display
         objectiveParent.SetActive(active); // Active/Deactivate the Objective
+    }
+
+    // Transitions
+    public IEnumerator FadeBlack(bool fadeBlack = true) {
+        Color fadeColor = fadeBlackObj.GetComponent<Image>().color;
+        float colorAmt;
+
+        if (fadeBlack) {
+            if (!fadeBlackObj.activeSelf) fadeBlackObj.SetActive(true);
+            // Fade Black
+            while (fadeColor.a < 1) {
+                colorAmt = fadeColor.a + (5 * Time.deltaTime);
+                fadeColor = new Color(fadeColor.r, fadeColor.g, fadeColor.b, colorAmt);
+                fadeBlackObj.GetComponent<Image>().color = fadeColor;
+                yield return null;
+            }
+
+        } else {
+            // Fade Transparent
+            while (fadeColor.a > 0) {
+                colorAmt = fadeColor.a - (5 * Time.deltaTime);
+                fadeColor = new Color(fadeColor.r, fadeColor.g, fadeColor.b, colorAmt);
+                fadeBlackObj.GetComponent<Image>().color = fadeColor;
+                yield return null;
+            }
+            if (fadeBlackObj.activeSelf) fadeBlackObj.SetActive(false);
+        }
+
+        yield return new WaitForEndOfFrame();
+    }
+
+    public IEnumerator WaitToUnfade() {
+        yield return new WaitForSeconds(1);
+        StartCoroutine(FadeBlack(false));
     }
 }
