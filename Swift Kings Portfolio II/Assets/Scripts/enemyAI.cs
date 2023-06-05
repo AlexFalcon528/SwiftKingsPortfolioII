@@ -18,6 +18,8 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     [SerializeField] int viewCone;
     [SerializeField] int roamDistance;
     [SerializeField] int roamPauseTime;
+    [SerializeField] float retreatTime;//how long enemies will retreat for
+    [SerializeField] int runAwayDistance;//how far the enmemy will runaway
     [SerializeField] float animTranSpeed;
 
     [Header("\n-----Enemy Weapon------")]
@@ -91,28 +93,26 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewCone)
             {
-                agent.stoppingDistance = stoppingDistOrig;
-                if (isRetreating) 
+                if (!isRetreating)//makes sure enemy isn't retreating
                 {
-                    agent.SetDestination(transform.position - (playerDir.normalized * 15));
-                    isRetreating = false;
-                }
-                else 
-                {
-                    agent.SetDestination(gameManager.instance.player.transform.position);
-                }
-
-                if (agent.remainingDistance <= agent.stoppingDistance)
-                {
-                    FacePlayer();
-                    if(agent.remainingDistance <= retreatDistance)
+                    if (agent.remainingDistance <= retreatDistance) //checks to see if agent needs to retreating
                     {
-                        isRetreating = true;
+                        StartCoroutine(Retreat(transform.position - (playerDir.normalized * runAwayDistance), retreatTime));//starts retreating away from player = to retreat distance for however long it's scared
                     }
-                }
-                if (!isShooting && angleToPlayer <= shootAngle)
-                { 
-                    StartCoroutine(Shoot());
+                    else
+                    {
+                        agent.stoppingDistance = stoppingDistOrig;
+                        agent.SetDestination(gameManager.instance.player.transform.position);
+                    }
+
+                    if (agent.remainingDistance <= agent.stoppingDistance)
+                    {
+                        FacePlayer();
+                    }
+                    if (!isShooting && angleToPlayer <= shootAngle)
+                    {
+                        StartCoroutine(Shoot());
+                    }
                 }
                 return true;
             }
@@ -192,5 +192,18 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
 
             agent.SetDestination(hit.position);
         }
+    }
+    IEnumerator Retreat(Vector3 retreatPos, float retreatTime)//takes in the position to retreat to and for how long
+    {
+        isRetreating = true;//sets retreating to true
+        agent.stoppingDistance = 0;
+        Vector3 lastKnownPlayerPos = gameManager.instance.player.transform.position;//takes current player position when retreat starts
+        agent.SetDestination(retreatPos);//Sets agent position to the desired retreat location
+        Debug.Log("I'm retreating!");
+        yield return new WaitForSeconds(retreatTime);//how long the enemy will continue retreating for
+
+        Quaternion rot = Quaternion.LookRotation(new Vector3(lastKnownPlayerPos.x, 0, lastKnownPlayerPos.z));//selects direction to rotate
+        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * turnSpeed);//transforms enemy to look at last know location
+        isRetreating = false;//stops the retreat
     }
 }
