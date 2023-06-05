@@ -58,11 +58,11 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     void Update()
     {
         Sprint(); //Find out if the player is sprinting
-        if (gameManager.instance.activeMenu == null)
+        if (menuManager.instance.activeMenu == null)
         {
             Movement(); //Move player
             ChangeGun();
-            if (gameManager.instance.activeMenu == null)
+            if (menuManager.instance.activeMenu == null)
             {
                 if (guns.Count > 0 && Input.GetButton("Shoot") && !isShooting && !isReloading) //If the player is pressing the shoot button and not already shooting
                 {
@@ -109,9 +109,9 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     }
     IEnumerator DamageFlash()
     {
-        gameManager.instance.playerDamageFlash.SetActive(true);
+        menuManager.instance.damageFlash.SetActive(true);
         yield return new WaitForSeconds(0.1f);
-        gameManager.instance.playerDamageFlash.SetActive(false);
+        menuManager.instance.damageFlash.SetActive(false);
     }
     void Sprint()
     {

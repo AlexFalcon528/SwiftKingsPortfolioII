@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class audioManager : MonoBehaviour {
+    [Header("Singleton")]
+    public static audioManager instance;
+
     [Header ("Components")]
     [SerializeField] AudioSource audSFX;
     [SerializeField] AudioSource audMusic;
@@ -19,6 +22,13 @@ public class audioManager : MonoBehaviour {
     [Header("Settings")]
     [SerializeField][Range(0,1)] float audSFXVol = 1f;
     [SerializeField][Range(0,1)] float audMusicVol = 0.5f;
+
+    /**
+     * Awake
+     */
+    void Awake() {
+        instance = this; //Only one instance of singleton
+    }
 
     /**
      * SFX Audio

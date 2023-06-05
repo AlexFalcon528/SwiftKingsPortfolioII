@@ -25,13 +25,8 @@ public class btnFunctions : MonoBehaviour {
     }
 
     public void ReturnMenu() {
-        gameManager.instance.HandleReturnMenu();
         StartCoroutine(SceneTransition("LandingScene")); // Load the Main Menu
-
-    }
-
-    public void Exit() {
-        Application.Quit(); // Quit the application
+        gameManager.instance.HandleReturnMenu();
     }
 
     public void Respawn() {
@@ -39,13 +34,15 @@ public class btnFunctions : MonoBehaviour {
         gameManager.instance.pScript.SpawnPlayer(); // Spawn the player through the player controller
     }
 
+    public void Exit() {
+        Application.Quit(); // Quit the application
+    }
 
     /**
      * Main Menu
      * */
     public void Play() {
-        gameManager.instance.mainMenu.SetActive(false);
-        gameManager.instance.gamemodes.SetActive(true);
+        menuManager.instance.OpenGamemodes();
     }
 
     public void PlayElminate() {
@@ -61,9 +58,12 @@ public class btnFunctions : MonoBehaviour {
         // TODO: Expand for Game Settings (i.e. reticle color)
     }
 
-    public void Back() {
-        gameManager.instance.gamemodes.SetActive(false);
-        gameManager.instance.mainMenu.SetActive(true);
+    public void Credits() {
+        // TODO: Expand for Game Credits
+    }
+
+    public void MainMenuBack() {
+        menuManager.instance.OpenMain();
     }
 
 
@@ -71,15 +71,15 @@ public class btnFunctions : MonoBehaviour {
      * Handle Scene Transitions
      */
     public IEnumerator SceneTransition(string SceneName) {
-        StartCoroutine(gameManager.instance.FadeBlack(true));
+        StartCoroutine(menuManager.instance.FadeBlack(true));
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene(SceneName);
     }
 
     public IEnumerator RestartTransition() {
-        StartCoroutine(gameManager.instance.FadeBlack(true));
+        StartCoroutine(menuManager.instance.FadeBlack(true));
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
-        StartCoroutine(gameManager.instance.FadeBlack(false));
+        StartCoroutine(menuManager.instance.FadeBlack(false));
     }
 }
