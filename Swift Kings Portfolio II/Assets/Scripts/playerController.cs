@@ -8,6 +8,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [Header("~~~~~~~Components~~~~~~~")]
     [SerializeField] CharacterController controller;
     [SerializeField] AudioSource aud;
+    [SerializeField] public GameObject futurePos;
     [Header("\n~~~~~~~Stats~~~~~~~")]
     [Header("~~~Player~~~")]
     [SerializeField] int hp;
@@ -94,7 +95,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         }
         move = (transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical"));
         controller.Move(move * Time.deltaTime * speed);
-
+        futurePos.transform.position = controller.transform.localPosition + move * Time.deltaTime * speed * 3;
         //Jump functionality
         if (Input.GetButtonDown("Jump") && jumped < jumps) //If press jump and haven't jumped more than jumps
         {
@@ -314,7 +315,10 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
             gameManager.instance.weaponAmmoText.text = $"{guns[selectedGun].currAmmo} / {guns[selectedGun].maxAmmo}";
         
      }
-
+    public Vector3 getVelocity()
+    {
+        return controller.velocity;
+    }
 
     public void powerUpSpeed()
     {
