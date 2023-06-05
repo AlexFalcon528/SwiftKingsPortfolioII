@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 4934520513591018812}
   - component: {fileID: 4217954603560613485}
   m_Layer: 0
-  m_Name: spawner
+  m_Name: waveSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

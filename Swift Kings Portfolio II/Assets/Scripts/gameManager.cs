@@ -11,6 +11,7 @@ public class gameManager : MonoBehaviour
     public static gameManager instance;
     [Header("\n~~~~~~~Player~~~~~~~")]
     public GameObject player;
+    public Camera mCamera;
     public playerController pScript;
     public GameObject spawnPoint;
     [Header("\n~~~~~~~User Interface~~~~~~~")]
@@ -41,7 +42,8 @@ public class gameManager : MonoBehaviour
         instance = this; //Only one instance of singleton
         player = GameObject.FindWithTag("Player"); //Find player
         spawnPoint = GameObject.FindWithTag("Spawnpoint"); //Find spawnpoint
-        
+        mCamera = player.gameObject.GetComponent<Camera>();
+
         if (SceneManager.GetActiveScene().name != "LandingScene")
             pScript = player.GetComponent<playerController>();
 
@@ -52,7 +54,10 @@ public class gameManager : MonoBehaviour
         StartCoroutine(menuManager.instance.WaitToUnfade());
         // Start Menu Music if on Main Menu
         if (SceneManager.GetActiveScene().name == "LandingScene")
+        {
             audioManager.instance.playMenuMenu();
+        }
+        origTimeScale = Time.timeScale;
     }
 
     public void UpdateMinionsCounter(int amount)

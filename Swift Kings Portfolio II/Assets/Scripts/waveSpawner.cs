@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class spawner : MonoBehaviour
+public class waveSpawner : MonoBehaviour
 {
 
 
@@ -28,6 +28,13 @@ public class spawner : MonoBehaviour
         {
             playerInRange = true;
         }
+    } 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
+        }
     }
 
     // Update is called once per frame
@@ -49,14 +56,7 @@ public class spawner : MonoBehaviour
             numberSpawned = 0;
         }
     }
-    /*void Update()
-    {
-        if (playerInRange && !isSpawning && numberSpawned < numberToSpawn) //Code for non-wave gamemode
-        {
-            StartCoroutine(spawn());
-        }
-        gameObject.SetActive(false);
-    }*/
+   
 
 
     IEnumerator spawn()
