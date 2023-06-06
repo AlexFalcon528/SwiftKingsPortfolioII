@@ -75,11 +75,11 @@ public class menuManager : MonoBehaviour
         activeMenu = null;
         EventSystem.current.SetSelectedGameObject(null);
         mainMenu.SetActive(false);
-        //optionsMenu.SetActive(false);
+        optionsMenu.SetActive(false);
         gamemodesMenu.SetActive(false);
         surviveLvlsMenu.SetActive(false);
         eliminateLvlsMenu.SetActive(false);
-        //creditsMenu.SetActive(false);
+        creditsMenu.SetActive(false);
         pauseMenu.SetActive(false);
         loseMenu.SetActive(false);
         winMenu.SetActive(false);
@@ -123,7 +123,14 @@ public class menuManager : MonoBehaviour
     public void OpenSurvivalLvls() {
         OpenMenu(surviveLvlsMenu, survivalLvlsFirst);
     }
-    
+
+    public void OpenOptions() {
+        OpenMenu(optionsMenu, optionsFirst);
+    }
+
+    public void OpenCredits() {
+        OpenMenu(creditsMenu, creditsFirst);
+    }
 
     /*
      * Screen Transitions

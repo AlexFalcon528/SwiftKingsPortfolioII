@@ -72,11 +72,11 @@ public class btnFunctions : MonoBehaviour {
     }
 
     public void Options() {
-        // TODO: Expand for Game Settings (i.e. reticle color)
+        menuManager.instance.OpenOptions();
     }
 
     public void Credits() {
-        // TODO: Expand for Game Credits
+        menuManager.instance.OpenCredits();
     }
 
     public void MainMenuBack() {
