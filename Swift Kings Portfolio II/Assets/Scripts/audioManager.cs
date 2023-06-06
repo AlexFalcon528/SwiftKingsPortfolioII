@@ -18,6 +18,7 @@ public class audioManager : MonoBehaviour {
 
     [Header("Music Audio")]
     [SerializeField] AudioClip audMenu;
+    [SerializeField] AudioClip[] audGame;
 
     [Header("Settings")]
     [SerializeField][Range(0,1)] float audSFXVol = 1f;
@@ -48,6 +49,20 @@ public class audioManager : MonoBehaviour {
     // Music Audio
     public void playMenuMenu() {
         audMusic.clip = audMenu;
+        audMusic.volume = audMusicVol;
+        audMusic.loop = true;
+        audMusic.Play();
+    }
+
+    public void playRandomGame() {
+        audMusic.clip = audGame[Random.Range(0, audGame.Length)];
+        audMusic.volume = audMusicVol;
+        audMusic.loop = true;
+        audMusic.Play();
+    }
+
+    public void playLevelOne() {
+        audMusic.clip = audGame[0];
         audMusic.volume = audMusicVol;
         audMusic.loop = true;
         audMusic.Play();

@@ -15,12 +15,11 @@ public class btnFunctions : MonoBehaviour {
 
     public void Resume() {
         gameManager.instance.UnpauseState(); // Unpause the Game
-        gameManager.instance.isPaused = false; // Set isPaused to False
     }
 
     public void Restart() {
         StartCoroutine(RestartTransition());
-        Resume(); // Run the Resume Function above
+        gameManager.instance.UnpauseState();
         gameManager.instance.wave = 1;
     }
 
@@ -32,6 +31,7 @@ public class btnFunctions : MonoBehaviour {
     public void Respawn() {
         gameManager.instance.UnpauseState(); // Unpause the game
         gameManager.instance.pScript.SpawnPlayer(); // Spawn the player through the player controller
+        gameManager.instance.isPaused = false;
     }
 
     public void Exit() {
@@ -80,6 +80,5 @@ public class btnFunctions : MonoBehaviour {
         StartCoroutine(menuManager.instance.FadeBlack(true));
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
-        StartCoroutine(menuManager.instance.FadeBlack(false));
     }
 }

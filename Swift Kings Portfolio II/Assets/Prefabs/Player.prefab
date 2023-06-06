@@ -137,6 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 3115329607362736409}
   aud: {fileID: 86546200}
+  futurePos: {fileID: 3115329607362736408}
   hp: 20
   speed: 8
   sprintMult: 1.5

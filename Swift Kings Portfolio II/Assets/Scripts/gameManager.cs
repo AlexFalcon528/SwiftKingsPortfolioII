@@ -16,7 +16,8 @@ public class gameManager : MonoBehaviour
     public GameObject spawnPoint;
 
     [Header("~~~~~~~User Interface~~~~~~~")]
-    private float origTimeScale;
+    private float origTimeScale = 1;
+    private float timescale;
 
     [SerializeField] GameObject lowHealthIndicator;
     public GameObject reticle;
@@ -60,8 +61,13 @@ public class gameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "LandingScene")
         {
             audioManager.instance.playMenuMenu();
+        } else {
+            audioManager.instance.playRandomGame();
         }
-        origTimeScale = Time.timeScale;
+    }
+
+    private void Update() {
+        timescale = Time.timeScale;
     }
 
     public void UpdateMinionsCounter(int amount)
@@ -89,20 +95,16 @@ public class gameManager : MonoBehaviour
      */
     public void PauseState() {
         isPaused = true;// Pause
-        origTimeScale = Time.timeScale; // Set current timescale
         Time.timeScale = 0; // Stop physics and time
         Cursor.visible = true; // Make cursor visible but confined within the screen of the game
         Cursor.lockState = CursorLockMode.Confined;
-        // handleGameUI(false); // Disable Gameplay UI Component
     }
 
     public void UnpauseState() {
         Time.timeScale = origTimeScale; // Reset time
         Cursor.visible = false; // Relock mouse and make it invisible
         Cursor.lockState = CursorLockMode.Locked;
-        isPaused = false; // Unpause
         menuManager.instance.DeactiveAllMenus();
-        // handleGameUI(true); // Reactivate Gameplay UI Component
     }
 
     public void HandleReturnMenu() {

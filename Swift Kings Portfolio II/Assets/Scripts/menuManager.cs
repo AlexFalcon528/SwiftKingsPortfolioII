@@ -22,6 +22,7 @@ public class menuManager : MonoBehaviour
     [Header("Screen Effects")]
     public GameObject fadeBlackObj;
     public GameObject damageFlash;
+    public GameObject lowHealth;
 
     [Header("First Selection Options")]
     [SerializeField] private GameObject mainMenuFirst;
@@ -52,7 +53,7 @@ public class menuManager : MonoBehaviour
     * Update
     */
     void Update() {
-        if (inputManager.instance.MenuOpenInput) {
+        if (inputManager.instance.MenuOpenInput && !fadeBlackObj.activeSelf) {
             if (!gameManager.instance.isPaused) {
                 gameManager.instance.PauseState();
                 OpenPause();
@@ -79,6 +80,7 @@ public class menuManager : MonoBehaviour
 
         // Screen Effects
         damageFlash.SetActive(false);
+        lowHealth.SetActive(false);
     }
 
     private void OpenMenu(GameObject menu, GameObject firstSelected) {
