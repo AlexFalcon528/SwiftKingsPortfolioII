@@ -270,8 +270,8 @@ GameObject:
   - component: {fileID: 8735280440587374108}
   - component: {fileID: 3978132503349809851}
   - component: {fileID: 1012194361}
-  - component: {fileID: 1556416054}
   - component: {fileID: 1556416062}
+  - component: {fileID: 1556416054}
   m_Layer: 6
   m_Name: Normal Enemy
   m_TagString: Untagged
@@ -321,7 +321,7 @@ MonoBehaviour:
   viewCone: 85
   roamDistance: 10
   roamPauseTime: 1
-  retreatTime: 2
+  retreatTime: 3
   runAwayDistance: 20
   animTranSpeed: 20
   projectile: {fileID: 8116298408177600472, guid: beb0e72c0419d584593ba45169d416a5, type: 3}
@@ -391,6 +391,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!135 &1556416062
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3751976072310950100}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 20
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1556416054
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -407,19 +420,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!135 &1556416062
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3751976072310950100}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 20
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3970188395652028483
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,8 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [SerializeField] CharacterController controller;
     [SerializeField] AudioSource aud;
     [SerializeField] public GameObject futurePos;
+    [SerializeField] Transform itemPos;
+    [SerializeField] GameObject OrbWeapon;
     [Header("\n~~~~~~~Stats~~~~~~~")]
     [Header("~~~Player~~~")]
     [SerializeField] int hp;
@@ -21,6 +23,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [Header("\n~~~Weapon~~~")]
     public List<gunStats> guns = new List<gunStats>();
     [SerializeField] int heldAmmo;
+    [SerializeField] int orbCount;
     [SerializeField] int shootDist;
     [SerializeField] float shootRate;
     [SerializeField] int shootDamage;
@@ -35,7 +38,6 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [SerializeField] AudioClip[] audDamage;
     [SerializeField] AudioClip[] audSteps;
 
-    int grenadeNum;
     int jumped;
     Vector3 move;
     Vector3 velocity;
@@ -43,6 +45,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     bool isSprinting;
     bool isShooting;
     bool isReloading;
+    bool isUsingItem;
     int hpOriginal;
     bool stepIsPlaying;
     public bool isPoweredUp;
@@ -63,13 +66,20 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
             ChangeGun();
             if (menuManager.instance.activeMenu == null)
             {
-                if (guns.Count > 0 && Input.GetButton("Shoot") && !isShooting && !isReloading) //If the player is pressing the shoot button and not already shooting
+                if (!isShooting && !isReloading && !isUsingItem)
                 {
-                    StartCoroutine(Shoot());
-                }
-                if (guns.Count > 0 && Input.GetButton("Reload") && !isReloading && !isShooting && heldAmmo >0)
-                {
-                    StartCoroutine(Reload());
+                    if (guns.Count > 0 && Input.GetButton("Shoot")) //If the player is pressing the shoot button and not already shooting
+                    {
+                        StartCoroutine(Shoot());
+                    }
+                    if (guns.Count > 0 && Input.GetButton("Reload") && heldAmmo > 0)
+                    {
+                        StartCoroutine(Reload());
+                    }
+                    if (Input.GetButtonDown("UseItem"))
+                    {
+                        StartCoroutine(UseItem());
+                    }
                 }
             }
         }
@@ -220,6 +230,23 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         }
 
         isReloading = false;
+    }
+    IEnumerator UseItem()
+    {
+        isUsingItem = true;
+        if (orbCount > 0)
+        {
+            //aud.PlayOneShot();
+            CreateOrb();
+            yield return new WaitForSeconds(2);
+            orbCount--;
+        }
+        isUsingItem = false;
+    }
+
+    public void CreateOrb()
+    {
+        Instantiate(OrbWeapon, itemPos.position, transform.rotation);
     }
     void ChangeGun()
     {
