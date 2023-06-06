@@ -95,7 +95,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         }
         move = (transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical"));
         controller.Move(move * Time.deltaTime * speed);
-        futurePos.transform.position = controller.transform.localPosition + move * Time.deltaTime * speed * 3;
+        futurePos.transform.position = controller.transform.localPosition + move * (speed * 0.3f);
         //Jump functionality
         if (Input.GetButtonDown("Jump") && jumped < jumps) //If press jump and haven't jumped more than jumps
         {

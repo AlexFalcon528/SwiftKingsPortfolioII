@@ -34,6 +34,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     Vector3 startingPos;
     float angleToPlayer;
     Vector3 playerDir;
+    Vector3 playerFutureDir;
     Color colorOrig;
     bool destinationChosen;
     float stoppingDistOrig;
@@ -87,6 +88,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     {
 
         playerDir = gameManager.instance.player.transform.position - headPos.position;
+        playerFutureDir = gameManager.instance.pScript.futurePos.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
         Debug.DrawRay(headPos.position, playerDir);
         Debug.Log(angleToPlayer);
@@ -104,13 +106,12 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
                     else
                     {
                         agent.stoppingDistance = stoppingDistOrig;
-                        agent.SetDestination(gameManager.instance.player.transform.position);
+                        agent.SetDestination(gameManager.instance.pScript.futurePos.transform.position);
                     }
-                    FacePlayer();
-                    //if (agent.remainingDistance <= agent.stoppingDistance)
-                    //{
-                    //    FacePlayer();
-                    //}
+                    if (agent.remainingDistance <= agent.stoppingDistance)
+                    {
+                        FacePlayer();
+                    }
                     if (!isShooting) //&& angleToPlayer <= shootAngle)
                     {
                         StartCoroutine(Shoot());
@@ -126,9 +127,8 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     }
     void FacePlayer() //turn to player function
     {
-
-        //Quaternion rot = Quaternion.LookRotation(new Vector3 (playerDir.x, 0, playerDir.y));
-        Quaternion rot = Quaternion.LookRotation(gameManager.instance.pScript.futurePos.transform.localPosition);
+        Quaternion rot = Quaternion.LookRotation(new Vector3(playerFutureDir.x, 0, playerFutureDir.z));
+        //Quaternion rot = Quaternion.LookRotation(new Vector3(gameManager.instance.pScript.futurePos.transform.position.x, 0, gameManager.instance.pScript.futurePos.transform.position.y));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * turnSpeed);
     }
     public void TakeDamage(int dmg)
@@ -212,7 +212,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
         yield return new WaitForSeconds(retreatTime);//how long the enemy will continue retreating for
 
         agent.stoppingDistance = stoppingDistOrig;
-        agent.SetDestination(gameManager.instance.player.transform.position);
+        agent.SetDestination(gameManager.instance.pScript.transform.position);
         isRetreating = false;//stops the retreat
     }
 
