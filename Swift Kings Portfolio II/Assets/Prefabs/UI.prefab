@@ -9963,7 +9963,9 @@ MonoBehaviour:
   audBack: {fileID: 8300000, guid: 1786b9b22eec41246876c079706a1676, type: 3}
   audMenu: {fileID: 8300000, guid: aad135df355c91643b35dae855382ec7, type: 3}
   audGame:
+  - {fileID: 8300000, guid: 9650230b156236a4eb1f0f6586234197, type: 3}
   - {fileID: 8300000, guid: 9a8e75b053a25d24bb969d69561e1410, type: 3}
+  - {fileID: 8300000, guid: 8613762c8cb9c014b937199734931ac2, type: 3}
   audSFXVol: 1
   audMusicVol: 0.5
 --- !u!1 &8971861434485130076
