@@ -45,10 +45,28 @@ public class btnFunctions : MonoBehaviour {
     }
 
     public void PlayElminate() {
+        menuManager.instance.OpenEliminateLvls();
+    }
+
+    public void EliminateLvl1() {
         StartCoroutine(SceneTransition("SampleScene")); // Load the Sample Scene (Elminate All Enmies Gamemode)
     }
 
+    public void EliminateLvl2() {
+        StartCoroutine(SceneTransition("SampleScene")); // Load the Sample Scene (Elminate All Enmies Gamemode)
+    }
+
+
+    public void EliminateLvl3() {
+        StartCoroutine(SceneTransition("SampleScene")); // Load the Sample Scene (Elminate All Enmies Gamemode)
+    }
+
+
     public void PlaySurvive() {
+        menuManager.instance.OpenSurvivalLvls();
+    }
+
+    public void SurviveForestMaze() {
         StartCoroutine(SceneTransition("Survive")); // Load the Sample Scene (Survive Waves of Enemies Gamemode)
         gameManager.instance.nextWave = true;
     }

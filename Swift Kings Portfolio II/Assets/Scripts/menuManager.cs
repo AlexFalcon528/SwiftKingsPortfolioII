@@ -13,6 +13,8 @@ public class menuManager : MonoBehaviour
     public GameObject activeMenu;
     public GameObject mainMenu;
     public GameObject gamemodesMenu;
+    public GameObject eliminateLvlsMenu;
+    public GameObject surviveLvlsMenu;
     public GameObject optionsMenu;
     public GameObject creditsMenu;
     public GameObject pauseMenu;
@@ -27,6 +29,8 @@ public class menuManager : MonoBehaviour
     [Header("First Selection Options")]
     [SerializeField] private GameObject mainMenuFirst;
     [SerializeField] private GameObject gamemodesFirst;
+    [SerializeField] private GameObject eliminateLvlsFirst;
+    [SerializeField] private GameObject survivalLvlsFirst;
     [SerializeField] private GameObject optionsFirst;
     [SerializeField] private GameObject creditsFirst;
     [SerializeField] private GameObject pauseFirst;
@@ -73,6 +77,8 @@ public class menuManager : MonoBehaviour
         mainMenu.SetActive(false);
         //optionsMenu.SetActive(false);
         gamemodesMenu.SetActive(false);
+        surviveLvlsMenu.SetActive(false);
+        eliminateLvlsMenu.SetActive(false);
         //creditsMenu.SetActive(false);
         pauseMenu.SetActive(false);
         loseMenu.SetActive(false);
@@ -109,6 +115,15 @@ public class menuManager : MonoBehaviour
     public void OpenGamemodes() {
         OpenMenu(gamemodesMenu, gamemodesFirst);
     }
+
+    public void OpenEliminateLvls() {
+        OpenMenu(eliminateLvlsMenu, eliminateLvlsFirst);
+    }
+
+    public void OpenSurvivalLvls() {
+        OpenMenu(surviveLvlsMenu, survivalLvlsFirst);
+    }
+    
 
     /*
      * Screen Transitions
