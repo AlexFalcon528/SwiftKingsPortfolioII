@@ -131,6 +131,20 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
         //Quaternion rot = Quaternion.LookRotation(new Vector3(gameManager.instance.pScript.futurePos.transform.position.x, 0, gameManager.instance.pScript.futurePos.transform.position.y));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * turnSpeed);
     }
+    public void TakePushBack(Vector3 dir)
+    {
+        StartCoroutine(push(dir));
+    }
+
+    IEnumerator push(Vector3 direction)
+    {
+        rb.isKinematic = false;
+        agent.enabled = false;
+        rb.velocity = direction;
+        yield return new WaitForSeconds(0.3f);
+        rb.isKinematic = true;
+        agent.enabled = true;
+    }
     public void TakeDamage(int dmg)
     {
         hp -= dmg;
@@ -150,20 +164,6 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
             agent.SetDestination(gameManager.instance.player.transform.position);
             StartCoroutine(DamageColor());
         }
-    }
-    public void TakePushBack(Vector3 dir)
-    {
-        StartCoroutine(push(dir));
-    }
-    
-    IEnumerator push(Vector3 direction)
-    {
-        rb.isKinematic = false;
-        agent.enabled = false;
-        rb.velocity = direction;
-        yield return new WaitForSeconds(0.3f);
-        rb.isKinematic = true;
-        agent.enabled = true;
     }
     IEnumerator DamageColor()//enemy blinks red when they take damage
     {

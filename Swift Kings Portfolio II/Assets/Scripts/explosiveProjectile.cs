@@ -20,16 +20,16 @@ public class explosiveProjectile : MonoBehaviour
    
     private void OnTriggerEnter(Collider other)
     {
-        IDamage damageable = other.GetComponent<IDamage>();
-        if (damageable != null)
-        {
-            damageable.TakeDamage(dmg);
-        }
         IPhysics physicsable = other.GetComponent<IPhysics>();
         if (physicsable != null)
         {
             Vector3 dir = other.transform.position - transform.position;
             physicsable.TakePushBack(dir * pushbackAmount);
+        }
+        IDamage damageable = other.GetComponent<IDamage>();
+        if (damageable != null)
+        {
+            damageable.TakeDamage(dmg);
         }
         Instantiate(particleExplosion, rb.position, rb.rotation);
             Destroy(gameObject);

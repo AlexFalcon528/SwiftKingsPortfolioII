@@ -246,7 +246,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
 
     public void CreateOrb()
     {
-        Instantiate(OrbWeapon, itemPos.position, transform.rotation);
+        Instantiate(OrbWeapon, itemPos.position, Camera.main.transform.rotation);
     }
     void ChangeGun()
     {
