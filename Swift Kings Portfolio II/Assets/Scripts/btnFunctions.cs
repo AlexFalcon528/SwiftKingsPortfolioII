@@ -31,7 +31,6 @@ public class btnFunctions : MonoBehaviour {
     public void Respawn() {
         gameManager.instance.UnpauseState(); // Unpause the game
         gameManager.instance.pScript.SpawnPlayer(); // Spawn the player through the player controller
-        gameManager.instance.isPaused = false;
     }
 
     public void Exit() {

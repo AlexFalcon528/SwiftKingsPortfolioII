@@ -278,7 +278,10 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         if (hp <= 0)//If hp is less than or = to 0
         {
             gameManager.instance.HighHealth();
-            if(!gameManager.instance.isPaused) gameManager.instance.YouLose(); //Lose the game
+            if (!gameManager.instance.isDead) {
+                gameManager.instance.isDead = true;
+                gameManager.instance.YouLose(); //Lose the game
+            }
         }
         else {StartCoroutine(DamageFlash());
     }
@@ -297,6 +300,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         controller.enabled = true; //Reenable controller to allow for the movement functions to work
         hp = hpOriginal; //Reset the player's hp to the original amount
         UpdateUI(); // Update the UI since variables updated
+        gameManager.instance.isDead = false;
     }
     public void HealPlayer(int amount)
     {

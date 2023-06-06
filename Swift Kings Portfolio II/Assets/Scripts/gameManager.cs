@@ -14,6 +14,7 @@ public class gameManager : MonoBehaviour
     public Camera mCamera;
     public playerController pScript;
     public GameObject spawnPoint;
+    public bool isDead = false;
 
     [Header("~~~~~~~User Interface~~~~~~~")]
     private float origTimeScale = 1;
@@ -105,6 +106,7 @@ public class gameManager : MonoBehaviour
         Cursor.visible = false; // Relock mouse and make it invisible
         Cursor.lockState = CursorLockMode.Locked;
         menuManager.instance.DeactiveAllMenus();
+        isPaused = false;
     }
 
     public void HandleReturnMenu() {
