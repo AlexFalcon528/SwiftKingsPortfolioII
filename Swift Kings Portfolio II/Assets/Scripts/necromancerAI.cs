@@ -225,5 +225,10 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
             agent.SetDestination(hit.position);
         }
     }
-
+    IEnumerator DamageColor()//enemy blinks red when they take damage
+    {
+        model.material.color = Color.red;
+        yield return new WaitForSeconds(.1f);
+        model.material.color = colorOrig;
+    }
 }
