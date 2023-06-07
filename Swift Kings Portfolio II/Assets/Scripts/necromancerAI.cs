@@ -128,45 +128,7 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
         return false;
 
     }
-    //bool CanSeePlayer()
-    //{
-    //    playerDir = gameManager.instance.player.transform.position - headPos.position;
-    //    angleToPlayer = Vector3.Angle(transform.forward, playerDir);
-    //    Debug.DrawRay(headPos.position, playerDir);
-    //    //Debug.Log(angleToPlayer);
-    //    RaycastHit hit;
-    //    if (Physics.Raycast(headPos.position, playerDir, out hit))
-    //    {
-    //        if (hit.collider.CompareTag("Player") && angleToPlayer <= viewCone)
-    //        {
-    //            agent.stoppingDistance = stoppingDistOrig;
-    //            agent.SetDestination(gameManager.instance.player.transform.position);
-    //            destinationChosen = true;
-    //            if (agent.remainingDistance <= agent.stoppingDistance)
-    //            {
-    //                FacePlayer();
-    //            }
-    //            if(!isSpawning)
-    //            {
-    //                StartCoroutine(spawnMinions());
-    //            }
-    //            
-    //            if (!isShooting && angleToPlayer <= shootAngle)
-    //            {   
-    //                StartCoroutine(shoot());
-    //            }
-    //            return true;
-    //        }
-    //        else
-    //        {
-    //            agent.stoppingDistance = 0;
-    //        }
-    //    }
-    //
-    //
-    //
-    //    return false;
-    //}
+
     IEnumerator DamageColor()//enemy blinks red when they take damage
     {
         model.material.color = Color.red;
