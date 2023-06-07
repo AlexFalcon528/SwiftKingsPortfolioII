@@ -154,6 +154,7 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
             GetComponent<CapsuleCollider>().enabled = false;
             StopAllCoroutines();
             Destroy(gameObject, 30);
+            gameManager.instance.currentScore++;
         }
         else
         {

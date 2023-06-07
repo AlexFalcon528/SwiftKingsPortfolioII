@@ -52,6 +52,8 @@ public class minionAI : MonoBehaviour,IDamage
             gameManager.instance.UpdateMinionsCounter(-1);
             Instantiate(particleExplosion,transform.position,transform.rotation);
             Destroy(gameObject);
+            gameManager.instance.currentScore++;
+            StopAllCoroutines();
         }
         else
         {

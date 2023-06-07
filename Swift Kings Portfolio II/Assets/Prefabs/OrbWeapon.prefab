@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1694889891149592520}
   - component: {fileID: 353186687857348717}
   - component: {fileID: 7003115959241120325}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: OrbWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535214b25dbb4364ca21e3535a57ebd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 1
+  dmg: 10
   speed: 8
   pushbackAmount: 5
   rb: {fileID: 7003115959241120325}

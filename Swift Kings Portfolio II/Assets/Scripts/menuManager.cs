@@ -57,7 +57,7 @@ public class menuManager : MonoBehaviour
     * Update
     */
     void Update() {
-        if (inputManager.instance.MenuOpenInput && !fadeBlackObj.activeSelf) {
+        if (inputManager.instance.MenuOpenInput && !fadeBlackObj.activeSelf && activeMenu != loseMenu) {
             if (!gameManager.instance.isPaused) {
                 gameManager.instance.PauseState();
                 OpenPause();
@@ -101,6 +101,7 @@ public class menuManager : MonoBehaviour
     }
 
     public void OpenLose() {
+
         OpenMenu(loseMenu, loseFirst);
     }
 

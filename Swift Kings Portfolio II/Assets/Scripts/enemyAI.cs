@@ -151,12 +151,13 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
         if (hp <= 0)
         {
 
-            StopAllCoroutines();
             gameManager.instance.UpdateGameGoal(-1);
             anim.SetBool("Dead", true);
             agent.enabled = false;
+            StopAllCoroutines();
             GetComponent<CapsuleCollider>().enabled = false;
             Destroy(gameObject, 10);
+            gameManager.instance.currentScore++;
         }
         else
         {

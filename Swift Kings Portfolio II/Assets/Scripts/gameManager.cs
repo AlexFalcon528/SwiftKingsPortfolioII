@@ -33,6 +33,8 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI heldAmmo;
     public bool isPaused;
     public int enemiesRemaining;
+    public int highScore;
+    public int currentScore;
     [Header("\n~~~~~~~~Gameplay~~~~~~~~~~~")]
     public int wave;
     [SerializeField] int finalWave;
@@ -47,7 +49,7 @@ public class gameManager : MonoBehaviour
         instance = this; //Only one instance of singleton
         player = GameObject.FindWithTag("Player"); //Find player
         spawnPoint = GameObject.FindWithTag("Spawnpoint"); //Find spawnpoint
-
+        
         if (SceneManager.GetActiveScene().name != "LandingScene") {
             mCamera = player.gameObject.GetComponent<Camera>();
             pScript = player.GetComponent<playerController>();
@@ -57,6 +59,15 @@ public class gameManager : MonoBehaviour
     }
 
     private void Start() {
+        if (SceneManager.GetActiveScene().name == "SampleScene")
+        {
+            highScore = PlayerPrefs.GetInt("HighScore");
+        }
+        else if (SceneManager.GetActiveScene().name == "Survive")
+        {
+            highScore = PlayerPrefs.GetInt("SurviveHighScore");
+        }
+
         StartCoroutine(menuManager.instance.WaitToUnfade());
         // Start Menu Music if on Main Menu
         if (SceneManager.GetActiveScene().name == "LandingScene")
@@ -121,6 +132,18 @@ public class gameManager : MonoBehaviour
      */
     public void YouLose() {
         PauseState(); //Pause
+        if (highScore < currentScore)
+        {
+            highScore = currentScore;
+            if (SceneManager.GetActiveScene().name == "SampleScene")
+            {
+                PlayerPrefs.SetInt("HighScore",highScore);
+            }
+            else if (SceneManager.GetActiveScene().name == "Survive")
+            {
+                PlayerPrefs.SetInt("SurviveHighScore",highScore);
+            }
+        }
         menuManager.instance.OpenLose();
     }
 
