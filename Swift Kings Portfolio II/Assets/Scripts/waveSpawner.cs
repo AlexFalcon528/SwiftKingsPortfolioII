@@ -20,6 +20,7 @@ public class waveSpawner : MonoBehaviour
     void Start()
     {
         // gameManager.instance.UpdateGameGoal(numberToSpawn); //update goal for non-wave
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -55,6 +56,7 @@ public class waveSpawner : MonoBehaviour
             gameManager.instance.nextWave = false;
             numberSpawned = 0;
         }
+        
     }
    
 
