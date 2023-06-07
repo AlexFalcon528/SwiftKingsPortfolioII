@@ -40,7 +40,6 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     float stoppingDistOrig;
     float speed;
     float retreatDistance;
-    int viewConeOrig;
     void Start()
     {
         startingPos = transform.position;
@@ -48,8 +47,6 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
         
         stoppingDistOrig = agent.stoppingDistance;
         retreatDistance = stoppingDistOrig - 3;
-
-        viewConeOrig = viewCone;
     }
 
     // Update is called once per frame
@@ -78,7 +75,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
                 StartCoroutine(Roam());
 
             }
-            else if (agent.destination != gameManager.instance.player.transform.position)
+            else if (agent.destination != gameManager.instance.pScript.futurePos.transform.position)
             {
                 StartCoroutine(Roam());
             }
