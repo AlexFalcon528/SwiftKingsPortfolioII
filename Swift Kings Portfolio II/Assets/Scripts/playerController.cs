@@ -115,7 +115,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         }
         move = (transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical"));
         controller.Move(move * Time.deltaTime * speed);
-            futurePos.transform.position = controller.transform.localPosition + move * (speed * 0.3f);
+        futurePos.transform.position = controller.transform.localPosition + move * (speed * 0.3f);
 
         //Jump functionality
         if (!jumpPeak && Input.GetButton("Jump"))  //If press jump and haven't jumped more than jumps
@@ -221,7 +221,6 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
                         physicsable.TakePushBack(dirPush * push);//push them
                     }
                     Instantiate(guns[selectedGun].hitEffect, hit.point, guns[selectedGun].hitEffect.transform.rotation);
-                    damageable.TakeDamage(shootDamage);
                 }
             }
             else
@@ -428,6 +427,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     {
         hp += 5;
         isPoweredUp = true;
+        UpdateUI();
     }
 
     public void powerUpDMG()

@@ -314,7 +314,7 @@ MonoBehaviour:
   shootPos: {fileID: 317449059835509198}
   headPos: {fileID: 3468450349055152742}
   anim: {fileID: 1012194361}
-  rb: {fileID: 1556416054}
+  aud: {fileID: 0}
   hp: 5
   turnSpeed: 300
   shootAngle: 20
@@ -326,6 +326,14 @@ MonoBehaviour:
   animTranSpeed: 20
   projectile: {fileID: 8116298408177600472, guid: beb0e72c0419d584593ba45169d416a5, type: 3}
   fireRate: 0.5
+  audDamage:
+  - {fileID: 8300000, guid: 1cd9fbc4bb2c19749aa2e61afd72aaaa, type: 3}
+  - {fileID: 8300000, guid: faf53b5b59d41a14e97c8858f4664122, type: 3}
+  - {fileID: 8300000, guid: a715ddf00ff7f24469c72404e8df85e9, type: 3}
+  - {fileID: 8300000, guid: e968c6ef8536cba4e98d5c8f4fdb9ccf, type: 3}
+  audDamageVol: 0.5
+  audDeath: {fileID: 8300000, guid: 0e5edb6bccf05984dad128fb1a9fc914, type: 3}
+  audDeathVol: 0.5
 --- !u!195 &-1967139152464445983
 NavMeshAgent:
   m_ObjectHideFlags: 0

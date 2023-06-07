@@ -55,7 +55,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
         
         stoppingDistOrig = agent.stoppingDistance;
         retreatDistance = stoppingDistOrig - 3;
-
+        aud = gameManager.instance.player.GetComponent<AudioSource>();
         viewConeOrig = viewCone;
     }
 
