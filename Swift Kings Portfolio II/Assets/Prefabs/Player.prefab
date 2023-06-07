@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &85568834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 85568835}
+  m_Layer: 0
+  m_Name: ItemPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &85568835
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85568834}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.194, y: 0.3, z: 1.61}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3115329607362736414}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &287517186
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,6 +183,7 @@ Transform:
   - {fileID: 3115329607711537140}
   - {fileID: 655785255}
   - {fileID: 287517187}
+  - {fileID: 85568835}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -170,6 +202,8 @@ MonoBehaviour:
   controller: {fileID: 3115329607362736409}
   aud: {fileID: 86546200}
   futurePos: {fileID: 287517186}
+  itemPos: {fileID: 85568835}
+  OrbWeapon: {fileID: 5226211110920521442, guid: 2b65a4638710d5942b3ffbbec54ca99e, type: 3}
   hp: 20
   speed: 8
   sprintMult: 1.5
@@ -179,6 +213,7 @@ MonoBehaviour:
   pushBackResolve: 3
   guns: []
   heldAmmo: 20
+  orbCount: 5
   shootDist: 500
   shootRate: 0.2
   shootDamage: 4
@@ -190,7 +225,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d40c896f3d4b96b4c9faf39f64627183, type: 3}
   - {fileID: 8300000, guid: 4dcf5e770659d574f867978e18d76441, type: 3}
   - {fileID: 8300000, guid: ac3813d514ba78545893546ee9874c40, type: 3}
-  audJumpVol: 0.5
   audDamage:
   - {fileID: 8300000, guid: 412c4c1191813e4489b50e23325757a7, type: 3}
   - {fileID: 8300000, guid: 44c35e56228510747b714dbb122b377c, type: 3}
@@ -198,7 +232,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 796a91f08a3c9b746a9743d0ea0a4b35, type: 3}
   - {fileID: 8300000, guid: a184cdba9d4be7e458c28012a7deba72, type: 3}
   - {fileID: 8300000, guid: 717a3d1c2ee454e4d946dd9ab6bf3f48, type: 3}
-  audDamageVol: 0.5
   audSteps:
   - {fileID: 8300000, guid: 1c4975ccfd3ee474cb559271e5a79ad6, type: 3}
   - {fileID: 8300000, guid: 38aade5bf2944d745a95193a004398b0, type: 3}
@@ -209,7 +242,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6a7193c2c8a0e614c831eee5f91f93de, type: 3}
   - {fileID: 8300000, guid: 347a196d80db8fa49b8fdf274eba5f4c, type: 3}
   - {fileID: 8300000, guid: 564000d8e3115ef4990c6f9394d94c49, type: 3}
-  audStepsVol: 0.1
   isPoweredUp: 0
 --- !u!33 &3115329607362736412
 MeshFilter:
