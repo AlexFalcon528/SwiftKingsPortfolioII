@@ -269,8 +269,9 @@ GameObject:
   - component: {fileID: -1967139152464445983}
   - component: {fileID: 8735280440587374108}
   - component: {fileID: 3978132503349809851}
-  - component: {fileID: 808962563}
   - component: {fileID: 1012194361}
+  - component: {fileID: 1556416054}
+  - component: {fileID: 1556416062}
   m_Layer: 6
   m_Name: Normal Enemy
   m_TagString: Untagged
@@ -313,12 +314,15 @@ MonoBehaviour:
   shootPos: {fileID: 317449059835509198}
   headPos: {fileID: 3468450349055152742}
   anim: {fileID: 1012194361}
-  hp: 10
+  rb: {fileID: 1556416054}
+  hp: 5
   turnSpeed: 300
   shootAngle: 20
   viewCone: 85
   roamDistance: 10
   roamPauseTime: 1
+  retreatTime: 2
+  runAwayDistance: 20
   animTranSpeed: 20
   projectile: {fileID: 8116298408177600472, guid: beb0e72c0419d584593ba45169d416a5, type: 3}
   fireRate: 0.5
@@ -332,11 +336,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 5
   m_Acceleration: 50
   avoidancePriority: 50
   m_AngularSpeed: 600
-  m_StoppingDistance: 8
+  m_StoppingDistance: 10
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
@@ -366,19 +370,6 @@ CapsuleCollider:
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &808962563
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3751976072310950100}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 40
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &1012194361
 Animator:
   serializedVersion: 5
@@ -400,6 +391,35 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!54 &1556416054
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3751976072310950100}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0.51
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 2
+--- !u!135 &1556416062
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3751976072310950100}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 20
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3970188395652028483
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,7 +507,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4317111447499827234}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.21, z: -0}
+  m_LocalPosition: {x: 11.75, y: 1.21, z: 17.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

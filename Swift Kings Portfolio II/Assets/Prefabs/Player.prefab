@@ -137,18 +137,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 3115329607362736409}
   aud: {fileID: 86546200}
-  hp: 10
-  speed: 3
+  futurePos: {fileID: 3115329607362736408}
+  hp: 20
+  speed: 8
   sprintMult: 1.5
   jumpHeight: 5
   gravity: 9
-  jumps: 2
+  jumps: 1
   pushBackResolve: 3
   guns: []
+  heldAmmo: 20
   shootDist: 500
   shootRate: 0.2
   shootDamage: 4
-  push: 0
+  push: 1
   gunModel: {fileID: 4046358777234627150}
   gunMat: {fileID: 2288807826283982468}
   selectedGun: 0
@@ -157,8 +159,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4dcf5e770659d574f867978e18d76441, type: 3}
   - {fileID: 8300000, guid: ac3813d514ba78545893546ee9874c40, type: 3}
   audJumpVol: 0.5
-  audDamage: []
-  audDamageVol: 0
+  audDamage:
+  - {fileID: 8300000, guid: 412c4c1191813e4489b50e23325757a7, type: 3}
+  - {fileID: 8300000, guid: 44c35e56228510747b714dbb122b377c, type: 3}
+  - {fileID: 8300000, guid: 4f064509cf937c0428174ff807e00ce2, type: 3}
+  - {fileID: 8300000, guid: 796a91f08a3c9b746a9743d0ea0a4b35, type: 3}
+  - {fileID: 8300000, guid: a184cdba9d4be7e458c28012a7deba72, type: 3}
+  - {fileID: 8300000, guid: 717a3d1c2ee454e4d946dd9ab6bf3f48, type: 3}
+  audDamageVol: 0.5
   audSteps:
   - {fileID: 8300000, guid: 1c4975ccfd3ee474cb559271e5a79ad6, type: 3}
   - {fileID: 8300000, guid: 38aade5bf2944d745a95193a004398b0, type: 3}
@@ -232,7 +240,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 2.25
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &3115329607362736409
@@ -247,7 +255,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 2
-  m_Radius: 0.5
+  m_Radius: 0.6
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08

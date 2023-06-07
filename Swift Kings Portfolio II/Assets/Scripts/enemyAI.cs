@@ -11,13 +11,17 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     [SerializeField] Transform shootPos;
     [SerializeField] Transform headPos;
     [SerializeField] Animator anim;
+    [SerializeField] Rigidbody rb;
+
     [Header("\n-----Enemy Stats------")]
     [Range(1, 100)] [SerializeField] int hp;
     [SerializeField] int turnSpeed;
     [SerializeField] int shootAngle;
-    [SerializeField]float viewCone;
+    [SerializeField] int viewCone;
     [SerializeField] int roamDistance;
     [SerializeField] int roamPauseTime;
+    [SerializeField] float retreatTime;//how long enemies will retreat for
+    [SerializeField] int runAwayDistance;//how far the enmemy will runaway
     [SerializeField] float animTranSpeed;
 
     [Header("\n-----Enemy Weapon------")]
@@ -26,19 +30,26 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
 
     bool isShooting;
     bool playerInRange;
+    bool isRetreating;
     Vector3 startingPos;
     float angleToPlayer;
     Vector3 playerDir;
+    Vector3 playerFutureDir;
     Color colorOrig;
     bool destinationChosen;
     float stoppingDistOrig;
     float speed;
+    float retreatDistance;
+    int viewConeOrig;
     void Start()
     {
         startingPos = transform.position;
         colorOrig = model.material.color;
         
         stoppingDistOrig = agent.stoppingDistance;
+        retreatDistance = stoppingDistOrig - 3;
+
+        viewConeOrig = viewCone;
     }
 
     // Update is called once per frame
@@ -77,40 +88,47 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     {
 
         playerDir = gameManager.instance.player.transform.position - headPos.position;
-        angleToPlayer = Vector3.Angle(playerDir, transform.forward);
+        playerFutureDir = gameManager.instance.pScript.futurePos.transform.position - headPos.position;
+        angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
         Debug.DrawRay(headPos.position, playerDir);
-        Debug.Log(angleToPlayer);
+        // Debug.Log(angleToPlayer);
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit))
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewCone)
             {
-                agent.stoppingDistance = stoppingDistOrig;
-                agent.SetDestination(gameManager.instance.player.transform.position);
-                destinationChosen = true;
-                if (agent.remainingDistance <= agent.stoppingDistance)
+                if (!isRetreating)//makes sure enemy isn't retreating
                 {
-                    FacePlayer();
+                    if (agent.remainingDistance <= retreatDistance) //checks to see if agent needs to retreating
+                    {
+                        StartCoroutine(Retreat(transform.position - (playerDir.normalized * runAwayDistance), retreatTime));//starts retreating away from player = to retreat distance for however long it's scared
+                    }
+                    else
+                    {
+                        agent.stoppingDistance = stoppingDistOrig;
+                        agent.SetDestination(gameManager.instance.pScript.futurePos.transform.position);
+                    }
+                    if (agent.remainingDistance <= agent.stoppingDistance)
+                    {
+                        FacePlayer();
+                    }
+                    if (!isShooting) //&& angleToPlayer <= shootAngle)
+                    {
+                        StartCoroutine(Shoot());
+                    }
                 }
-                if (!isShooting && angleToPlayer <= shootAngle)
-                { StartCoroutine(Shoot()); }
                 return true;
             }
-            else
-            {
-                agent.stoppingDistance = 0;
-            }
         }
+        agent.stoppingDistance = 0;
+
         return false;
-
-
-
-       
+    
     }
     void FacePlayer() //turn to player function
     {
-        
-        Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
+        Quaternion rot = Quaternion.LookRotation(new Vector3(playerFutureDir.x, 0, playerFutureDir.z));
+        //Quaternion rot = Quaternion.LookRotation(new Vector3(gameManager.instance.pScript.futurePos.transform.position.x, 0, gameManager.instance.pScript.futurePos.transform.position.y));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * turnSpeed);
     }
     public void TakeDamage(int dmg)
@@ -119,23 +137,33 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
         if (hp <= 0)
         {
 
+            StopAllCoroutines();
             gameManager.instance.UpdateGameGoal(-1);
             anim.SetBool("Dead", true);
             agent.enabled = false;
             GetComponent<CapsuleCollider>().enabled = false;
+            Destroy(gameObject, 10);
         }
         else
         {
             anim.SetTrigger("Damage");
-            
             agent.SetDestination(gameManager.instance.player.transform.position);
-            playerInRange = true;
             StartCoroutine(DamageColor());
         }
     }
     public void TakePushBack(Vector3 dir)
     {
-        agent.velocity += dir;//enemy gets pushed by our shots
+        StartCoroutine(push(dir));
+    }
+    
+    IEnumerator push(Vector3 direction)
+    {
+        rb.isKinematic = false;
+        agent.enabled = false;
+        rb.velocity = direction;
+        yield return new WaitForSeconds(0.3f);
+        rb.isKinematic = true;
+        agent.enabled = true;
     }
     IEnumerator DamageColor()//enemy blinks red when they take damage
     {
@@ -147,7 +175,6 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     {
         if (other.CompareTag("Player"))
         {
-            agent.stoppingDistance = stoppingDistOrig;
             playerInRange = true;//lets enemy know player is in range
         }
     } private void OnTriggerExit(Collider other)
@@ -176,4 +203,17 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
             agent.SetDestination(hit.position);
         }
     }
+    IEnumerator Retreat(Vector3 retreatPos, float retreatTime)//takes in the position to retreat to and for how long
+    {
+        isRetreating = true;//sets retreating to true
+        agent.stoppingDistance = 0;
+        agent.SetDestination(retreatPos);//Sets agent position to the desired retreat location
+
+        yield return new WaitForSeconds(retreatTime);//how long the enemy will continue retreating for
+
+        agent.stoppingDistance = stoppingDistOrig;
+        agent.SetDestination(gameManager.instance.pScript.transform.position);
+        isRetreating = false;//stops the retreat
+    }
+
 }

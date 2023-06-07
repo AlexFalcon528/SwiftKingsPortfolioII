@@ -8,6 +8,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [Header("~~~~~~~Components~~~~~~~")]
     [SerializeField] CharacterController controller;
     [SerializeField] AudioSource aud;
+    [SerializeField] public GameObject futurePos;
     [Header("\n~~~~~~~Stats~~~~~~~")]
     [Header("~~~Player~~~")]
     [SerializeField] int hp;
@@ -19,6 +20,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [SerializeField] float pushBackResolve;
     [Header("\n~~~Weapon~~~")]
     public List<gunStats> guns = new List<gunStats>();
+    [SerializeField] int heldAmmo;
     [SerializeField] int shootDist;
     [SerializeField] float shootRate;
     [SerializeField] int shootDamage;
@@ -58,17 +60,17 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     void Update()
     {
         Sprint(); //Find out if the player is sprinting
-        if (gameManager.instance.activeMenu == null)
+        if (menuManager.instance.activeMenu == null)
         {
             Movement(); //Move player
             ChangeGun();
-            if (gameManager.instance.activeMenu == null)
+            if (menuManager.instance.activeMenu == null)
             {
                 if (guns.Count > 0 && Input.GetButton("Shoot") && !isShooting && !isReloading) //If the player is pressing the shoot button and not already shooting
                 {
                     StartCoroutine(Shoot());
                 }
-                if (guns.Count > 0 && Input.GetButton("Reload") && !isReloading && !isShooting)
+                if (guns.Count > 0 && Input.GetButton("Reload") && !isReloading && !isShooting && heldAmmo >0)
                 {
                     StartCoroutine(Reload());
                 }
@@ -93,7 +95,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         }
         move = (transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical"));
         controller.Move(move * Time.deltaTime * speed);
-
+        futurePos.transform.position = controller.transform.localPosition + move * (speed * 0.3f);
         //Jump functionality
         if (Input.GetButtonDown("Jump") && jumped < jumps) //If press jump and haven't jumped more than jumps
         {
@@ -107,7 +109,12 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         controller.Move((velocity + pushBack) * Time.deltaTime);
         pushBack = Vector3.Lerp(pushBack, Vector3.zero, Time.deltaTime * pushBackResolve);
     }
-
+    IEnumerator DamageFlash()
+    {
+        menuManager.instance.damageFlash.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        menuManager.instance.damageFlash.SetActive(false);
+    }
     void Sprint()
     {
         //If holding down sprint button
@@ -147,6 +154,11 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         selectedGun = guns.Count - 1;
         UpdateUI();
     }
+    public void ammoPickup(int ammo)
+    {
+        heldAmmo += ammo;
+        UpdateUI();
+    }
 
     IEnumerator Shoot()
     {
@@ -167,12 +179,12 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
                 {
                     damageable.TakeDamage(shootDamage);
                 }
-                IPhysics physicsable = hit.collider.GetComponent<IPhysics>();
-                if (physicsable != null)
-                {
-                    Vector3 dirPush = hit.transform.position - transform.position;//push direction
-                    physicsable.TakePushBack(dirPush * push);//push them
-                }
+                //IPhysics physicsable = hit.collider.GetComponent<IPhysics>();
+                //if (physicsable != null)
+                //{
+                //    Vector3 dirPush = hit.transform.position - transform.position;//push direction
+                //    physicsable.TakePushBack(dirPush * push);//push them
+                //}
                 Instantiate(guns[selectedGun].hitEffect, hit.point, guns[selectedGun].hitEffect.transform.rotation);
             }
 
@@ -182,15 +194,20 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         }
         else
         {
-            StartCoroutine(Reload());
+            if (heldAmmo > 0)
+            {
+                StartCoroutine(Reload());
+            }
+            
         }
     }
     IEnumerator Reload()
     {
         isReloading = true;
-        while (guns[selectedGun].currAmmo < guns[selectedGun].maxAmmo)
+        while (guns[selectedGun].currAmmo < guns[selectedGun].maxAmmo && heldAmmo>0)
         {
             guns[selectedGun].currAmmo++;
+            heldAmmo--;
             if (guns[selectedGun].currAmmo == guns[selectedGun].maxAmmo)
             {
                 aud.PlayOneShot(guns[selectedGun].reloadOverAud, guns[selectedGun].reloadOverAudVol);
@@ -250,10 +267,24 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     public void TakeDamage(int dmg)
     {
         hp -= dmg;//Subtract damage taken
-        if(hp <= 0)//If hp is less than or = to 0
+        if(hp <= hpOriginal * 0.3)
         {
-            gameManager.instance.YouLose(); //Lose the game
+            gameManager.instance.LowHealth();
         }
+        else
+        {
+            gameManager.instance.HighHealth();
+        }
+        if (hp <= 0)//If hp is less than or = to 0
+        {
+            gameManager.instance.HighHealth();
+            if (!gameManager.instance.isDead) {
+                gameManager.instance.isDead = true;
+                gameManager.instance.YouLose(); //Lose the game
+            }
+        }
+        else {StartCoroutine(DamageFlash());
+    }
         UpdateUI();
     }
     public void TakePushBack(Vector3 dir)
@@ -269,6 +300,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         controller.enabled = true; //Reenable controller to allow for the movement functions to work
         hp = hpOriginal; //Reset the player's hp to the original amount
         UpdateUI(); // Update the UI since variables updated
+        gameManager.instance.isDead = false;
     }
     public void HealPlayer(int amount)
     {
@@ -279,6 +311,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     void UpdateUI() {
         gameManager.instance.Healthbar.fillAmount = (float)hp / hpOriginal; // Set Healthbar fill to the amount of hp compared to original
         gameManager.instance.healthBarText.text = hp.ToString(); // numerical display of hp
+        gameManager.instance.heldAmmo.text = $"{heldAmmo}";
 
         // Update Weapon Ammo Display
         
@@ -286,7 +319,10 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
             gameManager.instance.weaponAmmoText.text = $"{guns[selectedGun].currAmmo} / {guns[selectedGun].maxAmmo}";
         
      }
-
+    public Vector3 getVelocity()
+    {
+        return controller.velocity;
+    }
 
     public void powerUpSpeed()
     {

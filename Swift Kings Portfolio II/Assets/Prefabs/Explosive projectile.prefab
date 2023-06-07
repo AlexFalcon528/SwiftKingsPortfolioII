@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535214b25dbb4364ca21e3535a57ebd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 2
+  dmg: 1
   speed: 100
   pushbackAmount: 5
   rb: {fileID: 8116298408177600474}
