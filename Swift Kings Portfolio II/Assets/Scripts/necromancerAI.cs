@@ -21,6 +21,9 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
     [SerializeField] float animTranSpeed;
     [SerializeField] int roamDistance;
     [SerializeField] int roamPauseTime;
+    [SerializeField] float retreatTime;//how long enemies will retreat for
+    [SerializeField] int runAwayDistance;//how far the enmemy will runaway
+    [Range(1, 5)][SerializeField] int spawnLimit;
     [Header("\n-----Enemy Weapon------")]
     
     [SerializeField] GameObject minions;
@@ -31,27 +34,33 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
     
     bool isShooting;
     bool isSpawning;
+    bool isRetreating;
     bool playerInRange;
  
     float angleToPlayer;
     Vector3 playerDir;
+    Vector3 playerFutureDir;
     Vector3 startingPos;
     Color colorOrig;
     bool destinationChosen;
     float stoppingDistOrig;
     float speed;
+    float retreatDistance;
+    int numOfMinionsSpawned = 0;
     void Start()
     {
         colorOrig = model.material.color;
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
+        retreatDistance = stoppingDistOrig - 3;
     }
 
     // Update is called once per frame
     IEnumerator spawnMinions()
-    {if (gameManager.instance.numberOfMinions < gameManager.instance.maxNumberOfMinions)
+    {if (gameManager.instance.numberOfMinions < gameManager.instance.maxNumberOfMinions && numOfMinionsSpawned < spawnLimit)
         {
             isSpawning = true;
+            numOfMinionsSpawned++;
             Instantiate(minions, minionSpawnPoint.position, transform.rotation);
             yield return new WaitForSeconds(minionSpawnRate);
             isSpawning = false;
@@ -71,7 +80,7 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
                 StartCoroutine(Roam());
 
             }
-            else if (agent.destination != gameManager.instance.player.transform.position)
+            else if (agent.destination != gameManager.instance.pScript.futurePos.transform.position)
             {
                 StartCoroutine(Roam());
             }
@@ -79,43 +88,50 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
     }
     bool CanSeePlayer()
     {
+
         playerDir = gameManager.instance.player.transform.position - headPos.position;
-        angleToPlayer = Vector3.Angle(transform.forward, playerDir);
+        playerFutureDir = gameManager.instance.pScript.futurePos.transform.position - headPos.position;
+        angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
         Debug.DrawRay(headPos.position, playerDir);
-        //Debug.Log(angleToPlayer);
+        // Debug.Log(angleToPlayer);
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit))
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewCone)
             {
-                agent.stoppingDistance = stoppingDistOrig;
-                agent.SetDestination(gameManager.instance.player.transform.position);
-                destinationChosen = true;
-                if (agent.remainingDistance <= agent.stoppingDistance)
+                if (!isRetreating)//makes sure enemy isn't retreating
                 {
-                    FacePlayer();
-                }
-                if(!isSpawning)
-                {
-                    StartCoroutine(spawnMinions());
-                }
-                
-                if (!isShooting && angleToPlayer <= shootAngle)
-                {   
-                    StartCoroutine(shoot());
+                    if (agent.remainingDistance <= retreatDistance) //checks to see if agent needs to retreating
+                    {
+                        StartCoroutine(Retreat(transform.position - (playerDir.normalized * runAwayDistance), retreatTime));//starts retreating away from player = to retreat distance for however long it's scared
+                    }
+                    else
+                    {
+                        agent.stoppingDistance = stoppingDistOrig;
+                        agent.SetDestination(gameManager.instance.pScript.futurePos.transform.position);
+                    }
+                    if (agent.remainingDistance <= agent.stoppingDistance)
+                    {
+                        FacePlayer();
+                    }
+                    if (!isShooting)
+                    {
+                        StartCoroutine(shoot());
+                    }
+                    if (!isSpawning)
+                    {
+                        StartCoroutine(spawnMinions());
+                    }
                 }
                 return true;
             }
-            else
-            {
-                agent.stoppingDistance = 0;
-            }
         }
-
-
+        agent.stoppingDistance = 0;
 
         return false;
+
     }
+
     IEnumerator DamageColor()//enemy blinks red when they take damage
     {
         model.material.color = Color.red;
@@ -138,7 +154,7 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
     }
     void FacePlayer()
     {
-        Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
+        Quaternion rot = Quaternion.LookRotation(new Vector3(playerFutureDir.x, 0, playerFutureDir.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * turnSpeed);
     }
     public void TakeDamage(int dmg)
@@ -202,6 +218,18 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
 
             agent.SetDestination(hit.position);
         }
+    }
+    IEnumerator Retreat(Vector3 retreatPos, float retreatTime)//takes in the position to retreat to and for how long
+    {
+        isRetreating = true;//sets retreating to true
+        agent.stoppingDistance = 0;
+        agent.SetDestination(retreatPos);//Sets agent position to the desired retreat location
+
+        yield return new WaitForSeconds(retreatTime);//how long the enemy will continue retreating for
+
+        agent.stoppingDistance = stoppingDistOrig;
+        agent.SetDestination(gameManager.instance.pScript.transform.position);
+        isRetreating = false;//stops the retreat
     }
 
 }
