@@ -1,14 +1,9 @@
 fileFormatVersion: 2
 guid: f62f7dc06bd890d4aab43b8fd635fe02
 ModelImporter:
-  serializedVersion: 21300
+  serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: shotgun1
-    second: {fileID: 2100000, guid: 0c24ff3f078566f4d9d83ee8bd6a3f72, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0

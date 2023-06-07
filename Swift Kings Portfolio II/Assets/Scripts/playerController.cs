@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using UnityEngine;
 
 public class playerController : MonoBehaviour, IDamage, IPhysics
@@ -157,6 +158,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
 
         gunModel.mesh = gunStat.model.GetComponent<MeshFilter>().sharedMesh;
         gunMat.material = gunStat.model.GetComponent<MeshRenderer>().sharedMaterial;
+        gunModel.transform.localScale = gunStat.model.transform.localScale;
 
         selectedGun = guns.Count - 1;
         UpdateUI();
@@ -179,20 +181,55 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
             UpdateUI();
 
             RaycastHit hit;
-            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
+            if (!guns[selectedGun].isScatter)
             {
-                IPhysics physicsable = hit.collider.GetComponent<IPhysics>();
-                if (physicsable != null)
+                if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
                 {
-                    Vector3 dirPush = hit.transform.position - transform.position;//push direction
-                    physicsable.TakePushBack(dirPush * push);//push them
+                    IDamage damageable = hit.collider.GetComponent<IDamage>();
+                    if (damageable != null)
+                    {
+                        damageable.TakeDamage(shootDamage);
+                    }
+                    IPhysics physicsable = hit.collider.GetComponent<IPhysics>();
+                    if (physicsable != null)
+                    {
+                        Vector3 dirPush = hit.transform.position - transform.position;//push direction
+                        physicsable.TakePushBack(dirPush * push);//push them
+                    }
+                    Instantiate(guns[selectedGun].hitEffect, hit.point, guns[selectedGun].hitEffect.transform.rotation);
                 }
-                IDamage damageable = hit.collider.GetComponent<IDamage>();
-                if (damageable != null)
+            }
+            else
+            {
+                Vector3 aimDirection = Camera.main.gameObject.transform.forward;
+                Vector3 spread = Vector3.zero;
+                for (int i = 0; i <= 4; i++)
                 {
-                    damageable.TakeDamage(shootDamage);
+                    aimDirection = Camera.main.gameObject.transform.forward;
+                    spread += Vector3.up*Random.Range(-1f, 1f);
+                    spread += Vector3.right * Random.Range(-1f, 1f);
+                    aimDirection += spread.normalized * Random.Range(0, 0.3f);
+                    if (Physics.Raycast(Camera.main.gameObject.transform.position, aimDirection, out hit, shootDist))
+                    {
+                        //UnityEngine.Debug.DrawLine(Camera.main.gameObject.transform.position, hit.point, Color.green, 1f);
+                        IDamage damageable = hit.collider.GetComponent<IDamage>();
+                        if (damageable != null)
+                        {
+                            damageable.TakeDamage(shootDamage);
+                        }
+                        IPhysics physicsable = hit.collider.GetComponent<IPhysics>();
+                        if (physicsable != null)
+                        {
+                            Vector3 dirPush = hit.transform.position - transform.position;//push direction
+                            physicsable.TakePushBack(dirPush * push);//push them
+                        }
+                        Instantiate(guns[selectedGun].hitEffect, hit.point, guns[selectedGun].hitEffect.transform.rotation);
+                    }
+                    /*else
+                    {
+                        UnityEngine.Debug.DrawLine(Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.position + aimDirection*shootDist, Color.red, 1f);
+                    }*/
                 }
-                Instantiate(guns[selectedGun].hitEffect, hit.point, guns[selectedGun].hitEffect.transform.rotation);
             }
 
             yield return new WaitForSeconds(shootRate);
@@ -286,6 +323,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
 
         gunModel.mesh = guns[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
         gunMat.material = guns[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
+        gunModel.transform.localScale = guns[selectedGun].model.transform.localScale;
         UpdateUI();
     }
     public void TakeDamage(int dmg)
