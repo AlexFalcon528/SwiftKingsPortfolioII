@@ -15,12 +15,11 @@ public class btnFunctions : MonoBehaviour {
 
     public void Resume() {
         gameManager.instance.UnpauseState(); // Unpause the Game
-        gameManager.instance.isPaused = false; // Set isPaused to False
     }
 
     public void Restart() {
         StartCoroutine(RestartTransition());
-        Resume(); // Run the Resume Function above
+        gameManager.instance.UnpauseState();
         gameManager.instance.wave = 1;
     }
 
@@ -31,6 +30,7 @@ public class btnFunctions : MonoBehaviour {
 
     public void Respawn() {
         gameManager.instance.UnpauseState(); // Unpause the game
+        gameManager.instance.currentScore = 0;
         gameManager.instance.pScript.SpawnPlayer(); // Spawn the player through the player controller
     }
 
@@ -46,20 +46,38 @@ public class btnFunctions : MonoBehaviour {
     }
 
     public void PlayElminate() {
+        menuManager.instance.OpenEliminateLvls();
+    }
+
+    public void EliminateLvl1() {
         StartCoroutine(SceneTransition("SampleScene")); // Load the Sample Scene (Elminate All Enmies Gamemode)
     }
 
+    public void EliminateLvl2() {
+        StartCoroutine(SceneTransition("SampleScene")); // Load the Sample Scene (Elminate All Enmies Gamemode)
+    }
+
+
+    public void EliminateLvl3() {
+        StartCoroutine(SceneTransition("SampleScene")); // Load the Sample Scene (Elminate All Enmies Gamemode)
+    }
+
+
     public void PlaySurvive() {
+        menuManager.instance.OpenSurvivalLvls();
+    }
+
+    public void SurviveForestMaze() {
         StartCoroutine(SceneTransition("Survive")); // Load the Sample Scene (Survive Waves of Enemies Gamemode)
         gameManager.instance.nextWave = true;
     }
 
     public void Options() {
-        // TODO: Expand for Game Settings (i.e. reticle color)
+        menuManager.instance.OpenOptions();
     }
 
     public void Credits() {
-        // TODO: Expand for Game Credits
+        menuManager.instance.OpenCredits();
     }
 
     public void MainMenuBack() {
@@ -80,6 +98,5 @@ public class btnFunctions : MonoBehaviour {
         StartCoroutine(menuManager.instance.FadeBlack(true));
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
-        StartCoroutine(menuManager.instance.FadeBlack(false));
     }
 }

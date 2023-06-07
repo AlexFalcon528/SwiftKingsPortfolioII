@@ -16,9 +16,11 @@ public class minionAI : MonoBehaviour,IDamage
     [SerializeField] int turnSpeed;
     [Range(.1f, 3f)] [SerializeField] float fireRate;
     [SerializeField] float animTranSpeed;
+
     bool isShooting;
     bool playerInRange;
     Vector3 playerDir;
+    Vector3 playerFutureDir;
     Color colorOrig;
     float speed;
     // Start is called before the first frame update
@@ -32,8 +34,9 @@ public class minionAI : MonoBehaviour,IDamage
     // Update is called once per frame
     void Update()
     {
-        playerDir = gameManager.instance.player.transform.position - transform.position;
-        agent.SetDestination(gameManager.instance.player.transform.position);
+        playerDir = (gameManager.instance.player.transform.position - transform.position).normalized;
+        playerFutureDir = (gameManager.instance.player.transform.position - transform.position).normalized;
+        agent.SetDestination(gameManager.instance.pScript.transform.position);
         speed = Mathf.Lerp(speed, agent.velocity.normalized.magnitude, Time.deltaTime * animTranSpeed);
         anim.SetFloat("Speed", speed);
         FacePlayer();
@@ -52,6 +55,8 @@ public class minionAI : MonoBehaviour,IDamage
             gameManager.instance.UpdateMinionsCounter(-1);
             Instantiate(particleExplosion,transform.position,transform.rotation);
             Destroy(gameObject);
+            gameManager.instance.currentScore++;
+            StopAllCoroutines();
         }
         else
         {

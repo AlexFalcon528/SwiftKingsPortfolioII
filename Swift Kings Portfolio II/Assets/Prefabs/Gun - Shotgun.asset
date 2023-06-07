@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cb62e66522e4924899a53e1d05a24e2, type: 3}
+  m_Name: Gun - Shotgun
+  m_EditorClassIdentifier: 
+  shootDist: 15
+  shootRate: 1
+  shootDamage: 10
+  reloadRate: 2
+  maxAmmo: 4
+  isScatter: 1
+  currAmmo: 0
+  model: {fileID: 2140547202914334512, guid: be41a1eb67b4fc5429b915c24b9e35da, type: 3}
+  hitEffect: {fileID: 6222642400925431900, guid: 28721e2c70f38c04b87deb8bd17f57d1, type: 3}
+  muzzleFlash: {fileID: 1391847458487284, guid: 9bf79f2d846a57440a981c168c87c617, type: 3}
+  gunshotAud: {fileID: 8300000, guid: c09352b684877bf499bbd0cf00744e38, type: 3}
+  gunshotAudVol: 0.5
+  reloadAud: {fileID: 8300000, guid: 92e7aeff88063cd488e45b205887dcfc, type: 3}
+  reloadAudVol: 0.5
+  reloadOverAud: {fileID: 8300000, guid: 0a579fdef1f9f6d4e800a3f984a3a1d0, type: 3}
+  reloadOverAudVol: 0.6

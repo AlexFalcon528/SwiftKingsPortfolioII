@@ -13,6 +13,8 @@ public class menuManager : MonoBehaviour
     public GameObject activeMenu;
     public GameObject mainMenu;
     public GameObject gamemodesMenu;
+    public GameObject eliminateLvlsMenu;
+    public GameObject surviveLvlsMenu;
     public GameObject optionsMenu;
     public GameObject creditsMenu;
     public GameObject pauseMenu;
@@ -22,10 +24,13 @@ public class menuManager : MonoBehaviour
     [Header("Screen Effects")]
     public GameObject fadeBlackObj;
     public GameObject damageFlash;
+    public GameObject lowHealth;
 
     [Header("First Selection Options")]
     [SerializeField] private GameObject mainMenuFirst;
     [SerializeField] private GameObject gamemodesFirst;
+    [SerializeField] private GameObject eliminateLvlsFirst;
+    [SerializeField] private GameObject survivalLvlsFirst;
     [SerializeField] private GameObject optionsFirst;
     [SerializeField] private GameObject creditsFirst;
     [SerializeField] private GameObject pauseFirst;
@@ -52,7 +57,7 @@ public class menuManager : MonoBehaviour
     * Update
     */
     void Update() {
-        if (inputManager.instance.MenuOpenInput) {
+        if (inputManager.instance.MenuOpenInput && !fadeBlackObj.activeSelf && activeMenu != loseMenu) {
             if (!gameManager.instance.isPaused) {
                 gameManager.instance.PauseState();
                 OpenPause();
@@ -70,15 +75,18 @@ public class menuManager : MonoBehaviour
         activeMenu = null;
         EventSystem.current.SetSelectedGameObject(null);
         mainMenu.SetActive(false);
-        //optionsMenu.SetActive(false);
+        optionsMenu.SetActive(false);
         gamemodesMenu.SetActive(false);
-        //creditsMenu.SetActive(false);
+        surviveLvlsMenu.SetActive(false);
+        eliminateLvlsMenu.SetActive(false);
+        creditsMenu.SetActive(false);
         pauseMenu.SetActive(false);
         loseMenu.SetActive(false);
         winMenu.SetActive(false);
 
         // Screen Effects
         damageFlash.SetActive(false);
+        lowHealth.SetActive(false);
     }
 
     private void OpenMenu(GameObject menu, GameObject firstSelected) {
@@ -93,6 +101,7 @@ public class menuManager : MonoBehaviour
     }
 
     public void OpenLose() {
+
         OpenMenu(loseMenu, loseFirst);
     }
 
@@ -106,6 +115,22 @@ public class menuManager : MonoBehaviour
 
     public void OpenGamemodes() {
         OpenMenu(gamemodesMenu, gamemodesFirst);
+    }
+
+    public void OpenEliminateLvls() {
+        OpenMenu(eliminateLvlsMenu, eliminateLvlsFirst);
+    }
+
+    public void OpenSurvivalLvls() {
+        OpenMenu(surviveLvlsMenu, survivalLvlsFirst);
+    }
+
+    public void OpenOptions() {
+        OpenMenu(optionsMenu, optionsFirst);
+    }
+
+    public void OpenCredits() {
+        OpenMenu(creditsMenu, creditsFirst);
     }
 
     /*

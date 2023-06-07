@@ -14,7 +14,7 @@ public class projectile : MonoBehaviour
     void Start()
     {
         Destroy(gameObject, timer);
-        rb.velocity = transform.forward * speed;
+        rb.velocity = (gameManager.instance.pScript.futurePos.transform.position - rb.position).normalized * speed;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,7 +32,5 @@ public class projectile : MonoBehaviour
         }
        
         Destroy(gameObject);
-
-
     }
 }

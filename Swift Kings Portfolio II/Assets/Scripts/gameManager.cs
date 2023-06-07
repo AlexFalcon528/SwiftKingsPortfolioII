@@ -14,9 +14,11 @@ public class gameManager : MonoBehaviour
     public Camera mCamera;
     public playerController pScript;
     public GameObject spawnPoint;
+    public bool isDead = false;
 
     [Header("~~~~~~~User Interface~~~~~~~")]
-    private float origTimeScale;
+    private float origTimeScale = 1;
+    private float timescale;
 
     [SerializeField] GameObject lowHealthIndicator;
     public GameObject reticle;
@@ -31,6 +33,8 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI heldAmmo;
     public bool isPaused;
     public int enemiesRemaining;
+    public int highScore;
+    public int currentScore;
     [Header("\n~~~~~~~~Gameplay~~~~~~~~~~~")]
     public int wave;
     [SerializeField] int finalWave;
@@ -45,7 +49,7 @@ public class gameManager : MonoBehaviour
         instance = this; //Only one instance of singleton
         player = GameObject.FindWithTag("Player"); //Find player
         spawnPoint = GameObject.FindWithTag("Spawnpoint"); //Find spawnpoint
-
+        
         if (SceneManager.GetActiveScene().name != "LandingScene") {
             mCamera = player.gameObject.GetComponent<Camera>();
             pScript = player.GetComponent<playerController>();
@@ -55,13 +59,27 @@ public class gameManager : MonoBehaviour
     }
 
     private void Start() {
+        if (SceneManager.GetActiveScene().name == "SampleScene")
+        {
+            highScore = PlayerPrefs.GetInt("HighScore");
+        }
+        else if (SceneManager.GetActiveScene().name == "Survive")
+        {
+            highScore = PlayerPrefs.GetInt("SurviveHighScore");
+        }
+
         StartCoroutine(menuManager.instance.WaitToUnfade());
         // Start Menu Music if on Main Menu
         if (SceneManager.GetActiveScene().name == "LandingScene")
         {
             audioManager.instance.playMenuMenu();
+        } else {
+            audioManager.instance.playRandomGame();
         }
-        origTimeScale = Time.timeScale;
+    }
+
+    private void Update() {
+        timescale = Time.timeScale;
     }
 
     public void UpdateMinionsCounter(int amount)
@@ -89,20 +107,17 @@ public class gameManager : MonoBehaviour
      */
     public void PauseState() {
         isPaused = true;// Pause
-        origTimeScale = Time.timeScale; // Set current timescale
         Time.timeScale = 0; // Stop physics and time
         Cursor.visible = true; // Make cursor visible but confined within the screen of the game
         Cursor.lockState = CursorLockMode.Confined;
-        // handleGameUI(false); // Disable Gameplay UI Component
     }
 
     public void UnpauseState() {
         Time.timeScale = origTimeScale; // Reset time
         Cursor.visible = false; // Relock mouse and make it invisible
         Cursor.lockState = CursorLockMode.Locked;
-        isPaused = false; // Unpause
         menuManager.instance.DeactiveAllMenus();
-        // handleGameUI(true); // Reactivate Gameplay UI Component
+        isPaused = false;
     }
 
     public void HandleReturnMenu() {
@@ -117,6 +132,18 @@ public class gameManager : MonoBehaviour
      */
     public void YouLose() {
         PauseState(); //Pause
+        if (highScore < currentScore)
+        {
+            highScore = currentScore;
+            if (SceneManager.GetActiveScene().name == "SampleScene")
+            {
+                PlayerPrefs.SetInt("HighScore",highScore);
+            }
+            else if (SceneManager.GetActiveScene().name == "Survive")
+            {
+                PlayerPrefs.SetInt("SurviveHighScore",highScore);
+            }
+        }
         menuManager.instance.OpenLose();
     }
 
@@ -146,7 +173,8 @@ public class gameManager : MonoBehaviour
     }
     public void HighHealth()
     {
-        lowHealthIndicator.SetActive(false);
         StopCoroutine(HeartBeat());
+        lowHealthIndicator.SetActive(false);
+        
     }
 }
