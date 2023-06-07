@@ -181,17 +181,17 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
             {
+                IPhysics physicsable = hit.collider.GetComponent<IPhysics>();
+                if (physicsable != null)
+                {
+                    Vector3 dirPush = hit.transform.position - transform.position;//push direction
+                    physicsable.TakePushBack(dirPush * push);//push them
+                }
                 IDamage damageable = hit.collider.GetComponent<IDamage>();
                 if (damageable != null)
                 {
                     damageable.TakeDamage(shootDamage);
                 }
-                //IPhysics physicsable = hit.collider.GetComponent<IPhysics>();
-                //if (physicsable != null)
-                //{
-                //    Vector3 dirPush = hit.transform.position - transform.position;//push direction
-                //    physicsable.TakePushBack(dirPush * push);//push them
-                //}
                 Instantiate(guns[selectedGun].hitEffect, hit.point, guns[selectedGun].hitEffect.transform.rotation);
             }
 
