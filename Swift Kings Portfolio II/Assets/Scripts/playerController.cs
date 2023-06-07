@@ -32,11 +32,8 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
 
     [Header("----- Audio -----")]
     [SerializeField] AudioClip[] audJump;
-    [SerializeField] [Range(0, 1)] float audJumpVol;
     [SerializeField] AudioClip[] audDamage;
-    [SerializeField] [Range(0, 1)] float audDamageVol;
     [SerializeField] AudioClip[] audSteps;
-    [SerializeField] [Range(0, 1)] float audStepsVol;
 
     int grenadeNum;
     int jumped;
@@ -99,7 +96,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         //Jump functionality
         if (Input.GetButtonDown("Jump") && jumped < jumps) //If press jump and haven't jumped more than jumps
         {
-            aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
+            aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audioManager.instance.audSFXVol);
             jumped++; //Jump
             velocity.y += jumpHeight; //Move up
         }
@@ -133,7 +130,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     IEnumerator playSteps()
     {
         stepIsPlaying = true;
-        aud.PlayOneShot(audSteps[Random.Range(0, audSteps.Length)], audStepsVol);
+        aud.PlayOneShot(audSteps[Random.Range(0, audSteps.Length)], audioManager.instance.audSFXVol);
         if (!isSprinting)
             yield return new WaitForSeconds(0.5f);
         else
@@ -166,7 +163,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         {
             guns[selectedGun].currAmmo--;
 
-            aud.PlayOneShot(guns[selectedGun].gunshotAud, guns[selectedGun].gunshotAudVol);
+            aud.PlayOneShot(guns[selectedGun].gunshotAud, audioManager.instance.audSFXVol);
 
             isShooting = true;
             UpdateUI();
@@ -210,11 +207,11 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
             heldAmmo--;
             if (guns[selectedGun].currAmmo == guns[selectedGun].maxAmmo)
             {
-                aud.PlayOneShot(guns[selectedGun].reloadOverAud, guns[selectedGun].reloadOverAudVol);
+                aud.PlayOneShot(guns[selectedGun].reloadOverAud, audioManager.instance.audSFXVol);
             }
             else
             {
-                aud.PlayOneShot(guns[selectedGun].reloadAud, guns[selectedGun].reloadAudVol);
+                aud.PlayOneShot(guns[selectedGun].reloadAud, audioManager.instance.audSFXVol);
             }
 
             UpdateUI();

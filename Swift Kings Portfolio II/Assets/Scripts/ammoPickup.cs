@@ -15,7 +15,7 @@ public class ammoPickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             gameManager.instance.pScript.ammoPickup(Random.Range(4,15));
-            gameManager.instance.player.GetComponent<AudioSource>().PlayOneShot(pickupSound);
+            gameManager.instance.player.GetComponent<AudioSource>().PlayOneShot(pickupSound, audioManager.instance.audSFXVol);
             Destroy(gameObject);
         }
     }

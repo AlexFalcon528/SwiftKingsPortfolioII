@@ -15,11 +15,8 @@ public class gunStats : ScriptableObject
     public GameObject hitEffect;
     public GameObject muzzleFlash;
     public AudioClip gunshotAud;
-    [Range(0, 1)] public float gunshotAudVol;
     public AudioClip reloadAud;
-    [Range(0, 1)] public float reloadAudVol;
     public AudioClip reloadOverAud;
-    [Range(0, 1)] public float reloadOverAudVol;
     void Start()
     {
         currAmmo = maxAmmo;
