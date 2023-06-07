@@ -233,7 +233,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
                     spread += Vector3.up * UnityEngine.Random.Range(-1f, 1f);
                     spread += Vector3.right * UnityEngine.Random.Range(-1f, 1f);
                     aimDirection += spread.normalized * UnityEngine.Random.Range(0, 0.3f);
-                    if (Physics.Raycast(Camera.main.gameObject.transform.position, aimDirection, out hit, shootDist))
+                    if (Physics.Raycast(Camera.main.gameObject.transform.position + (Camera.main.gameObject.transform.forward * 0.3f), aimDirection, out hit, shootDist))
                     {
                         //UnityEngine.Debug.DrawLine(Camera.main.gameObject.transform.position, hit.point, Color.green, 1f);
                         IDamage damageable = hit.collider.GetComponent<IDamage>();
