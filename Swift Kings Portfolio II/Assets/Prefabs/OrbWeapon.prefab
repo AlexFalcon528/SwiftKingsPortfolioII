@@ -49,8 +49,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535214b25dbb4364ca21e3535a57ebd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 10
-  speed: 8
+  dmg: 1
+  speed: 15
   pushbackAmount: 5
   rb: {fileID: 7003115959241120325}
   timer: 5
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 4839407842521190488}
   - component: {fileID: 848549341521340541}
   - component: {fileID: 5789697933988650011}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
