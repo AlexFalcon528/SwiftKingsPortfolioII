@@ -11,7 +11,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     [SerializeField] Transform shootPos;
     [SerializeField] Transform headPos;
     [SerializeField] Animator anim;
-    [SerializeField] Rigidbody rb;
+    [SerializeField] AudioSource aud;
 
     [Header("\n-----Enemy Stats------")]
     [Range(1, 100)] [SerializeField] int hp;
@@ -28,18 +28,26 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     [SerializeField] GameObject projectile;
     [Range(.1f, 3f)] [SerializeField] float fireRate;
 
+
+    [Header("----- Audio -----")]
+    
+    [SerializeField] AudioClip[] audDamage;
+    [SerializeField] [Range(0, 1)] float audDamageVol;
+    [SerializeField] AudioClip audDeath;
+    [SerializeField] [Range(0, 1)] float audDeathVol;
+
     bool isShooting;
     bool playerInRange;
     bool isRetreating;
     Vector3 startingPos;
     float angleToPlayer;
     Vector3 playerDir;
-    Vector3 playerFutureDir;
     Color colorOrig;
     bool destinationChosen;
     float stoppingDistOrig;
     float speed;
     float retreatDistance;
+    int viewConeOrig;
     void Start()
     {
         startingPos = transform.position;
@@ -47,6 +55,8 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
         
         stoppingDistOrig = agent.stoppingDistance;
         retreatDistance = stoppingDistOrig - 3;
+
+        viewConeOrig = viewCone;
     }
 
     // Update is called once per frame
@@ -75,7 +85,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
                 StartCoroutine(Roam());
 
             }
-            else if (agent.destination != gameManager.instance.pScript.futurePos.transform.position)
+            else if (agent.destination != gameManager.instance.player.transform.position)
             {
                 StartCoroutine(Roam());
             }
@@ -85,10 +95,9 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     {
 
         playerDir = gameManager.instance.player.transform.position - headPos.position;
-        playerFutureDir = gameManager.instance.pScript.futurePos.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
         Debug.DrawRay(headPos.position, playerDir);
-        // Debug.Log(angleToPlayer);
+        Debug.Log(angleToPlayer);
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit))
         {
@@ -103,13 +112,14 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
                     else
                     {
                         agent.stoppingDistance = stoppingDistOrig;
-                        agent.SetDestination(gameManager.instance.pScript.futurePos.transform.position);
+                        agent.SetDestination(gameManager.instance.player.transform.position);
                     }
+
                     if (agent.remainingDistance <= agent.stoppingDistance)
                     {
                         FacePlayer();
                     }
-                    if (!isShooting) //&& angleToPlayer <= shootAngle)
+                    if (!isShooting && angleToPlayer <= shootAngle)
                     {
                         StartCoroutine(Shoot());
                     }
@@ -124,44 +134,61 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     }
     void FacePlayer() //turn to player function
     {
-        Quaternion rot = Quaternion.LookRotation(new Vector3(playerFutureDir.x, 0, playerFutureDir.z));
-        //Quaternion rot = Quaternion.LookRotation(new Vector3(gameManager.instance.pScript.futurePos.transform.position.x, 0, gameManager.instance.pScript.futurePos.transform.position.y));
+        
+        Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * turnSpeed);
     }
-    public void TakePushBack(Vector3 dir)
+    IEnumerator Fade()
     {
-        StartCoroutine(push(dir));
-    }
-
-    IEnumerator push(Vector3 direction)
-    {
-        rb.isKinematic = false;
-        agent.enabled = false;
-        rb.velocity = direction;
-        yield return new WaitForSeconds(0.3f);
-        rb.isKinematic = true;
-        agent.enabled = true;
+        model.material.SetOverrideTag("RenderType", "Transparent");
+        model.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        model.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        model.material.SetInt("_ZWrite", 0);
+        model.material.DisableKeyword("_ALPHATEST_ON");
+        model.material.EnableKeyword("_ALPHABLEND_ON");
+        model.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        model.material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+        for (float fade =1f;fade>=-0.05f;fade-=.0025f)
+        {
+            Color c = model.material.color;
+            c.a = fade;
+            model.material.color = c;
+           yield return new WaitForSeconds(.05f);
+            transform.position += Vector3.down * 0.0025f;
+        }
+        Vector3 inground = new Vector3(transform.position.x, -1, transform.position.z);
+        
+        StopAllCoroutines();
+        Destroy(gameObject);
     }
     public void TakeDamage(int dmg)
     {
         hp -= dmg;
         if (hp <= 0)
         {
-
+            aud.PlayOneShot(audDeath, audDeathVol);
             gameManager.instance.UpdateGameGoal(-1);
             anim.SetBool("Dead", true);
             agent.enabled = false;
             StopAllCoroutines();
             GetComponent<CapsuleCollider>().enabled = false;
-            Destroy(gameObject, 10);
-            gameManager.instance.currentScore++;
+            StartCoroutine(Fade());
+            
+                
+            
         }
         else
         {
             anim.SetTrigger("Damage");
+            aud.PlayOneShot(audDamage[Random.Range(0, audDamage.Length)], audDamageVol);
             agent.SetDestination(gameManager.instance.player.transform.position);
+            playerInRange = true;
             StartCoroutine(DamageColor());
         }
+    }
+    public void TakePushBack(Vector3 dir)
+    {
+        agent.velocity += dir;//enemy gets pushed by our shots
     }
     IEnumerator DamageColor()//enemy blinks red when they take damage
     {
@@ -210,8 +237,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
         yield return new WaitForSeconds(retreatTime);//how long the enemy will continue retreating for
 
         agent.stoppingDistance = stoppingDistOrig;
-        agent.SetDestination(gameManager.instance.pScript.transform.position);
+        agent.SetDestination(gameManager.instance.player.transform.position);
         isRetreating = false;//stops the retreat
     }
-
 }

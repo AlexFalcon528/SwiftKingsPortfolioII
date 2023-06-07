@@ -1,18 +1,16 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class playerController : MonoBehaviour, IDamage, IPhysics
 {
     [Header("~~~~~~~Components~~~~~~~")]
     [SerializeField] CharacterController controller;
     [SerializeField] AudioSource aud;
-    [SerializeField] public GameObject futurePos;
-    [SerializeField] Transform itemPos;
-    [SerializeField] GameObject OrbWeapon;
+    [SerializeField] VisualEffect sprintEffect;
+    
     [Header("\n~~~~~~~Stats~~~~~~~")]
     [Header("~~~Player~~~")]
     [SerializeField] int hp;
@@ -21,12 +19,10 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [SerializeField] float jumpHeight;
     [SerializeField] float gravity;
     [SerializeField] int jumps;
-    [SerializeField][Range(3,9)] float jumpVelocity;
     [SerializeField] float pushBackResolve;
     [Header("\n~~~Weapon~~~")]
     public List<gunStats> guns = new List<gunStats>();
     [SerializeField] int heldAmmo;
-    [SerializeField] int orbCount;
     [SerializeField] int shootDist;
     [SerializeField] float shootRate;
     [SerializeField] int shootDamage;
@@ -38,9 +34,13 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
 
     [Header("----- Audio -----")]
     [SerializeField] AudioClip[] audJump;
+    [SerializeField] [Range(0, 1)] float audJumpVol;
     [SerializeField] AudioClip[] audDamage;
+    [SerializeField] [Range(0, 1)] float audDamageVol;
     [SerializeField] AudioClip[] audSteps;
+    [SerializeField] [Range(0, 1)] float audStepsVol;
 
+    int grenadeNum;
     int jumped;
     Vector3 move;
     Vector3 velocity;
@@ -48,11 +48,9 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     bool isSprinting;
     bool isShooting;
     bool isReloading;
-    bool isUsingItem;
     int hpOriginal;
     bool stepIsPlaying;
     public bool isPoweredUp;
-    bool jumpPeak;
     // Start is called before the first frame update
     void Start()
     {
@@ -70,20 +68,13 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
             ChangeGun();
             if (menuManager.instance.activeMenu == null)
             {
-                if (!isShooting && !isReloading && !isUsingItem)
+                if (guns.Count > 0 && Input.GetButton("Shoot") && !isShooting && !isReloading) //If the player is pressing the shoot button and not already shooting
                 {
-                    if (guns.Count > 0 && Input.GetButton("Shoot")) //If the player is pressing the shoot button and not already shooting
-                    {
-                        StartCoroutine(Shoot());
-                    }
-                    if (guns.Count > 0 && Input.GetButton("Reload") && heldAmmo > 0)
-                    {
-                        StartCoroutine(Reload());
-                    }
-                    if (Input.GetButtonDown("UseItem"))
-                    {
-                        StartCoroutine(UseItem());
-                    }
+                    StartCoroutine(Shoot());
+                }
+                if (guns.Count > 0 && Input.GetButton("Reload") && !isReloading && !isShooting && heldAmmo >0)
+                {
+                    StartCoroutine(Reload());
                 }
             }
         }
@@ -101,28 +92,18 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
             {
                 velocity.y = 0f; //Reset vertical velocity
                 jumped = 0; //Reset times jumped
-                jumpPeak = false;
             }
 
         }
         move = (transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical"));
         controller.Move(move * Time.deltaTime * speed);
-        futurePos.transform.position = controller.transform.localPosition + move * (speed * 0.3f);
-        //Jump functionality
-        if (!jumpPeak && Input.GetButton("Jump")) 
-        {
-            if (Input.GetButtonDown("Jump") && jumped < jumps) //If press jump and haven't jumped more than jumps
-            {
-                aud.PlayOneShot(audJump[UnityEngine.Random.Range(0, audJump.Length)], audioManager.instance.audSFXVol);
-                jumped++; //Jump
-                
-            }
-            if(transform.position.y >= jumpHeight)
-            {
-                jumpPeak = true;
-            }
-            velocity.y = jumpVelocity; //Move up
 
+        //Jump functionality
+        if (Input.GetButtonDown("Jump") && jumped < jumps) //If press jump and haven't jumped more than jumps
+        {
+            aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
+            jumped++; //Jump
+            velocity.y += jumpHeight; //Move up
         }
 
         //Gravity
@@ -143,18 +124,20 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         {
             isSprinting = true; //Sprint
             speed *= sprintMult; //Apply speed multiplier
+            sprintEffect.enabled = true; // turns on sprint effect
         }
         else if (Input.GetButtonUp("Sprint")) //Once sprint button is let go
         {
             isSprinting = false; //Stop sprinting
             speed /= sprintMult; //Unapply speed multiplier
+            sprintEffect.enabled = false;//turns off sprint effect
         }
     }
 
     IEnumerator playSteps()
     {
         stepIsPlaying = true;
-        aud.PlayOneShot(audSteps[UnityEngine.Random.Range(0, audSteps.Length)], audioManager.instance.audSFXVol);
+        aud.PlayOneShot(audSteps[Random.Range(0, audSteps.Length)], audStepsVol);
         if (!isSprinting)
             yield return new WaitForSeconds(0.5f);
         else
@@ -171,7 +154,6 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
 
         gunModel.mesh = gunStat.model.GetComponent<MeshFilter>().sharedMesh;
         gunMat.material = gunStat.model.GetComponent<MeshRenderer>().sharedMaterial;
-        gunModel.transform.localScale = gunStat.model.transform.localScale;
 
         selectedGun = guns.Count - 1;
         UpdateUI();
@@ -188,61 +170,26 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         {
             guns[selectedGun].currAmmo--;
 
-            aud.PlayOneShot(guns[selectedGun].gunshotAud, audioManager.instance.audSFXVol);
+            aud.PlayOneShot(guns[selectedGun].gunshotAud, guns[selectedGun].gunshotAudVol);
 
             isShooting = true;
             UpdateUI();
 
             RaycastHit hit;
-            if (!guns[selectedGun].isScatter)
+            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
             {
-                if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
+                IDamage damageable = hit.collider.GetComponent<IDamage>();
+                if (damageable != null)
                 {
-                    IDamage damageable = hit.collider.GetComponent<IDamage>();
-                    if (damageable != null)
-                    {
-                        damageable.TakeDamage(shootDamage);
-                    }
-                    IPhysics physicsable = hit.collider.GetComponent<IPhysics>();
-                    if (physicsable != null)
-                    {
-                        Vector3 dirPush = hit.transform.position - transform.position;//push direction
-                        physicsable.TakePushBack(dirPush * push);//push them
-                    }
-                    Instantiate(guns[selectedGun].hitEffect, hit.point, guns[selectedGun].hitEffect.transform.rotation);
+                    damageable.TakeDamage(shootDamage);
                 }
-            }
-            else
-            {
-                Vector3 aimDirection = Camera.main.gameObject.transform.forward;
-                Vector3 spread = Vector3.zero;
-                for (int i = 0; i <= 4; i++)
+                IPhysics physicsable = hit.collider.GetComponent<IPhysics>();
+                if (physicsable != null)
                 {
-                    aimDirection = Camera.main.gameObject.transform.forward;
-                    spread += Vector3.up*UnityEngine.Random.Range(-1f, 1f);
-                    spread += Vector3.right * UnityEngine.Random.Range(-1f, 1f);
-                    aimDirection += spread.normalized * UnityEngine.Random.Range(0, 0.3f);
-                    if (Physics.Raycast(Camera.main.gameObject.transform.position, aimDirection, out hit, shootDist))
-                    {
-                        //UnityEngine.Debug.DrawLine(Camera.main.gameObject.transform.position, hit.point, Color.green, 1f);
-                        IDamage damageable = hit.collider.GetComponent<IDamage>();
-                        if (damageable != null)
-                        {
-                            damageable.TakeDamage(shootDamage);
-                        }
-                        IPhysics physicsable = hit.collider.GetComponent<IPhysics>();
-                        if (physicsable != null)
-                        {
-                            Vector3 dirPush = hit.transform.position - transform.position;//push direction
-                            physicsable.TakePushBack(dirPush * push);//push them
-                        }
-                        Instantiate(guns[selectedGun].hitEffect, hit.point, guns[selectedGun].hitEffect.transform.rotation);
-                    }
-                    /*else
-                    {
-                        UnityEngine.Debug.DrawLine(Camera.main.gameObject.transform.position, Camera.main.gameObject.transform.position + aimDirection*shootDist, Color.red, 1f);
-                    }*/
+                    Vector3 dirPush = hit.transform.position - transform.position;//push direction
+                    physicsable.TakePushBack(dirPush * push);//push them
                 }
+                Instantiate(guns[selectedGun].hitEffect, hit.point, guns[selectedGun].hitEffect.transform.rotation);
             }
 
             yield return new WaitForSeconds(shootRate);
@@ -267,11 +214,11 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
             heldAmmo--;
             if (guns[selectedGun].currAmmo == guns[selectedGun].maxAmmo)
             {
-                aud.PlayOneShot(guns[selectedGun].reloadOverAud, audioManager.instance.audSFXVol);
+                aud.PlayOneShot(guns[selectedGun].reloadOverAud, guns[selectedGun].reloadOverAudVol);
             }
             else
             {
-                aud.PlayOneShot(guns[selectedGun].reloadAud, audioManager.instance.audSFXVol);
+                aud.PlayOneShot(guns[selectedGun].reloadAud, guns[selectedGun].reloadAudVol);
             }
 
             UpdateUI();
@@ -280,23 +227,6 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         }
 
         isReloading = false;
-    }
-    IEnumerator UseItem()
-    {
-        isUsingItem = true;
-        if (orbCount > 0)
-        {
-            //aud.PlayOneShot();
-            CreateOrb();
-            yield return new WaitForSeconds(2);
-            orbCount--;
-        }
-        isUsingItem = false;
-    }
-
-    public void CreateOrb()
-    {
-        Instantiate(OrbWeapon, itemPos.position, Camera.main.transform.rotation);
     }
     void ChangeGun()
     {
@@ -330,18 +260,13 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     }
     void ChangeGunStats()
     {
-        if (guns[selectedGun] != null)
-        {
-            shootDamage = guns[selectedGun].shootDamage;
-            shootDist = guns[selectedGun].shootDist;
-            shootRate = guns[selectedGun].shootRate;
+        shootDamage = guns[selectedGun].shootDamage;
+        shootDist = guns[selectedGun].shootDist;
+        shootRate = guns[selectedGun].shootRate;
 
-            gunModel.mesh = guns[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
-            gunMat.material = guns[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
-            gunModel.transform.localScale = guns[selectedGun].model.transform.localScale;
-            UpdateUI();
-        }
-        
+        gunModel.mesh = guns[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
+        gunMat.material = guns[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
+        UpdateUI();
     }
     public void TakeDamage(int dmg)
     {
@@ -356,11 +281,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         }
         if (hp <= 0)//If hp is less than or = to 0
         {
-            gameManager.instance.HighHealth();
-            if (!gameManager.instance.isDead) {
-                gameManager.instance.isDead = true;
-                gameManager.instance.YouLose(); //Lose the game
-            }
+            gameManager.instance.YouLose(); //Lose the game
         }
         else {StartCoroutine(DamageFlash());
     }
@@ -375,12 +296,10 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     public void SpawnPlayer()
     {
         controller.enabled = false; //Disable CharacterController to allow manual position setting
-        velocity = Vector3.zero; //Reset all velocity
         transform.position = gameManager.instance.spawnPoint.transform.position; //Set the position to where the player is supposed to spawn
         controller.enabled = true; //Reenable controller to allow for the movement functions to work
         hp = hpOriginal; //Reset the player's hp to the original amount
         UpdateUI(); // Update the UI since variables updated
-        gameManager.instance.isDead = false;
     }
     public void HealPlayer(int amount)
     {
@@ -399,10 +318,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
             gameManager.instance.weaponAmmoText.text = $"{guns[selectedGun].currAmmo} / {guns[selectedGun].maxAmmo}";
         
      }
-    public Vector3 getVelocity()
-    {
-        return controller.velocity;
-    }
+
 
     public void powerUpSpeed()
     {
