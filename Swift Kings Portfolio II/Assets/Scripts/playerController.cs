@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -20,6 +21,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [SerializeField] float jumpHeight;
     [SerializeField] float gravity;
     [SerializeField] int jumps;
+    [SerializeField][Range(3,9)] float jumpVelocity;
     [SerializeField] float pushBackResolve;
     [Header("\n~~~Weapon~~~")]
     public List<gunStats> guns = new List<gunStats>();
@@ -50,6 +52,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     int hpOriginal;
     bool stepIsPlaying;
     public bool isPoweredUp;
+    bool jumpPeak;
     // Start is called before the first frame update
     void Start()
     {
@@ -98,6 +101,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
             {
                 velocity.y = 0f; //Reset vertical velocity
                 jumped = 0; //Reset times jumped
+                jumpPeak = false;
             }
 
         }
@@ -105,11 +109,20 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         controller.Move(move * Time.deltaTime * speed);
         futurePos.transform.position = controller.transform.localPosition + move * (speed * 0.3f);
         //Jump functionality
-        if (Input.GetButtonDown("Jump") && jumped < jumps) //If press jump and haven't jumped more than jumps
+        if (!jumpPeak && Input.GetButton("Jump")) 
         {
-            aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audioManager.instance.audSFXVol);
-            jumped++; //Jump
-            velocity.y += jumpHeight; //Move up
+            if (Input.GetButtonDown("Jump") && jumped < jumps) //If press jump and haven't jumped more than jumps
+            {
+                aud.PlayOneShot(audJump[UnityEngine.Random.Range(0, audJump.Length)], audioManager.instance.audSFXVol);
+                jumped++; //Jump
+                
+            }
+            if(transform.position.y >= jumpHeight)
+            {
+                jumpPeak = true;
+            }
+            velocity.y = jumpVelocity; //Move up
+
         }
 
         //Gravity
@@ -141,7 +154,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     IEnumerator playSteps()
     {
         stepIsPlaying = true;
-        aud.PlayOneShot(audSteps[Random.Range(0, audSteps.Length)], audioManager.instance.audSFXVol);
+        aud.PlayOneShot(audSteps[UnityEngine.Random.Range(0, audSteps.Length)], audioManager.instance.audSFXVol);
         if (!isSprinting)
             yield return new WaitForSeconds(0.5f);
         else
@@ -206,9 +219,9 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
                 for (int i = 0; i <= 4; i++)
                 {
                     aimDirection = Camera.main.gameObject.transform.forward;
-                    spread += Vector3.up*Random.Range(-1f, 1f);
-                    spread += Vector3.right * Random.Range(-1f, 1f);
-                    aimDirection += spread.normalized * Random.Range(0, 0.3f);
+                    spread += Vector3.up*UnityEngine.Random.Range(-1f, 1f);
+                    spread += Vector3.right * UnityEngine.Random.Range(-1f, 1f);
+                    aimDirection += spread.normalized * UnityEngine.Random.Range(0, 0.3f);
                     if (Physics.Raycast(Camera.main.gameObject.transform.position, aimDirection, out hit, shootDist))
                     {
                         //UnityEngine.Debug.DrawLine(Camera.main.gameObject.transform.position, hit.point, Color.green, 1f);
@@ -317,14 +330,18 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     }
     void ChangeGunStats()
     {
-        shootDamage = guns[selectedGun].shootDamage;
-        shootDist = guns[selectedGun].shootDist;
-        shootRate = guns[selectedGun].shootRate;
+        if (guns[selectedGun] != null)
+        {
+            shootDamage = guns[selectedGun].shootDamage;
+            shootDist = guns[selectedGun].shootDist;
+            shootRate = guns[selectedGun].shootRate;
 
-        gunModel.mesh = guns[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
-        gunMat.material = guns[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
-        gunModel.transform.localScale = guns[selectedGun].model.transform.localScale;
-        UpdateUI();
+            gunModel.mesh = guns[selectedGun].model.GetComponent<MeshFilter>().sharedMesh;
+            gunMat.material = guns[selectedGun].model.GetComponent<MeshRenderer>().sharedMaterial;
+            gunModel.transform.localScale = guns[selectedGun].model.transform.localScale;
+            UpdateUI();
+        }
+        
     }
     public void TakeDamage(int dmg)
     {
