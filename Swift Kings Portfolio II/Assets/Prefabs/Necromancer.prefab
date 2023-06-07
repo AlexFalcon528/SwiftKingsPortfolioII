@@ -287,10 +287,13 @@ MonoBehaviour:
   animTranSpeed: 50
   roamDistance: 10
   roamPauseTime: 1
+  retreatTime: 3
+  runAwayDistance: 15
+  spawnLimit: 5
   minions: {fileID: 3215846047005421435, guid: f334214bce37b484a98544a940b3e5bc, type: 3}
   minionSpawnRate: 1
   projectile: {fileID: 8116298408177600472, guid: 8932f5588131b5b489e3e53b84d04f63, type: 3}
-  fireRate: 1.52
+  fireRate: 2
 --- !u!33 &4431660470251435000
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -340,7 +343,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 4
+  m_StoppingDistance: 15
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1

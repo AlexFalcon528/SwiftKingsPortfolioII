@@ -23,6 +23,7 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
     [SerializeField] int roamPauseTime;
     [SerializeField] float retreatTime;//how long enemies will retreat for
     [SerializeField] int runAwayDistance;//how far the enmemy will runaway
+    [Range(1, 5)][SerializeField] int spawnLimit;
     [Header("\n-----Enemy Weapon------")]
     
     [SerializeField] GameObject minions;
@@ -45,6 +46,7 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
     float stoppingDistOrig;
     float speed;
     float retreatDistance;
+    int numOfMinionsSpawned = 0;
     void Start()
     {
         colorOrig = model.material.color;
@@ -55,9 +57,10 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
 
     // Update is called once per frame
     IEnumerator spawnMinions()
-    {if (gameManager.instance.numberOfMinions < gameManager.instance.maxNumberOfMinions)
+    {if (gameManager.instance.numberOfMinions < gameManager.instance.maxNumberOfMinions && numOfMinionsSpawned < spawnLimit)
         {
             isSpawning = true;
+            numOfMinionsSpawned++;
             Instantiate(minions, minionSpawnPoint.position, transform.rotation);
             yield return new WaitForSeconds(minionSpawnRate);
             isSpawning = false;
