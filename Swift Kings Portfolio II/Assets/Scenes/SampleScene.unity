@@ -2926,6 +2926,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Up DMG (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4518596967481129762, guid: e156df6ff80cc714abd0c34f363fdd96, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4518596967481129789, guid: e156df6ff80cc714abd0c34f363fdd96, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -8465,6 +8469,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Up Speed (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6361465823483913047, guid: 31c7b546d387db4449d45658c793bc40, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31c7b546d387db4449d45658c793bc40, type: 3}
 --- !u!1001 &805723962
@@ -11468,6 +11476,18 @@ PrefabInstance:
     - target: {fileID: 5757208017306391346, guid: 6f644e35d05f2e9449afba64e8e672be, type: 3}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5757208017306391346, guid: 6f644e35d05f2e9449afba64e8e672be, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5757208017306391346, guid: 6f644e35d05f2e9449afba64e8e672be, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5757208017306391346, guid: 6f644e35d05f2e9449afba64e8e672be, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5757208017306391346, guid: 6f644e35d05f2e9449afba64e8e672be, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14688,6 +14708,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OrbWeapon
       objectReference: {fileID: 0}
+    - target: {fileID: 5226211110920521442, guid: 2b65a4638710d5942b3ffbbec54ca99e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5286481706717027768, guid: 2b65a4638710d5942b3ffbbec54ca99e, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -15838,37 +15862,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8397537226833951522, guid: 06d2c51a99099124988ff7398a5dac58, type: 3}
   m_PrefabInstance: {fileID: 1524393711}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1525259140
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1525259141}
-  m_Layer: 0
-  m_Name: Futurepos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1525259141
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1525259140}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2064374534}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1545098466
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20690,6 +20683,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Up HP (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3379509198927196933, guid: e53e2988cafd20e46b3309806cdca757, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e53e2988cafd20e46b3309806cdca757, type: 3}
 --- !u!1001 &2006014009
@@ -21104,11 +21101,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7685149522896103869, guid: 64db4180617f4e748bdcc5b59cdc00ea, type: 3}
   m_PrefabInstance: {fileID: 2035674809}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2064374534 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3115329607362736414, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
-  m_PrefabInstance: {fileID: 3115329608628443776}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2075577212
 PrefabInstance:
@@ -22146,25 +22138,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 3115329607362736413, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
-      propertyPath: futurePos
-      value: 
-      objectReference: {fileID: 1525259140}
-    - target: {fileID: 3115329607362736413, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
-      propertyPath: jumpHeight
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3115329607362736413, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
-      propertyPath: jumpVelocity
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 3115329607362736414, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3115329607362736414, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 47.42
+      value: 36.9
       objectReference: {fileID: 0}
     - target: {fileID: 3115329607362736414, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -22172,7 +22152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3115329607362736414, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -56
+      value: -41
       objectReference: {fileID: 0}
     - target: {fileID: 3115329607362736414, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -22263,6 +22243,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Up HP
       objectReference: {fileID: 0}
+    - target: {fileID: 3379509198927196933, guid: e53e2988cafd20e46b3309806cdca757, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e53e2988cafd20e46b3309806cdca757, type: 3}
 --- !u!1001 &4518596967222719277
@@ -22279,6 +22263,10 @@ PrefabInstance:
     - target: {fileID: 4518596967481129762, guid: e156df6ff80cc714abd0c34f363fdd96, type: 3}
       propertyPath: m_Name
       value: Power Up DMG
+      objectReference: {fileID: 0}
+    - target: {fileID: 4518596967481129762, guid: e156df6ff80cc714abd0c34f363fdd96, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4518596967481129789, guid: e156df6ff80cc714abd0c34f363fdd96, type: 3}
       propertyPath: m_Enabled
@@ -22446,6 +22434,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Power Up Speed
       objectReference: {fileID: 0}
+    - target: {fileID: 6361465823483913047, guid: 31c7b546d387db4449d45658c793bc40, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31c7b546d387db4449d45658c793bc40, type: 3}
 --- !u!1001 &6608794870964339068
@@ -22465,7 +22457,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6608794872181822958, guid: a3d7de5569363db4b98b7ec95f36092b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 48.92
+      value: -4.43
       objectReference: {fileID: 0}
     - target: {fileID: 6608794872181822958, guid: a3d7de5569363db4b98b7ec95f36092b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -22473,7 +22465,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6608794872181822958, guid: a3d7de5569363db4b98b7ec95f36092b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -58
+      value: -34.43
       objectReference: {fileID: 0}
     - target: {fileID: 6608794872181822958, guid: a3d7de5569363db4b98b7ec95f36092b, type: 3}
       propertyPath: m_LocalRotation.w

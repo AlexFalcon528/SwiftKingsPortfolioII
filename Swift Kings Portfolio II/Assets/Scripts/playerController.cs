@@ -14,7 +14,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [SerializeField] VisualEffect sprintEffect;
     [SerializeField] public GameObject futurePos;
     [SerializeField] Transform itemPos;
-    [SerializeField] GameObject OrbWeapon;
+//    [SerializeField] GameObject OrbWeapon;
 
     [Header("\n~~~~~~~Stats~~~~~~~")]
     [Header("~~~Player~~~")]
@@ -29,7 +29,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [Header("\n~~~Weapon~~~")]
     public List<gunStats> guns = new List<gunStats>();
     [SerializeField] int heldAmmo;
-    [SerializeField] int orbCount;
+//    [SerializeField] int orbCount;
     [SerializeField] int shootDist;
     [SerializeField] float shootRate;
     [SerializeField] int shootDamage;
@@ -87,10 +87,10 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
                     {
                         StartCoroutine(Reload());
                     }
-                    if (Input.GetButtonDown("UseItem"))
+/*                    if (Input.GetButtonDown("UseItem"))
                     {
                         StartCoroutine(UseItem());
-                    }
+                    }*/
                 }
 
             }
@@ -293,7 +293,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
 
         isReloading = false;
     }
-    IEnumerator UseItem()
+/*    IEnumerator UseItem()
     {
         isUsingItem = true;
         if (orbCount > 0)
@@ -309,7 +309,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     public void CreateOrb()
     {
         Instantiate(OrbWeapon, itemPos.position, Camera.main.transform.rotation);
-    }
+    }*/
     void ChangeGun()
     {
 
