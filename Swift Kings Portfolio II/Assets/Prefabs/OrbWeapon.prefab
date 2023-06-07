@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5286481706717027768}
-  - component: {fileID: 132000067310475922}
+  - component: {fileID: 7425915777940160086}
   - component: {fileID: 141934067080566802}
   - component: {fileID: 1694889891149592520}
   - component: {fileID: 353186687857348717}
@@ -37,7 +37,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &132000067310475922
+--- !u!114 &7425915777940160086
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,14 +46,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5226211110920521442}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 535214b25dbb4364ca21e3535a57ebd2, type: 3}
+  m_Script: {fileID: 11500000, guid: 32624aba3499fd842b34b1e6ea4e20a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 1
-  speed: 15
+  speed: 100
   pushbackAmount: 5
   rb: {fileID: 7003115959241120325}
-  timer: 5
+  timer: 2
   particleExplosion: {fileID: 6240433278458409912, guid: 7da42a3ce51edb3428decf712801e462, type: 3}
 --- !u!135 &141934067080566802
 SphereCollider:
