@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class playerController : MonoBehaviour, IDamage, IPhysics
 {
     [Header("~~~~~~~Components~~~~~~~")]
     [SerializeField] CharacterController controller;
     [SerializeField] AudioSource aud;
+    [SerializeField] VisualEffect sprintEffect;
+    
     [Header("\n~~~~~~~Stats~~~~~~~")]
     [Header("~~~Player~~~")]
     [SerializeField] int hp;
@@ -121,11 +124,13 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         {
             isSprinting = true; //Sprint
             speed *= sprintMult; //Apply speed multiplier
+            sprintEffect.enabled = true; // turns on sprint effect
         }
         else if (Input.GetButtonUp("Sprint")) //Once sprint button is let go
         {
             isSprinting = false; //Stop sprinting
             speed /= sprintMult; //Unapply speed multiplier
+            sprintEffect.enabled = false;//turns off sprint effect
         }
     }
 

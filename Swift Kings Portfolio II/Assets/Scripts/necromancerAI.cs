@@ -141,6 +141,29 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * turnSpeed);
     }
+    IEnumerator Fade()
+    {
+        model.material.SetOverrideTag("RenderType", "Transparent");
+        model.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        model.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        model.material.SetInt("_ZWrite", 0);
+        model.material.DisableKeyword("_ALPHATEST_ON");
+        model.material.EnableKeyword("_ALPHABLEND_ON");
+        model.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        model.material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+        for (float fade = 1f; fade >= -0.05f; fade -= .0025f)
+        {
+            Color c = model.material.color;
+            c.a = fade;
+            model.material.color = c;
+            yield return new WaitForSeconds(.05f);
+            transform.position += Vector3.down * 0.0025f;
+        }
+        Vector3 inground = new Vector3(transform.position.x, -1, transform.position.z);
+
+        StopAllCoroutines();
+        Destroy(gameObject);
+    }
     public void TakeDamage(int dmg)
     {
         hp -= dmg;
@@ -153,7 +176,7 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
             agent.enabled = false;
             GetComponent<CapsuleCollider>().enabled = false;
             StopAllCoroutines();
-            Destroy(gameObject, 30);
+            StartCoroutine(Fade());
         }
         else
         {

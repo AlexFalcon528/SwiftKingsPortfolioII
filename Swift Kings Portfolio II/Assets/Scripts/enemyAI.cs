@@ -11,6 +11,8 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     [SerializeField] Transform shootPos;
     [SerializeField] Transform headPos;
     [SerializeField] Animator anim;
+    [SerializeField] AudioSource aud;
+
     [Header("\n-----Enemy Stats------")]
     [Range(1, 100)] [SerializeField] int hp;
     [SerializeField] int turnSpeed;
@@ -25,6 +27,14 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     [Header("\n-----Enemy Weapon------")]
     [SerializeField] GameObject projectile;
     [Range(.1f, 3f)] [SerializeField] float fireRate;
+
+
+    [Header("----- Audio -----")]
+    
+    [SerializeField] AudioClip[] audDamage;
+    [SerializeField] [Range(0, 1)] float audDamageVol;
+    [SerializeField] AudioClip audDeath;
+    [SerializeField] [Range(0, 1)] float audDeathVol;
 
     bool isShooting;
     bool playerInRange;
@@ -128,24 +138,49 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * turnSpeed);
     }
+    IEnumerator Fade()
+    {
+        model.material.SetOverrideTag("RenderType", "Transparent");
+        model.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        model.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        model.material.SetInt("_ZWrite", 0);
+        model.material.DisableKeyword("_ALPHATEST_ON");
+        model.material.EnableKeyword("_ALPHABLEND_ON");
+        model.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        model.material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+        for (float fade =1f;fade>=-0.05f;fade-=.0025f)
+        {
+            Color c = model.material.color;
+            c.a = fade;
+            model.material.color = c;
+           yield return new WaitForSeconds(.05f);
+            transform.position += Vector3.down * 0.0025f;
+        }
+        Vector3 inground = new Vector3(transform.position.x, -1, transform.position.z);
+        
+        StopAllCoroutines();
+        Destroy(gameObject);
+    }
     public void TakeDamage(int dmg)
     {
         hp -= dmg;
         if (hp <= 0)
         {
-
+            aud.PlayOneShot(audDeath, audDeathVol);
             gameManager.instance.UpdateGameGoal(-1);
             anim.SetBool("Dead", true);
             agent.enabled = false;
             StopAllCoroutines();
             GetComponent<CapsuleCollider>().enabled = false;
-            StopAllCoroutines();
-            Destroy(gameObject, 30);
+            StartCoroutine(Fade());
+            
+                
+            
         }
         else
         {
             anim.SetTrigger("Damage");
-            
+            aud.PlayOneShot(audDamage[Random.Range(0, audDamage.Length)], audDamageVol);
             agent.SetDestination(gameManager.instance.player.transform.position);
             playerInRange = true;
             StartCoroutine(DamageColor());
