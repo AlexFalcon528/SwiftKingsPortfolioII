@@ -39,6 +39,7 @@ public class gameManager : MonoBehaviour
     public int wave;
     [SerializeField] int finalWave;
     public bool nextWave;
+    [Range(1, 3)]public int difficulty = 2; 
     [Header("\n~~~~~~~~Minions Tracker~~~~~~~~~~~")]
     public int numberOfMinions;
     [Range(1, 30)] [SerializeField] public int maxNumberOfMinions;
