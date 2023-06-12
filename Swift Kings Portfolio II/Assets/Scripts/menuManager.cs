@@ -20,6 +20,7 @@ public class menuManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject loseMenu;
     public GameObject winMenu;
+    public GameObject difficultyMenu;
 
     [Header("Screen Effects")]
     public GameObject fadeBlackObj;
@@ -36,6 +37,7 @@ public class menuManager : MonoBehaviour
     [SerializeField] private GameObject pauseFirst;
     [SerializeField] private GameObject winFirst;
     [SerializeField] private GameObject loseFirst;
+    [SerializeField] private GameObject difficultyFirst;
 
     /**
     * Awake
@@ -131,6 +133,10 @@ public class menuManager : MonoBehaviour
 
     public void OpenCredits() {
         OpenMenu(creditsMenu, creditsFirst);
+    }
+    public void OpenDifficulty()
+    {
+        OpenMenu(difficultyMenu, difficultyFirst);
     }
 
     /*

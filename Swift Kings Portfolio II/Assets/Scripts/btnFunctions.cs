@@ -83,7 +83,20 @@ public class btnFunctions : MonoBehaviour {
     public void MainMenuBack() {
         menuManager.instance.OpenMain();
     }
-
+    public void Difficulty() {
+        menuManager.instance.OpenDifficulty();
+    }
+    public void Easy() {
+        gameManager.instance.difficulty = 1;
+    }
+    public void Medium()
+    {
+        gameManager.instance.difficulty = 2;
+    }
+    public void Hard()
+    {
+        gameManager.instance.difficulty = 3;
+    }
 
     /**
      * Handle Scene Transitions
