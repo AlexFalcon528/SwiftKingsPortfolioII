@@ -2237,13 +2237,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2985960342918018053}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 2985960344441677929}
+        m_TargetAssemblyTypeName: btnFunctions, Assembly-CSharp
+        m_MethodName: Difficulty
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4401,7 +4401,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2985960344441677929}
         m_TargetAssemblyTypeName: btnFunctions, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: Easy
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7953,7 +7953,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 6358105634976767881}
   loseMenu: {fileID: 6358105633475397602}
   winMenu: {fileID: 6358105635339829553}
-  difficultyMenu: {fileID: 1771581923773828867}
+  difficultyMenu: {fileID: 8353140854802959685}
   fadeBlackObj: {fileID: 1632619173502079452}
   damageFlash: {fileID: 5800965401861566586}
   lowHealth: {fileID: 853670717}
@@ -7966,7 +7966,7 @@ MonoBehaviour:
   pauseFirst: {fileID: 6358105634589944927}
   winFirst: {fileID: 6358105634780496904}
   loseFirst: {fileID: 6358105634888340336}
-  difficultyFirst: {fileID: 0}
+  difficultyFirst: {fileID: 1771581923773828867}
 --- !u!1 &6065288319682877710
 GameObject:
   m_ObjectHideFlags: 0
@@ -16626,7 +16626,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2985960344441677929}
         m_TargetAssemblyTypeName: btnFunctions, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: Medium
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18568,7 +18568,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3569915130972293580
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19514,7 +19514,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2985960344441677929}
         m_TargetAssemblyTypeName: btnFunctions, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: Hard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

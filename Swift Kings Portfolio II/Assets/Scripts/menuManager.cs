@@ -85,7 +85,7 @@ public class menuManager : MonoBehaviour
         pauseMenu.SetActive(false);
         loseMenu.SetActive(false);
         winMenu.SetActive(false);
-
+        difficultyMenu.SetActive(false);
         // Screen Effects
         damageFlash.SetActive(false);
         lowHealth.SetActive(false);

@@ -88,14 +88,17 @@ public class btnFunctions : MonoBehaviour {
     }
     public void Easy() {
         gameManager.instance.difficulty = 1;
+        menuManager.instance.OpenMain();
     }
     public void Medium()
     {
         gameManager.instance.difficulty = 2;
+        menuManager.instance.OpenMain();
     }
     public void Hard()
     {
         gameManager.instance.difficulty = 3;
+        menuManager.instance.OpenMain();
     }
 
     /**
