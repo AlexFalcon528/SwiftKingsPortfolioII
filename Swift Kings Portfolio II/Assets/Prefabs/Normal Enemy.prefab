@@ -324,6 +324,7 @@ MonoBehaviour:
   retreatTime: 3
   runAwayDistance: 20
   animTranSpeed: 20
+  pointsWorth: 25
   projectile: {fileID: 8116298408177600472, guid: beb0e72c0419d584593ba45169d416a5, type: 3}
   fireRate: 0.5
   audDamage:

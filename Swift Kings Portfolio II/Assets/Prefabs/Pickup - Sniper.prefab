@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gun: {fileID: 11400000, guid: df5bac798eff0d24fbc4da9c46217a11, type: 2}
+  price: 100
 --- !u!33 &5757208017306391345
 MeshFilter:
   m_ObjectHideFlags: 0

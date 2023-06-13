@@ -35,6 +35,7 @@ public class gameManager : MonoBehaviour
     public int enemiesRemaining;
     public int highScore;
     public int currentScore;
+    public int points;
     [Header("\n~~~~~~~~Gameplay~~~~~~~~~~~")]
     public int wave;
     [SerializeField] int finalWave;
@@ -60,6 +61,7 @@ public class gameManager : MonoBehaviour
     }
 
     private void Start() {
+        points = 50;
         if (SceneManager.GetActiveScene().name == "SampleScene")
         {
             highScore = PlayerPrefs.GetInt("HighScore");

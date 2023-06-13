@@ -60,6 +60,7 @@ MonoBehaviour:
   turnSpeed: 600
   fireRate: 2
   animTranSpeed: 3
+  pointsWorth: 10
 --- !u!33 &3215846047005421436
 MeshFilter:
   m_ObjectHideFlags: 0

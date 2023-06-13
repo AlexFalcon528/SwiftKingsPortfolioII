@@ -23,6 +23,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     [SerializeField] float retreatTime;//how long enemies will retreat for
     [SerializeField] int runAwayDistance;//how far the enmemy will runaway
     [SerializeField] float animTranSpeed;
+    [SerializeField] int pointsWorth;
 
     [Header("\n-----Enemy Weapon------")]
     [SerializeField] GameObject projectile;
@@ -48,9 +49,10 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     float speed;
     float retreatDistance;
     int viewConeOrig;
-    int difficultyScaling = (gameManager.instance.difficulty / 2);
+    int difficultyScaling;
     void Start()
     {
+        difficultyScaling = (gameManager.instance.difficulty / 2);
         hp *= difficultyScaling;
         fireRate /= difficultyScaling;
         startingPos = transform.position;
@@ -171,6 +173,8 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
         {
             aud.PlayOneShot(audDeath, audDeathVol);
             gameManager.instance.UpdateGameGoal(-1);
+            gameManager.instance.currentScore += pointsWorth;
+            gameManager.instance.points += pointsWorth;
             anim.SetBool("Dead", true);
             agent.enabled = false;
             StopAllCoroutines();

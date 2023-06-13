@@ -21,6 +21,7 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
     [SerializeField] float animTranSpeed;
     [SerializeField] int roamDistance;
     [SerializeField] int roamPauseTime;
+    [SerializeField] int pointsWorth;
     [Header("\n-----Enemy Weapon------")]
     
     [SerializeField] GameObject minions;
@@ -172,6 +173,8 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
         {
 
             gameManager.instance.UpdateGameGoal(-1);
+            gameManager.instance.points += pointsWorth;
+            gameManager.instance.currentScore += pointsWorth;
             anim.SetBool("Dead", true);
             agent.enabled = false;
             GetComponent<CapsuleCollider>().enabled = false;

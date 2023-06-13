@@ -280,16 +280,14 @@ MonoBehaviour:
   minionSpawnPoint: {fileID: 8281827460251760363}
   headPos: {fileID: 1898650533312247373}
   shootPos: {fileID: 2414759262797777262}
-  hp: 10
+  hp: 20
   turnSpeed: 600
   shootAngle: 20
   viewCone: 180
   animTranSpeed: 50
   roamDistance: 10
   roamPauseTime: 1
-  retreatTime: 3
-  runAwayDistance: 15
-  spawnLimit: 5
+  pointsWorth: 100
   minions: {fileID: 3215846047005421435, guid: f334214bce37b484a98544a940b3e5bc, type: 3}
   minionSpawnRate: 1
   projectile: {fileID: 8116298408177600472, guid: 8932f5588131b5b489e3e53b84d04f63, type: 3}

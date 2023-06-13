@@ -16,6 +16,7 @@ public class minionAI : MonoBehaviour,IDamage
     [SerializeField] int turnSpeed;
     [Range(.1f, 3f)] [SerializeField] float fireRate;
     [SerializeField] float animTranSpeed;
+    [SerializeField] int pointsWorth;
 
     bool isShooting;
     bool playerInRange;
@@ -53,6 +54,8 @@ public class minionAI : MonoBehaviour,IDamage
         if (hp <= 0)
         {
             gameManager.instance.UpdateMinionsCounter(-1);
+            gameManager.instance.points += pointsWorth;
+            gameManager.instance.currentScore += pointsWorth;
             Instantiate(particleExplosion,transform.position,transform.rotation);
             Destroy(gameObject);
             gameManager.instance.currentScore++;

@@ -7,6 +7,7 @@ public class gunPickup : MonoBehaviour
     [SerializeField] gunStats gun;
     MeshFilter model;
     MeshRenderer mat;
+    [SerializeField] int price;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,9 +18,10 @@ public class gunPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && gameManager.instance.points >= price)
         {
             gameManager.instance.pScript.gunPickup(gun);
+            gameManager.instance.points -= price;
             Destroy(gameObject);
         }
     }
