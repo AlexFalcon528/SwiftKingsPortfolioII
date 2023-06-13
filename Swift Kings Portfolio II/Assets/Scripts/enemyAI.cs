@@ -48,8 +48,11 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     float speed;
     float retreatDistance;
     int viewConeOrig;
+    int difficultyScaling = (gameManager.instance.difficulty / 2);
     void Start()
     {
+        hp *= difficultyScaling;
+        fireRate /= difficultyScaling;
         startingPos = transform.position;
         colorOrig = model.material.color;
         
