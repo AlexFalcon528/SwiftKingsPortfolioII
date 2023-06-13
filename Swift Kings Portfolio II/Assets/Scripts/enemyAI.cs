@@ -40,6 +40,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     bool isShooting;
     bool playerInRange;
     bool isRetreating;
+
     Vector3 startingPos;
     float angleToPlayer;
     Vector3 playerDir;
@@ -48,20 +49,19 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     float stoppingDistOrig;
     float speed;
     float retreatDistance;
-    int viewConeOrig;
     int difficultyScaling;
     void Start()
     {
         difficultyScaling = (gameManager.instance.difficulty / 2);
         hp *= difficultyScaling;
         fireRate /= difficultyScaling;
+
         startingPos = transform.position;
         colorOrig = model.material.color;
         
         stoppingDistOrig = agent.stoppingDistance;
         retreatDistance = stoppingDistOrig - 3;
         aud = gameManager.instance.player.GetComponent<AudioSource>();
-        viewConeOrig = viewCone;
     }
 
     // Update is called once per frame
@@ -132,10 +132,9 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
                 return true;
             }
         }
-        agent.stoppingDistance = 0;
 
+        agent.stoppingDistance = 0;
         return false;
-    
     }
     void FacePlayer() //turn to player function
     {
@@ -210,7 +209,8 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
         {
             playerInRange = true;//lets enemy know player is in range
         }
-    } private void OnTriggerExit(Collider other)
+    }
+    private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {

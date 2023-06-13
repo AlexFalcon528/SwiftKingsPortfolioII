@@ -21,6 +21,8 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
     [SerializeField] float animTranSpeed;
     [SerializeField] int roamDistance;
     [SerializeField] int roamPauseTime;
+    [SerializeField] float retreatTime;//how long enemies will retreat for
+    [SerializeField] int runAwayDistance;//how far the enmemy will runaway
     [SerializeField] int pointsWorth;
     [Header("\n-----Enemy Weapon------")]
     
@@ -28,10 +30,18 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
     [SerializeField] float minionSpawnRate;
     [SerializeField] GameObject projectile;
     [Range(.1f, 3)] [SerializeField] float fireRate;
-    
-    
+
+    [Header("----- Audio -----")]
+
+    [SerializeField] AudioClip[] audDamage;
+    [SerializeField] [Range(0, 1)] float audDamageVol;
+    [SerializeField] AudioClip audDeath;
+    [SerializeField] [Range(0, 1)] float audDeathVol;
+
+
     bool isShooting;
     bool isSpawning;
+    bool isRetreating;
     bool playerInRange;
  
     float angleToPlayer;
@@ -41,11 +51,19 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
     bool destinationChosen;
     float stoppingDistOrig;
     float speed;
+    float retreatDistance;
+    int difficultyScaling;
+
     void Start()
     {
+        difficultyScaling = (gameManager.instance.difficulty / 2);
+        hp *= difficultyScaling;
+        fireRate /= difficultyScaling;
+
         colorOrig = model.material.color;
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
+        retreatDistance = stoppingDistOrig - 3;
     }
 
     // Update is called once per frame
@@ -89,33 +107,37 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewCone)
             {
-                agent.stoppingDistance = stoppingDistOrig;
-                agent.SetDestination(gameManager.instance.player.transform.position);
-                destinationChosen = true;
-                if (agent.remainingDistance <= agent.stoppingDistance)
+                if (!isRetreating)
                 {
-                    FacePlayer();
-                }
-                if(!isSpawning)
-                {
-                    StartCoroutine(spawnMinions());
-                }
-                
-                if (!isShooting && angleToPlayer <= shootAngle)
-                {   
-                    StartCoroutine(shoot());
+                    if (agent.remainingDistance <= retreatDistance) //checks to see if agent needs to retreating
+                    {
+                        StartCoroutine(Retreat(transform.position - (playerDir.normalized * runAwayDistance), retreatTime));//starts retreating away from player = to retreat distance for however long it's scared
+                    }
+                    else
+                    {
+                        agent.stoppingDistance = stoppingDistOrig;
+                        agent.SetDestination(gameManager.instance.player.transform.position);
+                    }
+                    if (agent.remainingDistance <= agent.stoppingDistance)
+                    {
+                        FacePlayer();
+                    }
+                    if (!isSpawning)
+                    {
+                        StartCoroutine(spawnMinions());
+                    }
+
+                    if (!isShooting && angleToPlayer <= shootAngle)
+                    {
+                        StartCoroutine(shoot());
+                    }
                 }
                 return true;
             }
-            else
-            {
-                agent.stoppingDistance = 0;
-            }
         }
 
-
-
-        return false;
+            agent.stoppingDistance = 0;
+            return false;
     }
     IEnumerator DamageColor()//enemy blinks red when they take damage
     {
@@ -199,7 +221,6 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
     {
         if (other.CompareTag("Player"))
         {
-            agent.stoppingDistance = stoppingDistOrig;
             playerInRange = true;
         }
     }
@@ -228,5 +249,17 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
 
             agent.SetDestination(hit.position);
         }
+    }
+    IEnumerator Retreat(Vector3 retreatPos, float retreatTime)//takes in the position to retreat to and for how long
+    {
+        isRetreating = true;//sets retreating to true
+        agent.stoppingDistance = 0;
+        agent.SetDestination(retreatPos);//Sets agent position to the desired retreat location
+
+        yield return new WaitForSeconds(retreatTime);//how long the enemy will continue retreating for
+
+        agent.stoppingDistance = stoppingDistOrig;
+        agent.SetDestination(gameManager.instance.player.transform.position);
+        isRetreating = false;//stops the retreat
     }
 }

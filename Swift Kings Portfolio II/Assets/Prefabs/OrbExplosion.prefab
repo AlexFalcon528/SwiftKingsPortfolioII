@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2040338616023603405}
-  - component: {fileID: 6513460865485740496}
+  - component: {fileID: 7184489287695737992}
   - component: {fileID: 4093336687137986389}
   - component: {fileID: 1679642912295958336}
   - component: {fileID: -4991087246957718981}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: OrbExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,7 +35,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!114 &6513460865485740496
+--- !u!114 &7184489287695737992
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,10 +44,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6240433278458409912}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5191b0600f7c8fc4f9c2462b6cc9270b, type: 3}
+  m_Script: {fileID: 11500000, guid: 356b5ba18eae69646952423465b609d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 10
+  dmg: 5
   pushbackAmount: 3
 --- !u!198 &4093336687137986389
 ParticleSystem:
