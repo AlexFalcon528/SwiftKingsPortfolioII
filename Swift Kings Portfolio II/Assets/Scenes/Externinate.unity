@@ -3350,13 +3350,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2929419516858568634, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3115329607362736408, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3115329607362736413, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
       propertyPath: orbCount
-      value: 2
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3115329607362736413, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
       propertyPath: OrbWeapon
@@ -3380,7 +3384,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3115329607362736414, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.6
+      value: 4.28
       objectReference: {fileID: 0}
     - target: {fileID: 3115329607362736414, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9689,10 +9693,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
-    - target: {fileID: 8353140854802959685, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
 --- !u!1001 &1529311170
@@ -9966,11 +9966,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2801538245412088133, guid: e093ff07b5d36a84389cdf24d4f9dd5f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 66.78752
+      value: 62.94
       objectReference: {fileID: 0}
     - target: {fileID: 2801538245412088133, guid: e093ff07b5d36a84389cdf24d4f9dd5f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -58.57588
+      value: -52.97
       objectReference: {fileID: 0}
     - target: {fileID: 2801538245412088133, guid: e093ff07b5d36a84389cdf24d4f9dd5f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -12562,6 +12562,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 218939088387621118, guid: 91bad211c6b016b43994dfb95202a86e, type: 3}
+      propertyPath: hp
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 218939088387621118, guid: 91bad211c6b016b43994dfb95202a86e, type: 3}
       propertyPath: spawnLimit
       value: 2

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1694889891149592520}
   - component: {fileID: 353186687857348717}
   - component: {fileID: 7003115959241120325}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: OrbWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 4839407842521190488}
   - component: {fileID: 848549341521340541}
   - component: {fileID: 5789697933988650011}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: 'OrbParticles '
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -22,6 +22,7 @@ public class gunPickup : MonoBehaviour
         {
             gameManager.instance.pScript.gunPickup(gun);
             gameManager.instance.points -= price;
+            gameManager.instance.currPoints.text = $"{gameManager.instance.points}";
             Destroy(gameObject);
         }
     }

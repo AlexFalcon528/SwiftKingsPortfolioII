@@ -175,6 +175,7 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
             gameManager.instance.UpdateGameGoal(-1);
             gameManager.instance.points += pointsWorth;
             gameManager.instance.currentScore += pointsWorth;
+            gameManager.instance.currPoints.text = $"{gameManager.instance.points}";
             anim.SetBool("Dead", true);
             agent.enabled = false;
             GetComponent<CapsuleCollider>().enabled = false;

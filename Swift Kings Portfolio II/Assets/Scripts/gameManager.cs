@@ -31,6 +31,7 @@ public class gameManager : MonoBehaviour
     public GameObject weaponAmmoParent;
     public TextMeshProUGUI weaponAmmoText;
     public TextMeshProUGUI heldAmmo;
+    public TextMeshProUGUI  currPoints;
     public bool isPaused;
     public int enemiesRemaining;
     public int highScore;

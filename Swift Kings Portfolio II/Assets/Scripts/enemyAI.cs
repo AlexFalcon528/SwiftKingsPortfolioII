@@ -175,6 +175,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
             gameManager.instance.UpdateGameGoal(-1);
             gameManager.instance.currentScore += pointsWorth;
             gameManager.instance.points += pointsWorth;
+            gameManager.instance.currPoints.text = $"{gameManager.instance.points}";
             anim.SetBool("Dead", true);
             agent.enabled = false;
             StopAllCoroutines();

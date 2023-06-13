@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4093336687137986389}
   - component: {fileID: 1679642912295958336}
   - component: {fileID: -4991087246957718981}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: OrbExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}

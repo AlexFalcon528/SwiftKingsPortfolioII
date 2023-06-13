@@ -56,6 +56,7 @@ public class minionAI : MonoBehaviour,IDamage
             gameManager.instance.UpdateMinionsCounter(-1);
             gameManager.instance.points += pointsWorth;
             gameManager.instance.currentScore += pointsWorth;
+            gameManager.instance.currPoints.text = $"{gameManager.instance.points}";
             Instantiate(particleExplosion,transform.position,transform.rotation);
             Destroy(gameObject);
             gameManager.instance.currentScore++;
