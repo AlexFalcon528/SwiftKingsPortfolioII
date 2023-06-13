@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 848549341521340541}
   - component: {fileID: 5789697933988650011}
   m_Layer: 7
-  m_Name: Particle System
+  m_Name: 'OrbParticles '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
