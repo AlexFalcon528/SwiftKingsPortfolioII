@@ -206,7 +206,7 @@ MonoBehaviour:
   sprintEffect: {fileID: 8473668120500416071}
   futurePos: {fileID: 1525259140}
   itemPos: {fileID: 2929419516858568634}
-  OrbWeapon: {fileID: 0}
+  OrbWeapon: {fileID: 5226211110920521442, guid: 2b65a4638710d5942b3ffbbec54ca99e, type: 3}
   hp: 20
   speed: 8
   sprintMult: 1.5
@@ -713,7 +713,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8382000167876151643}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
