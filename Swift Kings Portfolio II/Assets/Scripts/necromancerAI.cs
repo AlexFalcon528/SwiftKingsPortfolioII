@@ -53,12 +53,12 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
     float stoppingDistOrig;
     float speed;
     float retreatDistance;
-    int difficultyScaling;
+    float difficultyScaling;
 
     void Start()
     {
-        difficultyScaling = (StatManagerVariables.instance.difficulty / 2);
-        hp *= difficultyScaling;
+        difficultyScaling = (float)StatManagerVariables.instance.difficulty / 2;
+        hp = Mathf.CeilToInt(hp * difficultyScaling);
         fireRate /= difficultyScaling;
 
         colorOrig = model.material.color;
@@ -69,12 +69,16 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
 
     // Update is called once per frame
     IEnumerator spawnMinions()
-    {if (gameManager.instance.numberOfMinions < gameManager.instance.maxNumberOfMinions)
+    {
+        if (StatManagerVariables.instance.difficulty > 1) 
         {
-            isSpawning = true;
-            Instantiate(minions, minionSpawnPoint.position, transform.rotation);
-            yield return new WaitForSeconds(minionSpawnRate);
-            isSpawning = false;
+            if (gameManager.instance.numberOfMinions < gameManager.instance.maxNumberOfMinions)
+            {
+                isSpawning = true;
+                Instantiate(minions, minionSpawnPoint.position, transform.rotation);
+                yield return new WaitForSeconds(minionSpawnRate);
+                isSpawning = false;
+            }
         }
         
     }
@@ -110,7 +114,7 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
             {
                 if (!isRetreating)
                 {
-                    if (agent.remainingDistance <= retreatDistance) //checks to see if agent needs to retreating
+                    if (agent.remainingDistance <= retreatDistance && StatManagerVariables.instance.difficulty < 3) //checks to see if agent needs to retreat and difficulty isn't hard
                     {
                         StartCoroutine(Retreat(transform.position - (playerDir.normalized * runAwayDistance), retreatTime));//starts retreating away from player = to retreat distance for however long it's scared
                     }

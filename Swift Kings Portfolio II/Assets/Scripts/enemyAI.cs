@@ -47,11 +47,11 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     float stoppingDistOrig;
     float speed;
     float retreatDistance;
-    int difficultyScaling;
+    float difficultyScaling;
     void Start()
     {
-        difficultyScaling = (StatManagerVariables.instance.difficulty / 2);
-        hp *= difficultyScaling;
+        difficultyScaling = (float)StatManagerVariables.instance.difficulty / 2;
+        hp = Mathf.CeilToInt(hp * difficultyScaling);
         fireRate /= difficultyScaling;
 
         startingPos = transform.position;
@@ -108,7 +108,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
             {
                 if (!isRetreating)//makes sure enemy isn't retreating
                 {
-                    if (agent.remainingDistance <= retreatDistance) //checks to see if agent needs to retreating
+                    if (agent.remainingDistance <= retreatDistance && StatManagerVariables.instance.difficulty < 3) //checks to see if agent needs to retreat and difficulty isn't hard
                     {
                         StartCoroutine(Retreat(transform.position - (playerDir.normalized * runAwayDistance), retreatTime));//starts retreating away from player = to retreat distance for however long it's scared
                     }
