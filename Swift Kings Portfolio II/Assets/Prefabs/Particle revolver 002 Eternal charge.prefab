@@ -51,6 +51,9 @@ MonoBehaviour:
   pushbackAmount: 30
   dmg: 1
   col: {fileID: 991821681149912230}
+  aud: {fileID: 0}
+  soundeffect:
+  - {fileID: 8300000, guid: 1ece478688cd83c46a4d69d9b4896b50, type: 3}
 --- !u!199 &8680001955852939325
 ParticleSystemRenderer:
   serializedVersion: 6
