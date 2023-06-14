@@ -33,13 +33,15 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI weaponAmmoText;
     public TextMeshProUGUI heldAmmo;
     public TextMeshProUGUI  currPoints;
+    public GameObject gunPickupIcon;
+    public TextMeshProUGUI gunPrice;
     public bool isPaused;
     public int enemiesRemaining;
     public int highScore;
     public int currentScore;
     public int points;
     [Header("\n~~~~~~~~Gameplay~~~~~~~~~~~")]
-    public GameObject StatManager;
+    [Range(1, 3)]public int difficulty = 2;
     public int wave;
     [SerializeField] int finalWave;
     public bool nextWave;
@@ -53,9 +55,18 @@ public class gameManager : MonoBehaviour
         instance = this; //Only one instance of singleton
         player = GameObject.FindWithTag("Player"); //Find player
         spawnPoint = GameObject.FindWithTag("Spawnpoint"); //Find spawnpoint
-        StatManager = GameObject.FindWithTag("StatManager");
-        QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 40;
+
+        bool hasDifficulty = playerPrefsManager.instance.HasDifficulty();
+        if (hasDifficulty)
+        {
+            difficulty = playerPrefsManager.instance.GetDifficulty();
+        }
+        else
+        {
+            playerPrefsManager.instance.SetDifficulty(difficulty);
+        }
+        //DontDestroyOnLoad(StatManager);
+
 
         if (SceneManager.GetActiveScene().name != "LandingScene") {
             mCamera = player.gameObject.GetComponentInChildren<Camera>();

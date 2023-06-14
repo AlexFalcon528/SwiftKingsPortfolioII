@@ -57,7 +57,7 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
 
     void Start()
     {
-        difficultyScaling = (float)StatManagerVariables.instance.difficulty / 2;
+        difficultyScaling = (float)gameManager.instance.difficulty / 2;
         hp = Mathf.CeilToInt(hp * difficultyScaling);
         fireRate /= difficultyScaling;
 
@@ -70,7 +70,7 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
     // Update is called once per frame
     IEnumerator spawnMinions()
     {
-        if (StatManagerVariables.instance.difficulty > 1) 
+        if (gameManager.instance.difficulty > 1) 
         {
             if (gameManager.instance.numberOfMinions < gameManager.instance.maxNumberOfMinions)
             {
@@ -114,7 +114,7 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
             {
                 if (!isRetreating)
                 {
-                    if (agent.remainingDistance <= retreatDistance && StatManagerVariables.instance.difficulty < 3) //checks to see if agent needs to retreat and difficulty isn't hard
+                    if (agent.remainingDistance <= retreatDistance && gameManager.instance.difficulty < 3) //checks to see if agent needs to retreat and difficulty isn't hard
                     {
                         StartCoroutine(Retreat(transform.position - (playerDir.normalized * runAwayDistance), retreatTime));//starts retreating away from player = to retreat distance for however long it's scared
                     }

@@ -29,7 +29,7 @@ public class minionAI : MonoBehaviour,IDamage
     // Start is called before the first frame update
     void Start()
     {
-        difficultyScaling = (StatManagerVariables.instance.difficulty / 2);
+        difficultyScaling = (gameManager.instance.difficulty / 2);
         hp *= difficultyScaling;
         fireRate /= difficultyScaling;
         colorOrig = model.material.color;
