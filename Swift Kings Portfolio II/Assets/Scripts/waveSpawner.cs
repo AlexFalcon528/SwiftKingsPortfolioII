@@ -19,7 +19,7 @@ public class waveSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // gameManager.instance.UpdateGameGoal(numberToSpawn); //update goal for non-wave
+        
         
     }
 
@@ -46,7 +46,7 @@ public class waveSpawner : MonoBehaviour
         {
             if (numberSpawned == 0 && gameManager.instance.nextWave)
             {
-                gameManager.instance.UpdateGameGoal(numberToSpawn * (StatManagerVariables.instance.difficulty / 2));
+                gameManager.instance.UpdateGameGoal(numberToSpawn * (StatManagerVariables.instance.difficulty / 2)); //Is this supposed to change how many enemies spawn? If so, it's not correct
             }
             StartCoroutine(spawn());
 

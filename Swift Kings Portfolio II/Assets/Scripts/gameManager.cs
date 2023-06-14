@@ -53,8 +53,6 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindWithTag("Player"); //Find player
         spawnPoint = GameObject.FindWithTag("Spawnpoint"); //Find spawnpoint
         StatManager = GameObject.FindWithTag("StatManager");
-       //DontDestroyOnLoad(StatManager);
-
         
         if (SceneManager.GetActiveScene().name != "LandingScene") {
             mCamera = player.gameObject.GetComponent<Camera>();
