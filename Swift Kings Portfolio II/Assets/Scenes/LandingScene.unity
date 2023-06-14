@@ -420,6 +420,23 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 5950859999343907844, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
+      propertyPath: m_text
+      value: 'Alex Falcon
+
+
+        Chance Byers
+
+
+        Ivo Leonard
+
+
+        Riley
+        Poteralski
+
+
+        Zachary Frederick'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
 --- !u!1001 &171478455
