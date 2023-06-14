@@ -322,10 +322,12 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         {
             //aud.PlayOneShot();
             CreateOrb();
-            yield return new WaitForSeconds(2);
             orbCount--;
+            UpdateUI();
+            yield return new WaitForSeconds(2);
         }
         isUsingItem = false;
+        
     }
 
     public void CreateOrb()
@@ -428,7 +430,8 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         gameManager.instance.Healthbar.fillAmount = (float)hp / hpOriginal; // Set Healthbar fill to the amount of hp compared to original
         gameManager.instance.healthBarText.text = hp.ToString(); // numerical display of hp
         gameManager.instance.heldAmmo.text = $"{heldAmmo}";
-
+        gameManager.instance.heldGrenades.text = $"{grenadeCount} Grenades";
+        gameManager.instance.heldOrbs.text = $"{orbCount} Orbs";
         // Update Weapon Ammo Display
         
         if (guns.Count > 0)
@@ -474,6 +477,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     public void GrenadePickUp()
     {
         grenadeCount++;
+        UpdateUI();
        
     }
     void ThrowGrenade()

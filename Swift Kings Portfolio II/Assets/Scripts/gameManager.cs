@@ -32,6 +32,8 @@ public class gameManager : MonoBehaviour
     public GameObject weaponAmmoParent;
     public TextMeshProUGUI weaponAmmoText;
     public TextMeshProUGUI heldAmmo;
+    public TextMeshProUGUI heldGrenades;
+    public TextMeshProUGUI heldOrbs;
     public TextMeshProUGUI  currPoints;
     public GameObject gunPickupIcon;
     public TextMeshProUGUI gunPrice;
