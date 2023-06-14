@@ -13,6 +13,7 @@ public class gameManager : MonoBehaviour
     public GameObject player;
     public Camera mCamera;
     public playerController pScript;
+    public cameraController cScript;
     public GameObject spawnPoint;
     public bool isDead = false;
 
@@ -53,10 +54,13 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindWithTag("Player"); //Find player
         spawnPoint = GameObject.FindWithTag("Spawnpoint"); //Find spawnpoint
         StatManager = GameObject.FindWithTag("StatManager");
-        
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 40;
+
         if (SceneManager.GetActiveScene().name != "LandingScene") {
-            mCamera = player.gameObject.GetComponent<Camera>();
-            pScript = player.GetComponent<playerController>();
+            mCamera = player.gameObject.GetComponentInChildren<Camera>();
+            cScript = mCamera.GetComponent<cameraController>();
+            player.TryGetComponent<playerController>(out pScript);
         }
 
         nextWave = true;

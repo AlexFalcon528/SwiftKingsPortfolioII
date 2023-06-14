@@ -17,8 +17,9 @@ MonoBehaviour:
   shootDamage: 2
   reloadRate: 2
   maxAmmo: 15
+  recoil: 15
   isScatter: 0
-  currAmmo: 15
+  currAmmo: 13
   model: {fileID: 5272110891947106843, guid: b2440eb3724933044b2dc8fec7d71665, type: 3}
   hitEffect: {fileID: 6222642400925431900, guid: 28721e2c70f38c04b87deb8bd17f57d1, type: 3}
   muzzleFlash: {fileID: 1391847458487284, guid: 9bf79f2d846a57440a981c168c87c617, type: 3}

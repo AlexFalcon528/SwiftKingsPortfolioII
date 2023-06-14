@@ -10,6 +10,7 @@ public class gunStats : ScriptableObject
     [Range(1, 10)] public int shootDamage;
     [Range(1, 4)] public int reloadRate;
     [Range(1, 100)] public int maxAmmo;
+    [Range(1, 100)] public float recoil;
     public bool isScatter;
     public int currAmmo;
     public GameObject model;
