@@ -11,10 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/old Survive.unity
     guid: 6937687fec9e83a46a16a3698d29a212
   - enabled: 1
     path: Assets/Scenes/Survive.unity
     guid: 69695287be6efcd4c90ae38e6d2b1a77
+  - enabled: 1
+    path: Assets/Scenes/Externinate.unity
+    guid: dab01a5663a9d6a4fb361781c6df79f2
   m_configObjects: {}
