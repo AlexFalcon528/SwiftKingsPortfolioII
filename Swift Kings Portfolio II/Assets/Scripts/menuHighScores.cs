@@ -11,6 +11,10 @@ public class menuHighScores : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        txt.text = $"High score: {PlayerPrefs.GetInt(scene)}";
+        if(scene != null)
+        {
+            txt.text = $"High score: {PlayerPrefs.GetInt(scene)}";
+        }
+        
     }
 }
