@@ -79,14 +79,7 @@ public class gameManager : MonoBehaviour
 
     private void Start() {
         points = 50;
-        if (SceneManager.GetActiveScene().name == "SampleScene")
-        {
-            highScore = PlayerPrefs.GetInt("HighScore");
-        }
-        else if (SceneManager.GetActiveScene().name == "Survive")
-        {
-            highScore = PlayerPrefs.GetInt("SurviveHighScore");
-        }
+        PlayerPrefs.GetInt($"{SceneManager.GetActiveScene().name}", highScore);
 
         StartCoroutine(menuManager.instance.WaitToUnfade());
         // Start Menu Music if on Main Menu
@@ -158,14 +151,7 @@ public class gameManager : MonoBehaviour
         if (highScore < currentScore)
         {
             highScore = currentScore;
-            if (SceneManager.GetActiveScene().name == "SampleScene")
-            {
-                PlayerPrefs.SetInt("HighScore",highScore);
-            }
-            else if (SceneManager.GetActiveScene().name == "Survive")
-            {
-                PlayerPrefs.SetInt("SurviveHighScore",highScore);
-            }
+            PlayerPrefs.SetInt($"{SceneManager.GetActiveScene().name}", highScore);
         }
         menuManager.instance.OpenLose();
     }
