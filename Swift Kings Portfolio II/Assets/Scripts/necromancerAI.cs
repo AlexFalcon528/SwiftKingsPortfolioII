@@ -136,8 +136,8 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
             }
         }
 
-            agent.stoppingDistance = 0;
-            return false;
+        agent.stoppingDistance = 0;
+        return false;
     }
     IEnumerator DamageColor()//enemy blinks red when they take damage
     {

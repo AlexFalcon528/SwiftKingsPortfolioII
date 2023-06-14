@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1713876775
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1713876776}
+  - component: {fileID: 1713876777}
+  m_Layer: 1
+  m_Name: VisionSphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1713876776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713876775}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2698156507460177869}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1713876777
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713876775}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 30
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1949543206
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,7 +54,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1949543207}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shoot Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23,12 +68,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1949543206}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.14, y: -0.032, z: 0.006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2698156507460177869}
+  m_Father: {fileID: 6217175984570069760}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1015703149328332791
@@ -40,7 +85,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7663419615479448728}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cactus_rightHandTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +116,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2979094427970801142}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cactus_rightUpperArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +148,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4710476832916608094}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cactus_mouth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +179,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4733482154615699546}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cactus_root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +200,7 @@ Transform:
   m_Children:
   - {fileID: 6582675905219241050}
   m_Father: {fileID: 2698156507460177869}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: -90}
 --- !u!1 &3005484859117625859
 GameObject:
@@ -166,7 +211,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6582675905219241050}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cactus_spine01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,7 +243,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3546850479476471043}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cactus_neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,9 +278,9 @@ GameObject:
   - component: {fileID: 218939088387621118}
   - component: {fileID: 4431660470251435000}
   - component: {fileID: 8128105297580838054}
-  - component: {fileID: 2902570805118358730}
   - component: {fileID: -3708473262685432985}
   - component: {fileID: 1880561318}
+  - component: {fileID: 612243060}
   m_Layer: 6
   m_Name: Necromancer
   m_TagString: Untagged
@@ -256,9 +301,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8281827460251760363}
-  - {fileID: 1949543207}
   - {fileID: 2461043477680207017}
   - {fileID: 4733482154615699546}
+  - {fileID: 1713876776}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -278,20 +323,30 @@ MonoBehaviour:
   agent: {fileID: -3708473262685432985}
   anim: {fileID: 1880561318}
   minionSpawnPoint: {fileID: 8281827460251760363}
-  headPos: {fileID: 1898650533312247373}
-  shootPos: {fileID: 2414759262797777262}
-  hp: 20
+  headPos: {fileID: 1024480226828736798}
+  shootPos: {fileID: 1949543207}
+  hp: 5
   turnSpeed: 600
   shootAngle: 20
   viewCone: 180
   animTranSpeed: 50
   roamDistance: 10
   roamPauseTime: 1
+  retreatTime: 3
+  runAwayDistance: 20
   pointsWorth: 100
   minions: {fileID: 3215846047005421435, guid: f334214bce37b484a98544a940b3e5bc, type: 3}
-  minionSpawnRate: 1
+  minionSpawnRate: 8
   projectile: {fileID: 8116298408177600472, guid: 8932f5588131b5b489e3e53b84d04f63, type: 3}
   fireRate: 2
+  audDamage:
+  - {fileID: 8300000, guid: 1cd9fbc4bb2c19749aa2e61afd72aaaa, type: 3}
+  - {fileID: 8300000, guid: faf53b5b59d41a14e97c8858f4664122, type: 3}
+  - {fileID: 8300000, guid: a715ddf00ff7f24469c72404e8df85e9, type: 3}
+  - {fileID: 8300000, guid: e968c6ef8536cba4e98d5c8f4fdb9ccf, type: 3}
+  audDamageVol: 0.2
+  audDeath: {fileID: 8300000, guid: 0e5edb6bccf05984dad128fb1a9fc914, type: 3}
+  audDeathVol: 0.5
 --- !u!33 &4431660470251435000
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -313,19 +368,6 @@ CapsuleCollider:
   m_Radius: 0.4
   m_Height: 1.5
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &2902570805118358730
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3983615315531525849}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 50
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &-3708473262685432985
 NavMeshAgent:
@@ -370,6 +412,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!54 &612243060
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3983615315531525849}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0.5
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 1
 --- !u!1 &4845539659974236886
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,7 +437,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8281827460251760363}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Minion SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -410,7 +468,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7611672554469714448}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cactus_leftEye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -441,7 +499,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4099830756498819688}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cactus_leftLowerArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -473,7 +531,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7019382556112998129}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cactus_rightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -505,7 +563,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6217175984570069760}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cactus_leftHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -525,6 +583,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2414759262797777262}
+  - {fileID: 1949543207}
   m_Father: {fileID: 4099830756498819688}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -537,7 +596,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2314333047555306837}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cactus_leftUpperArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -569,7 +628,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7930078677157276463}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cactus_headDeco
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -600,7 +659,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7623800731012216486}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cactus_spine03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -634,7 +693,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5961249573322917102}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cactus_spine02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -666,7 +725,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1898650533312247373}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cactus_rightEye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -698,7 +757,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2461043477680207017}
   - component: {fileID: 2521443132081943773}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cactus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -718,7 +777,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2698156507460177869}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &2521443132081943773
 SkinnedMeshRenderer:
@@ -800,7 +859,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1024480226828736798}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cactus_head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -835,7 +894,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2414759262797777262}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cactus_leftHandTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -866,7 +925,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 344338978003046598}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cactus_rightLowerArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
