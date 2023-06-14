@@ -3546,6 +3546,7 @@ MonoBehaviour:
   highScore: 0
   currentScore: 0
   points: 0
+  StatManager: {fileID: 0}
   wave: 1
   finalWave: 5
   nextWave: 0
@@ -8470,7 +8471,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7971553653455674256
 RectTransform:
   m_ObjectHideFlags: 0

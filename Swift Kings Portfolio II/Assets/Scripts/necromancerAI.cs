@@ -57,7 +57,7 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
 
     void Start()
     {
-        difficultyScaling = (gameManager.instance.difficulty / 2);
+        difficultyScaling = (StatManagerVariables.instance.difficulty / 2);
         hp *= difficultyScaling;
         fireRate /= difficultyScaling;
 
