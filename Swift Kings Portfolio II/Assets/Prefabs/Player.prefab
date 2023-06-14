@@ -209,6 +209,7 @@ MonoBehaviour:
   itemPos: {fileID: 2929419516858568634}
   OrbWeapon: {fileID: 5226211110920521442, guid: 2b65a4638710d5942b3ffbbec54ca99e, type: 3}
   pushBackSphere: {fileID: 6156922396145289040}
+  grenade: {fileID: 5257145413587437308, guid: dbb9798cdcd98854889a426af2afccdc, type: 3}
   hp: 20
   speed: 8
   sprintMult: 1.5
@@ -218,6 +219,7 @@ MonoBehaviour:
   jumpVelocity: 3
   pushBackResolve: 3
   pushBackAttackCD: 15
+  grenadeCount: 2
   guns: []
   heldAmmo: 20
   orbCount: 1

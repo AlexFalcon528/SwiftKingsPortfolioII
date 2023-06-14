@@ -18,6 +18,8 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [SerializeField] Transform itemPos;
     [SerializeField] GameObject OrbWeapon;
     [SerializeField] GameObject pushBackSphere;
+    [SerializeField] GameObject grenade;
+
 
     [Header("\n~~~~~~~Stats~~~~~~~")]
     [Header("~~~Player~~~")]
@@ -30,6 +32,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [SerializeField][Range(3, 9)] float jumpVelocity;
     [SerializeField] float pushBackResolve;
     [SerializeField][Range(0,60)] int pushBackAttackCD;
+    [SerializeField] int grenadeCount;
 
     [Header("\n~~~Weapon~~~")]
     public List<gunStats> guns = new List<gunStats>();
@@ -100,6 +103,10 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
                 if(Input.GetButton("Push back Attack"))
                 {
                     StartCoroutine(PushBackAttack());
+                }
+                if(Input.GetButtonDown("Grenade Throw"))
+                {
+                    ThrowGrenade();
                 }
 
             }
@@ -460,6 +467,21 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
             pushBackSphere.SetActive(false);
             yield return new WaitForSeconds(pushBackAttackCD);
             isPushing = false;
+        }
+    }
+    public void GrenadePickUp()
+    {
+        grenadeCount++;
+       
+    }
+    void ThrowGrenade()
+    {
+        if(grenadeCount>0)
+        {
+            grenadeCount--;
+            Instantiate(grenade, itemPos.position, Camera.main.transform.rotation); 
+            UpdateUI();
+            
         }
     }
 
