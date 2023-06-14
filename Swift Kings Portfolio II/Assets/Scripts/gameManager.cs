@@ -38,7 +38,7 @@ public class gameManager : MonoBehaviour
     public int currentScore;
     public int points;
     [Header("\n~~~~~~~~Gameplay~~~~~~~~~~~")]
-    public GameObject StatManager;
+    [Range(1, 3)]public int difficulty = 2;
     public int wave;
     [SerializeField] int finalWave;
     public bool nextWave;
@@ -52,8 +52,19 @@ public class gameManager : MonoBehaviour
         instance = this; //Only one instance of singleton
         player = GameObject.FindWithTag("Player"); //Find player
         spawnPoint = GameObject.FindWithTag("Spawnpoint"); //Find spawnpoint
-        StatManager = GameObject.FindWithTag("StatManager");
-        
+
+        bool hasDifficulty = playerPrefsManager.instance.HasDifficulty();
+        if (hasDifficulty)
+        {
+            difficulty = playerPrefsManager.instance.GetDifficulty();
+        }
+        else
+        {
+            playerPrefsManager.instance.SetDifficulty(difficulty);
+        }
+        //DontDestroyOnLoad(StatManager);
+
+
         if (SceneManager.GetActiveScene().name != "LandingScene") {
             mCamera = player.gameObject.GetComponent<Camera>();
             pScript = player.GetComponent<playerController>();

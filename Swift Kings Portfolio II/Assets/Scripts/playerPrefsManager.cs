@@ -37,4 +37,16 @@ public class playerPrefsManager : MonoBehaviour
     public void SetMusicAud(float vol) {
         PlayerPrefs.SetFloat("AudMusicVol", vol);
     }
+
+    public bool HasDifficulty() {
+        return PlayerPrefs.HasKey("Difficulty");
+    }
+
+    public void SetDifficulty(int difficulty) {
+        PlayerPrefs.SetInt("Difficulty", difficulty);
+    }
+
+    public int GetDifficulty() {
+        return PlayerPrefs.GetInt("Difficulty");
+    }
 }
