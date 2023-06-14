@@ -51,7 +51,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     void Start()
     {
         difficultyScaling = (float)gameManager.instance.difficulty / 2;
-        hp = Mathf.CeilToInt(hp * difficultyScaling*Mathf.Pow(1.1f,gameManager.instance.wave));
+        hp = Mathf.CeilToInt(hp * difficultyScaling*Mathf.Pow(1.1f,gameManager.instance.wave-1));
         fireRate /= difficultyScaling;
         
         startingPos = transform.position;
@@ -169,6 +169,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
 
         if (hp <= 0)
         {   GetComponent<CapsuleCollider>().enabled = false;
+            GetComponent<BoxCollider>().enabled = false;
             aud.PlayOneShot(audDeath, audioManager.instance.audSFXVol);
             gameManager.instance.UpdateGameGoal(-1);
             gameManager.instance.currentScore += pointsWorth;

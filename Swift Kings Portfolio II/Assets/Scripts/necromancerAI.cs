@@ -58,7 +58,7 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
     void Start()
     {
         difficultyScaling = (float)gameManager.instance.difficulty / 2;
-        hp = Mathf.CeilToInt(hp * difficultyScaling);
+        hp = Mathf.CeilToInt(hp * difficultyScaling * Mathf.Pow(1.1f, gameManager.instance.wave-1));
         fireRate /= difficultyScaling;
 
         colorOrig = model.material.color;
@@ -199,6 +199,7 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
         if (hp <= 0)
         {
             GetComponent<CapsuleCollider>().enabled = false;
+            GetComponent<SphereCollider>().enabled = false;
             gameManager.instance.UpdateGameGoal(-1);
             gameManager.instance.points += pointsWorth;
             gameManager.instance.currentScore += pointsWorth;
