@@ -16445,10 +16445,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1632619173502079452, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2985960344647124914, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -16496,18 +16492,6 @@ PrefabInstance:
     - target: {fileID: 2985960344647124915, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
       propertyPath: m_Name
       value: UI
-      objectReference: {fileID: 0}
-    - target: {fileID: 6358105635069355559, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
-      propertyPath: m_text
-      value: 'Enemies: ???'
-      objectReference: {fileID: 0}
-    - target: {fileID: 7246601319176962578, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 2000
-      objectReference: {fileID: 0}
-    - target: {fileID: 7246601319176962578, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 1100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
