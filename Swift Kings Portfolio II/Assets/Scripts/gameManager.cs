@@ -58,15 +58,7 @@ public class gameManager : MonoBehaviour
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 50;
 
-        bool hasDifficulty = playerPrefsManager.instance.HasDifficulty();
-        if (hasDifficulty)
-        {
-            difficulty = playerPrefsManager.instance.GetDifficulty();
-        }
-        else
-        {
-            playerPrefsManager.instance.SetDifficulty(difficulty);
-        }
+        
 
 
         if (SceneManager.GetActiveScene().name != "LandingScene") {
@@ -80,6 +72,15 @@ public class gameManager : MonoBehaviour
     }
 
     private void Start() {
+        bool hasDifficulty = playerPrefsManager.instance.HasDifficulty();
+        if (hasDifficulty)
+        {
+            difficulty = playerPrefsManager.instance.GetDifficulty();
+        }
+        else
+        {
+            playerPrefsManager.instance.SetDifficulty(difficulty);
+        }
         points = 50;
         PlayerPrefs.GetInt($"{SceneManager.GetActiveScene().name}", highScore);
 
