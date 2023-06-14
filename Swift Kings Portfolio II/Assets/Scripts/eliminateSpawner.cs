@@ -19,6 +19,7 @@ public class eliminateSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager.instance.waveText.enabled = false;
         gameManager.instance.finalWave = 2;
         gameManager.instance.UpdateGameGoal(numberToSpawn); //update goal for non-wave
 

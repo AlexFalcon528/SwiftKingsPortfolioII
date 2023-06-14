@@ -55,6 +55,8 @@ public class gameManager : MonoBehaviour
         instance = this; //Only one instance of singleton
         player = GameObject.FindWithTag("Player"); //Find player
         spawnPoint = GameObject.FindWithTag("Spawnpoint"); //Find spawnpoint
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 50;
 
         bool hasDifficulty = playerPrefsManager.instance.HasDifficulty();
         if (hasDifficulty)
@@ -65,7 +67,6 @@ public class gameManager : MonoBehaviour
         {
             playerPrefsManager.instance.SetDifficulty(difficulty);
         }
-        //DontDestroyOnLoad(StatManager);
 
 
         if (SceneManager.GetActiveScene().name != "LandingScene") {

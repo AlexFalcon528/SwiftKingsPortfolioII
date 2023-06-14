@@ -19,7 +19,7 @@ public class waveSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameManager.instance.waveText.enabled = true;
         
     }
 
