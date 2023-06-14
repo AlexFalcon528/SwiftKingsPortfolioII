@@ -47,7 +47,7 @@ public class Gravitymissile : MonoBehaviour
        
             isGravitating = true;
         col.enabled = false;
-            yield return new WaitForSeconds(.3f);
+            yield return new WaitForSeconds(.8f);
         col.enabled = true;
         isGravitating = false;
         
