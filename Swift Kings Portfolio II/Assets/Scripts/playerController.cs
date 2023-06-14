@@ -60,6 +60,8 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     public bool isPoweredUp;
     bool isUsingItem;
     bool jumpPeak;
+    bool dPadPressed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -79,7 +81,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
             {
                 if (!isShooting && !isReloading && !isUsingItem) //If the player is pressing the shoot button and not already shooting
                 {
-                    if (guns.Count > 0 && Input.GetButton("Shoot")) //If the player is pressing the shoot button and not already shooting
+                    if (guns.Count > 0 && (Input.GetButton("Shoot") || Input.GetAxis("Shoot") == 1)) //If the player is pressing the shoot button and not already shooting
                     {
                         StartCoroutine(Shoot());
                     }
@@ -314,8 +316,9 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     void ChangeGun()
     {
 
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 || (Input.GetAxis("Swap Weapon") > 0 && !dPadPressed))
         {
+            if(Input.GetAxis("Swap Weapon") > 0) dPadPressed = true;
             if(selectedGun < guns.Count - 1)
             {
                 selectedGun++;
@@ -327,9 +330,10 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
             
             ChangeGunStats();
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 || (Input.GetAxis("Swap Weapon") < 0 && !dPadPressed))
         {
-            if(selectedGun > 0)
+            if (Input.GetAxis("Swap Weapon") < 0) dPadPressed = true;
+            if (selectedGun > 0)
             {
                 selectedGun--;
             }
@@ -338,7 +342,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
                 selectedGun = guns.Count-1; ;
             }
             ChangeGunStats();
-        }
+        } else if (Input.GetAxis("Swap Weapon") == 0 && dPadPressed) dPadPressed= false;
 
     }
     void ChangeGunStats()
