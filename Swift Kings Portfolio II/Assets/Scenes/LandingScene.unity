@@ -2793,10 +2793,21 @@ PrefabInstance:
     - target: {fileID: 3018490025660340273, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
       propertyPath: m_IsActive
       value: 0
+<<<<<<< HEAD
+=======
+      objectReference: {fileID: 0}
+    - target: {fileID: 6248863897311160675, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+>>>>>>> 51e1e0f3 (updated Eliminate map to house spawners)
       objectReference: {fileID: 0}
     - target: {fileID: 6358105634104105274, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6358105634108911570, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -163
       objectReference: {fileID: 0}
     - target: {fileID: 6358105634108911571, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
       propertyPath: m_IsActive
