@@ -54,7 +54,7 @@ public class btnFunctions : MonoBehaviour {
     }
 
     public void EliminateLvl2() {
-        StartCoroutine(SceneTransition("SampleScene")); // Load the Sample Scene (Elminate All Enmies Gamemode)
+        StartCoroutine(SceneTransition("Exterminate")); // Load the Sample Scene (Elminate All Enmies Gamemode)
     }
 
 
