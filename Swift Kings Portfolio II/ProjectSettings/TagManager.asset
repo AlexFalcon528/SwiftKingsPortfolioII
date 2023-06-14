@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Spawnpoint
   - Enemy
-  - HitBox
+  - UI
   layers:
   - Default
   - TransparentFX

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class gameManager : MonoBehaviour
 {
     [Header("~~~~~~~Singleton~~~~~~~")]
-    public static gameManager instance;
+    public static gameManager instance; 
     [Header("~~~~~~~Player~~~~~~~")]
     public GameObject player;
     public Camera mCamera;
@@ -41,7 +41,7 @@ public class gameManager : MonoBehaviour
     public int wave;
     [SerializeField] int finalWave;
     public bool nextWave;
-    [Range(1, 3)]public int difficulty = 2; 
+    [Range(1, 3)]public int difficulty; 
     [Header("\n~~~~~~~~Minions Tracker~~~~~~~~~~~")]
     public int numberOfMinions;
     [Range(1, 30)] [SerializeField] public int maxNumberOfMinions;

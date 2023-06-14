@@ -3549,7 +3549,7 @@ MonoBehaviour:
   wave: 1
   finalWave: 5
   nextWave: 0
-  difficulty: 2
+  difficulty: 1
   numberOfMinions: 0
   maxNumberOfMinions: 5
 --- !u!114 &2985960344441677929
@@ -3575,7 +3575,7 @@ GameObject:
   - component: {fileID: 2985960344647124914}
   m_Layer: 0
   m_Name: UI
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8470,7 +8470,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7971553653455674256
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17789,7 +17789,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6392323410714767902
 RectTransform:
   m_ObjectHideFlags: 0
