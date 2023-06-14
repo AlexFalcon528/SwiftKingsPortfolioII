@@ -161,6 +161,11 @@ public class gameManager : MonoBehaviour
     public IEnumerator YouWin() {
         yield return new WaitForSeconds(1);
         PauseState();
+        if (highScore < currentScore)
+        {
+            highScore = currentScore;
+            PlayerPrefs.SetInt($"{SceneManager.GetActiveScene().name}", highScore);
+        }
         menuManager.instance.OpenWin();
     }
 
