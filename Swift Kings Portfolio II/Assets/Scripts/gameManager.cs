@@ -108,6 +108,8 @@ public class gameManager : MonoBehaviour
         {
             nextWave = true;
             wave++;
+            pScript.GrenadePickUp();
+            pScript.GrenadePickUp();
             points += 25;
             currentScore += 25;
             currPoints.text = $"{points}";

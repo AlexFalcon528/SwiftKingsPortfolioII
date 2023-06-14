@@ -48,12 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1f43bc898d96a45975a6fc9f3ace83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushbackAmount: 30
+  pushbackAmount: 5
   dmg: 1
   col: {fileID: 991821681149912230}
-  aud: {fileID: 0}
-  soundeffect:
-  - {fileID: 8300000, guid: 1ece478688cd83c46a4d69d9b4896b50, type: 3}
 --- !u!199 &8680001955852939325
 ParticleSystemRenderer:
   serializedVersion: 6

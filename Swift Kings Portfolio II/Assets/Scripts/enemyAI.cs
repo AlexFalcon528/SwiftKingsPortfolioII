@@ -51,9 +51,9 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     void Start()
     {
         difficultyScaling = (float)gameManager.instance.difficulty / 2;
-        hp = Mathf.CeilToInt(hp * difficultyScaling);
+        hp = Mathf.CeilToInt(hp * difficultyScaling*Mathf.Pow(1.1f,gameManager.instance.wave));
         fireRate /= difficultyScaling;
-
+        
         startingPos = transform.position;
         colorOrig = model.material.color;
         
@@ -168,7 +168,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
         hp -= dmg;
 
         if (hp <= 0)
-        {
+        {   GetComponent<CapsuleCollider>().enabled = false;
             aud.PlayOneShot(audDeath, audioManager.instance.audSFXVol);
             gameManager.instance.UpdateGameGoal(-1);
             gameManager.instance.currentScore += pointsWorth;
@@ -177,7 +177,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
             anim.SetBool("Dead", true);
             agent.enabled = false;
             StopAllCoroutines();
-            GetComponent<CapsuleCollider>().enabled = false;
+            
             StartCoroutine(Fade());
         }
         else

@@ -198,14 +198,14 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
 
         if (hp <= 0)
         {
-
+            GetComponent<CapsuleCollider>().enabled = false;
             gameManager.instance.UpdateGameGoal(-1);
             gameManager.instance.points += pointsWorth;
             gameManager.instance.currentScore += pointsWorth;
             gameManager.instance.currPoints.text = $"{gameManager.instance.points}";
             anim.SetBool("Dead", true);
             agent.enabled = false;
-            GetComponent<CapsuleCollider>().enabled = false;
+            
             StopAllCoroutines();
             StartCoroutine(Fade());
         }

@@ -8,16 +8,15 @@ public class Gravitymissile : MonoBehaviour
     [Range(0, 100)] [SerializeField] int dmg;
     bool isGravitating;
     [SerializeField] Collider col;
-    [SerializeField] AudioSource aud;
-    [SerializeField] AudioClip[] soundeffect;
+    
     // Start is called before the first frame update
     void Start()
     {
-        aud = gameManager.instance.player.GetComponent<AudioSource>();
+       
         
     }
     private void Update()
-    {   aud.PlayOneShot(soundeffect[Random.Range(0, soundeffect.Length)], audioManager.instance.audSFXVol);
+    {  
         if(!isGravitating)
         {
             StartCoroutine(Gravitate());
@@ -48,7 +47,7 @@ public class Gravitymissile : MonoBehaviour
        
             isGravitating = true;
         col.enabled = false;
-            yield return new WaitForSeconds(.1f);
+            yield return new WaitForSeconds(.3f);
         col.enabled = true;
         isGravitating = false;
         

@@ -230,8 +230,10 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
                 {
                     IDamage damageable = hit.collider.GetComponent<IDamage>();
                     if (damageable != null)
-                    {
-                        damageable.TakeDamage(shootDamage);
+                    {if (hit.collider.GetType() == typeof(CapsuleCollider))
+                            damageable.TakeDamage(shootDamage * 2);
+                        else
+                            damageable.TakeDamage(shootDamage);
                     }
                     IPhysics physicsable = hit.collider.GetComponent<IPhysics>();
                     if (physicsable != null)
