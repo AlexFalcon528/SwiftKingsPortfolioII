@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 655785257}
   - component: {fileID: 655785256}
   - component: {fileID: 9144483773214758461}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Minimap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1525259141}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Futurepos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 3115329607362736410}
   - component: {fileID: 3115329607362736409}
   - component: {fileID: 86546200}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -208,19 +208,19 @@ MonoBehaviour:
   futurePos: {fileID: 1525259140}
   itemPos: {fileID: 2929419516858568634}
   OrbWeapon: {fileID: 5226211110920521442, guid: 2b65a4638710d5942b3ffbbec54ca99e, type: 3}
-  pushBackSphere: {fileID: 0}
+  pushBackSphere: {fileID: 6156922396145289040}
   hp: 20
   speed: 8
   sprintMult: 1.5
-  jumpHeight: 2.5
+  jumpHeight: 5
   gravity: 9
   jumps: 1
   jumpVelocity: 3
   pushBackResolve: 3
-  pushBackAttackCD: 0
+  pushBackAttackCD: 15
   guns: []
   heldAmmo: 20
-  orbCount: 50
+  orbCount: 1
   shootDist: 500
   shootRate: 0.2
   shootDamage: 4
@@ -441,7 +441,7 @@ GameObject:
   - component: {fileID: 3115329607711537139}
   - component: {fileID: 3115329607711537138}
   - component: {fileID: 9051074798459496388}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -483,6 +483,7 @@ MonoBehaviour:
   sensHor: 300
   maxPitch: 90
   minPitch: -90
+  xRotation: 0
 --- !u!20 &3115329607711537139
 Camera:
   m_ObjectHideFlags: 0
@@ -578,7 +579,7 @@ GameObject:
   - component: {fileID: 8825147997954816768}
   - component: {fileID: 8473668120500416071}
   - component: {fileID: 3025002475150887229}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Visual Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -758,7 +759,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2929419516858568634}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Item Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -773,7 +774,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8382000167876151643}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 1.257}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -790,6 +791,10 @@ PrefabInstance:
     - target: {fileID: 4698201593948852689, guid: 185ce04d44da342739f0bef843698e6c, type: 3}
       propertyPath: m_Name
       value: PlayerWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 4698201593948852689, guid: 185ce04d44da342739f0bef843698e6c, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5366194922259909483, guid: 185ce04d44da342739f0bef843698e6c, type: 3}
       propertyPath: m_RootOrder
