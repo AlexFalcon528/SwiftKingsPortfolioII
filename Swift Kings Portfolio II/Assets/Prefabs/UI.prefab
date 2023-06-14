@@ -4208,7 +4208,7 @@ MonoBehaviour:
   isDead: 0
   lowHealthIndicator: {fileID: 853670717}
   reticle: {fileID: 6248863897311160675}
-  objectiveParent: {fileID: 7602746342430796678}
+  gameplayUI: {fileID: 7602746342430796678}
   objectiveText: {fileID: 6358105635069355559}
   waveText: {fileID: 6358105633315971286}
   HealthbarParent: {fileID: 6358105634658280394}
@@ -13179,7 +13179,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 1412, y: -836}
+  m_AnchoredPosition: {x: 1500, y: -758}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6358105634104105279
@@ -20646,7 +20646,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 1412, y: -783.2}
+  m_AnchoredPosition: {x: 1500, y: -701}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1763952773254735939

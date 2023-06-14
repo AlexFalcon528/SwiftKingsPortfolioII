@@ -23,7 +23,7 @@ public class gameManager : MonoBehaviour
 
     [SerializeField] GameObject lowHealthIndicator;
     public GameObject reticle;
-    public GameObject objectiveParent;
+    public GameObject gameplayUI;
     public TextMeshProUGUI objectiveText;
     public TextMeshProUGUI waveText;
     public GameObject HealthbarParent;
@@ -70,7 +70,7 @@ public class gameManager : MonoBehaviour
 
 
         if (SceneManager.GetActiveScene().name != "LandingScene") {
-            objectiveParent.SetActive(true);
+            gameplayUI.SetActive(true);
             mCamera = player.gameObject.GetComponentInChildren<Camera>();
             cScript = mCamera.GetComponent<cameraController>();
             player.TryGetComponent<playerController>(out pScript);
