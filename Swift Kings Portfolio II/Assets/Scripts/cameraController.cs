@@ -11,7 +11,7 @@ public class cameraController : MonoBehaviour
     [SerializeField] int sensHor;
     [SerializeField] int maxPitch;
     [SerializeField] int minPitch;
-    float xRotation;
+    public float xRotation;
     // Start is called before the first frame update
     void Start()
     {

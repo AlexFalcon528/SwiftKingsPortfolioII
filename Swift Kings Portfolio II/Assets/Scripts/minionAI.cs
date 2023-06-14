@@ -19,6 +19,7 @@ public class minionAI : MonoBehaviour,IDamage
     [SerializeField] float animTranSpeed;
     [SerializeField] int pointsWorth;
 
+    int difficultyScaling;
     bool isShooting;
     bool playerInRange;
     Vector3 playerDir;
@@ -28,6 +29,9 @@ public class minionAI : MonoBehaviour,IDamage
     // Start is called before the first frame update
     void Start()
     {
+        difficultyScaling = (gameManager.instance.difficulty / 2);
+        hp *= difficultyScaling;
+        fireRate /= difficultyScaling;
         colorOrig = model.material.color;
         gameManager.instance.UpdateMinionsCounter(+1);
         

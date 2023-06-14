@@ -53,12 +53,12 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
     float stoppingDistOrig;
     float speed;
     float retreatDistance;
-    int difficultyScaling;
+    float difficultyScaling;
 
     void Start()
     {
-        difficultyScaling = (gameManager.instance.difficulty / 2);
-        hp *= difficultyScaling;
+        difficultyScaling = (float)gameManager.instance.difficulty / 2;
+        hp = Mathf.CeilToInt(hp * difficultyScaling);
         fireRate /= difficultyScaling;
 
         colorOrig = model.material.color;
@@ -69,12 +69,16 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
 
     // Update is called once per frame
     IEnumerator spawnMinions()
-    {if (gameManager.instance.numberOfMinions < gameManager.instance.maxNumberOfMinions)
+    {
+        if (gameManager.instance.difficulty > 1) 
         {
-            isSpawning = true;
-            Instantiate(minions, minionSpawnPoint.position, transform.rotation);
-            yield return new WaitForSeconds(minionSpawnRate);
-            isSpawning = false;
+            if (gameManager.instance.numberOfMinions < gameManager.instance.maxNumberOfMinions)
+            {
+                isSpawning = true;
+                Instantiate(minions, minionSpawnPoint.position, transform.rotation);
+                yield return new WaitForSeconds(minionSpawnRate);
+                isSpawning = false;
+            }
         }
         
     }
@@ -101,8 +105,8 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
     {
         playerDir = gameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(transform.forward, playerDir);
-        Debug.DrawRay(headPos.position, playerDir);
-        Debug.Log(angleToPlayer);
+        //Debug.DrawRay(headPos.position, playerDir);
+        //Debug.Log(angleToPlayer);
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit))
         {
@@ -110,7 +114,7 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
             {
                 if (!isRetreating)
                 {
-                    if (agent.remainingDistance <= retreatDistance) //checks to see if agent needs to retreating
+                    if (agent.remainingDistance <= retreatDistance && gameManager.instance.difficulty < 3) //checks to see if agent needs to retreat and difficulty isn't hard
                     {
                         StartCoroutine(Retreat(transform.position - (playerDir.normalized * runAwayDistance), retreatTime));//starts retreating away from player = to retreat distance for however long it's scared
                     }

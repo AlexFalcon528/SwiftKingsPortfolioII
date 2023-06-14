@@ -47,11 +47,11 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     float stoppingDistOrig;
     float speed;
     float retreatDistance;
-    int difficultyScaling;
+    float difficultyScaling;
     void Start()
     {
-        difficultyScaling = (gameManager.instance.difficulty / 2);
-        hp *= difficultyScaling;
+        difficultyScaling = (float)gameManager.instance.difficulty / 2;
+        hp = Mathf.CeilToInt(hp * difficultyScaling);
         fireRate /= difficultyScaling;
 
         startingPos = transform.position;
@@ -99,8 +99,8 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
 
         playerDir = gameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(new Vector3(playerDir.x, 0, playerDir.z), transform.forward);
-        Debug.DrawRay(headPos.position, playerDir);
-        Debug.Log(angleToPlayer);
+        //Debug.DrawRay(headPos.position, playerDir);
+        //Debug.Log(angleToPlayer);
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDir, out hit))
         {
@@ -108,7 +108,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
             {
                 if (!isRetreating)//makes sure enemy isn't retreating
                 {
-                    if (agent.remainingDistance <= retreatDistance) //checks to see if agent needs to retreating
+                    if (agent.remainingDistance <= retreatDistance && gameManager.instance.difficulty < 3) //checks to see if agent needs to retreat and difficulty isn't hard
                     {
                         StartCoroutine(Retreat(transform.position - (playerDir.normalized * runAwayDistance), retreatTime));//starts retreating away from player = to retreat distance for however long it's scared
                     }

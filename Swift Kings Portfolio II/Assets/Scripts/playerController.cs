@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -140,7 +142,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
                 jumped++; //Jump
 
             }
-            if (transform.position.y >= jumpHeight)
+            if (transform.position.y >= jumpHeight || Input.GetButtonUp("Jump"))
             {
                 jumpPeak = true;
             }
@@ -272,8 +274,9 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
                     }*/
                 }
             }
-        
 
+            gameManager.instance.cScript.xRotation -= guns[selectedGun].recoil * 0.1f;
+            controller.Move(transform.forward * (guns[selectedGun].recoil *-0.5f) * Time.deltaTime);
             yield return new WaitForSeconds(shootRate);
 
             isShooting = false;

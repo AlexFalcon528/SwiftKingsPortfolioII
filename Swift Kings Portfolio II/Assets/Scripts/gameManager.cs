@@ -8,11 +8,12 @@ using UnityEngine.UI;
 public class gameManager : MonoBehaviour
 {
     [Header("~~~~~~~Singleton~~~~~~~")]
-    public static gameManager instance;
+    public static gameManager instance; 
     [Header("~~~~~~~Player~~~~~~~")]
     public GameObject player;
     public Camera mCamera;
     public playerController pScript;
+    public cameraController cScript;
     public GameObject spawnPoint;
     public bool isDead = false;
 
@@ -32,16 +33,18 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI weaponAmmoText;
     public TextMeshProUGUI heldAmmo;
     public TextMeshProUGUI  currPoints;
+    public GameObject gunPickupIcon;
+    public TextMeshProUGUI gunPrice;
     public bool isPaused;
     public int enemiesRemaining;
     public int highScore;
     public int currentScore;
     public int points;
     [Header("\n~~~~~~~~Gameplay~~~~~~~~~~~")]
+    [Range(1, 3)]public int difficulty = 2;
     public int wave;
-    [SerializeField] int finalWave;
+    public int finalWave;
     public bool nextWave;
-    [Range(1, 3)]public int difficulty = 2; 
     [Header("\n~~~~~~~~Minions Tracker~~~~~~~~~~~")]
     public int numberOfMinions;
     [Range(1, 30)] [SerializeField] public int maxNumberOfMinions;
@@ -52,10 +55,24 @@ public class gameManager : MonoBehaviour
         instance = this; //Only one instance of singleton
         player = GameObject.FindWithTag("Player"); //Find player
         spawnPoint = GameObject.FindWithTag("Spawnpoint"); //Find spawnpoint
-        
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 50;
+
+        bool hasDifficulty = playerPrefsManager.instance.HasDifficulty();
+        if (hasDifficulty)
+        {
+            difficulty = playerPrefsManager.instance.GetDifficulty();
+        }
+        else
+        {
+            playerPrefsManager.instance.SetDifficulty(difficulty);
+        }
+
+
         if (SceneManager.GetActiveScene().name != "LandingScene") {
-            mCamera = player.gameObject.GetComponent<Camera>();
-            pScript = player.GetComponent<playerController>();
+            mCamera = player.gameObject.GetComponentInChildren<Camera>();
+            cScript = mCamera.GetComponent<cameraController>();
+            player.TryGetComponent<playerController>(out pScript);
         }
 
         nextWave = true;
@@ -63,14 +80,7 @@ public class gameManager : MonoBehaviour
 
     private void Start() {
         points = 50;
-        if (SceneManager.GetActiveScene().name == "SampleScene")
-        {
-            highScore = PlayerPrefs.GetInt("HighScore");
-        }
-        else if (SceneManager.GetActiveScene().name == "Survive")
-        {
-            highScore = PlayerPrefs.GetInt("SurviveHighScore");
-        }
+        PlayerPrefs.GetInt($"{SceneManager.GetActiveScene().name}", highScore);
 
         StartCoroutine(menuManager.instance.WaitToUnfade());
         // Start Menu Music if on Main Menu
@@ -97,6 +107,9 @@ public class gameManager : MonoBehaviour
         {
             nextWave = true;
             wave++;
+            points += 25;
+            currentScore += 25;
+            currPoints.text = $"{points}";
             if (wave > finalWave)
             {
                 StartCoroutine(YouWin());
@@ -139,14 +152,7 @@ public class gameManager : MonoBehaviour
         if (highScore < currentScore)
         {
             highScore = currentScore;
-            if (SceneManager.GetActiveScene().name == "SampleScene")
-            {
-                PlayerPrefs.SetInt("HighScore",highScore);
-            }
-            else if (SceneManager.GetActiveScene().name == "Survive")
-            {
-                PlayerPrefs.SetInt("SurviveHighScore",highScore);
-            }
+            PlayerPrefs.SetInt($"{SceneManager.GetActiveScene().name}", highScore);
         }
         menuManager.instance.OpenLose();
     }
