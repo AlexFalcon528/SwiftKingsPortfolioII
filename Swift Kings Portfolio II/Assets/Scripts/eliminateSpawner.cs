@@ -20,7 +20,7 @@ public class eliminateSpawner : MonoBehaviour
     void Start()
     {
         gameManager.instance.waveText.enabled = false;
-        gameManager.instance.finalWave = 2;
+        gameManager.instance.finalWave = 1;
         gameManager.instance.UpdateGameGoal(numberToSpawn); //update goal for non-wave
 
     }
