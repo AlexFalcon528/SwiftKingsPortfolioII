@@ -166,7 +166,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6358105633228546258}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2532,7 +2532,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6358105633228546258}
-  m_RootOrder: 19
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3411,18 +3411,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2096830344429192456}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5074533325663497844}
-  m_Father: {fileID: 6358105633228546258}
-  m_RootOrder: 10
+  m_Father: {fileID: 6392323410714767902}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160, y: -340}
+  m_AnchoredPosition: {x: 50, y: -244}
   m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8928690887995474302
@@ -8088,7 +8088,7 @@ RectTransform:
   - {fileID: 1052022686275722809}
   - {fileID: 4851589456934471525}
   m_Father: {fileID: 6358105633228546258}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8705,7 +8705,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6358105633228546258}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -9397,7 +9397,6 @@ RectTransform:
   - {fileID: 6358105634658280393}
   - {fileID: 6358105634104105273}
   - {fileID: 7968855412889098945}
-  - {fileID: 3258901746216749436}
   - {fileID: 853670718}
   - {fileID: 2852181957732062623}
   - {fileID: 5260380125232775229}
@@ -10804,7 +10803,7 @@ RectTransform:
   - {fileID: 6358105634950480193}
   - {fileID: 6358105633237312249}
   m_Father: {fileID: 6358105633228546258}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -13318,7 +13317,7 @@ RectTransform:
   - {fileID: 8006886313230450095}
   - {fileID: 6358105634267451559}
   m_Father: {fileID: 6358105633228546258}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -17001,7 +17000,7 @@ RectTransform:
   - {fileID: 6358105634397605793}
   - {fileID: 6358105633900570185}
   m_Father: {fileID: 6358105633228546258}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -17368,7 +17367,7 @@ RectTransform:
   - {fileID: 6358105633269394562}
   - {fileID: 6358105634600274713}
   m_Father: {fileID: 6358105633228546258}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -18714,7 +18713,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6392323410714767902
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18729,8 +18728,9 @@ RectTransform:
   m_Children:
   - {fileID: 6358105635069355552}
   - {fileID: 6358105633315971287}
+  - {fileID: 3258901746216749436}
   m_Father: {fileID: 6358105633228546258}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -19406,7 +19406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 150b468100a49c344a7722461ac4db19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: SampleScene
+  scene: Exterminate
   txt: {fileID: 516502182}
 --- !u!1 &7948067170899272984
 GameObject:

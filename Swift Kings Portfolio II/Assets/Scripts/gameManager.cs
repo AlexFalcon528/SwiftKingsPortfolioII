@@ -70,6 +70,7 @@ public class gameManager : MonoBehaviour
 
 
         if (SceneManager.GetActiveScene().name != "LandingScene") {
+            objectiveParent.SetActive(true);
             mCamera = player.gameObject.GetComponentInChildren<Camera>();
             cScript = mCamera.GetComponent<cameraController>();
             player.TryGetComponent<playerController>(out pScript);
