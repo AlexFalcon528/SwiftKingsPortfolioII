@@ -9939,6 +9939,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8397537226833951522, guid: 06d2c51a99099124988ff7398a5dac58, type: 3}
   m_PrefabInstance: {fileID: 910126551}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &922197098 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6156922396145289040, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
+  m_PrefabInstance: {fileID: 3115329608628443776}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &924455734
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23227,6 +23232,14 @@ PrefabInstance:
     - target: {fileID: 3115329607362736408, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3115329607362736413, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
+      propertyPath: pushBackSphere
+      value: 
+      objectReference: {fileID: 922197098}
+    - target: {fileID: 3115329607362736413, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
+      propertyPath: pushBackAttackCD
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3115329607362736414, guid: a6e49049791c58147a48ce748213e9a1, type: 3}
       propertyPath: m_RootOrder

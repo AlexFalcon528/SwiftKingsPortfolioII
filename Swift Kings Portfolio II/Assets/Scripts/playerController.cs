@@ -15,6 +15,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [SerializeField] public GameObject futurePos;
     [SerializeField] Transform itemPos;
     [SerializeField] GameObject OrbWeapon;
+    [SerializeField] GameObject pushBackSphere;
 
     [Header("\n~~~~~~~Stats~~~~~~~")]
     [Header("~~~Player~~~")]
@@ -26,6 +27,8 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [SerializeField] int jumps;
     [SerializeField][Range(3, 9)] float jumpVelocity;
     [SerializeField] float pushBackResolve;
+    [SerializeField][Range(0,60)] int pushBackAttackCD;
+
     [Header("\n~~~Weapon~~~")]
     public List<gunStats> guns = new List<gunStats>();
     [SerializeField] int heldAmmo;
@@ -58,6 +61,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     bool isUsingItem;
     bool jumpPeak;
     bool dPadPressed;
+    bool isPushing;
 
     // Start is called before the first frame update
     void Start()
@@ -90,6 +94,10 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
                     {
                         StartCoroutine(UseItem());
                     }
+                }
+                if(Input.GetButton("Push back Attack"))
+                {
+                    StartCoroutine(PushBackAttack());
                 }
 
             }
@@ -438,6 +446,18 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     {
         shootDamage += 5;
         isPoweredUp = true;
+    }
+    IEnumerator PushBackAttack()
+    {
+        if (!isPushing)
+        {
+            isPushing = true;
+            pushBackSphere.SetActive(true);
+            yield return new WaitForSeconds(.5f);
+            pushBackSphere.SetActive(false);
+            yield return new WaitForSeconds(pushBackAttackCD);
+            isPushing = false;
+        }
     }
 
 }
