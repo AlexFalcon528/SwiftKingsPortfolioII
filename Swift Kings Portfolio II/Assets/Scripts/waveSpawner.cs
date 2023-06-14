@@ -46,7 +46,7 @@ public class waveSpawner : MonoBehaviour
         {
             if (numberSpawned == 0 && gameManager.instance.nextWave)
             {
-                gameManager.instance.UpdateGameGoal(numberToSpawn * (gameManager.instance.difficulty / 2));
+                gameManager.instance.UpdateGameGoal(numberToSpawn * (StatManagerVariables.instance.difficulty / 2));
             }
             StartCoroutine(spawn());
 

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Spawnpoint
   - Enemy
+  - StatManager
   - UI
   layers:
   - Default
