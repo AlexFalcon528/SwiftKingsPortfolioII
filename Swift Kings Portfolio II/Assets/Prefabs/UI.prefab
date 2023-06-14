@@ -3677,6 +3677,8 @@ MonoBehaviour:
   weaponAmmoText: {fileID: 6358105634104105272}
   heldAmmo: {fileID: 4924172682270037166}
   currPoints: {fileID: 4572866171892802138}
+  gunPickupIcon: {fileID: 5378415311906335852}
+  gunPrice: {fileID: 1428542426453039968}
   isPaused: 0
   enemiesRemaining: 0
   highScore: 0
