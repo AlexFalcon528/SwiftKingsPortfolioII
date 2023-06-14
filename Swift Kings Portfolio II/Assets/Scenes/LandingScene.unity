@@ -372,9 +372,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1394562218, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
-      propertyPath: scene
-      value: Exterminate
+    - target: {fileID: 2937798867861457195, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EliminateLvl2
       objectReference: {fileID: 0}
     - target: {fileID: 2985960344647124914, guid: 7f6ff221e42476d468f78776aeea3bab, type: 3}
       propertyPath: m_RootOrder
