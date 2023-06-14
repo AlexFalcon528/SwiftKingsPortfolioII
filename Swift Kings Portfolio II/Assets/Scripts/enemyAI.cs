@@ -12,6 +12,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     [SerializeField] Transform headPos;
     [SerializeField] Animator anim;
     [SerializeField] AudioSource aud;
+    [SerializeField] GameObject floatingDmgText;
 
     [Header("\n-----Enemy Stats------")]
     [Range(1, 100)] [SerializeField] int hp;
@@ -31,11 +32,8 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
 
 
     [Header("----- Audio -----")]
-    
     [SerializeField] AudioClip[] audDamage;
-    [SerializeField] [Range(0, 1)] float audDamageVol;
     [SerializeField] AudioClip audDeath;
-    [SerializeField] [Range(0, 1)] float audDeathVol;
 
     bool isShooting;
     bool playerInRange;
@@ -168,9 +166,10 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
     public void TakeDamage(int dmg)
     {
         hp -= dmg;
+
         if (hp <= 0)
         {
-            aud.PlayOneShot(audDeath, audDeathVol);
+            aud.PlayOneShot(audDeath, audioManager.instance.audSFXVol);
             gameManager.instance.UpdateGameGoal(-1);
             gameManager.instance.currentScore += pointsWorth;
             gameManager.instance.points += pointsWorth;
@@ -180,29 +179,37 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
             StopAllCoroutines();
             GetComponent<CapsuleCollider>().enabled = false;
             StartCoroutine(Fade());
-            
-                
-            
         }
         else
         {
             anim.SetTrigger("Damage");
-            aud.PlayOneShot(audDamage[Random.Range(0, audDamage.Length)], audDamageVol);
+            aud.PlayOneShot(audDamage[Random.Range(0, audDamage.Length)], audioManager.instance.audSFXVol);
             agent.SetDestination(gameManager.instance.player.transform.position);
             playerInRange = true;
             StartCoroutine(DamageColor());
+            StartCoroutine(ShowDmgText(dmg));
         }
     }
+
     public void TakePushBack(Vector3 dir)
     {
         agent.velocity += dir;//enemy gets pushed by our shots
     }
+
+    IEnumerator ShowDmgText(int dmgAmt) {
+        GameObject dmgText = Instantiate(floatingDmgText, transform.position, Camera.main.transform.rotation, transform);
+        floatingText dmg = dmgText.GetComponent<floatingText>();
+        dmg.Initiate(dmgAmt);
+        yield return null;
+    }
+
     IEnumerator DamageColor()//enemy blinks red when they take damage
     {
         model.material.color = Color.red;
         yield return new WaitForSeconds(.1f);
         model.material.color = colorOrig;
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -210,6 +217,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
             playerInRange = true;//lets enemy know player is in range
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -218,6 +226,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
             agent.stoppingDistance = 0;
         }
     }
+
     IEnumerator Roam()
     {
         if (!destinationChosen && agent.remainingDistance < 0.05f)
@@ -236,6 +245,7 @@ public class enemyAI : MonoBehaviour,IDamage,IPhysics
             agent.SetDestination(hit.position);
         }
     }
+
     IEnumerator Retreat(Vector3 retreatPos, float retreatTime)//takes in the position to retreat to and for how long
     {
         isRetreating = true;//sets retreating to true

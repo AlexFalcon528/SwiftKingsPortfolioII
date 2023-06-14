@@ -41,11 +41,8 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
 
     [Header("----- Audio -----")]
     [SerializeField] AudioClip[] audJump;
-    [SerializeField] [Range(0, 1)] float audJumpVol;
     [SerializeField] AudioClip[] audDamage;
-    [SerializeField] [Range(0, 1)] float audDamageVol;
     [SerializeField] AudioClip[] audSteps;
-    [SerializeField] [Range(0, 1)] float audStepsVol;
 
     int grenadeNum;
     int jumped;
@@ -167,7 +164,9 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     IEnumerator playSteps()
     {
         stepIsPlaying = true;
-        aud.PlayOneShot(audSteps[UnityEngine.Random.Range(0, audSteps.Length)], audioManager.instance.audSFXVol);
+        float stepVol = audioManager.instance.audSFXVol - 0.4f;
+        if(stepVol < 0 && audioManager.instance.audSFXVol > 0) stepVol = 0.1f;
+        aud.PlayOneShot(audSteps[UnityEngine.Random.Range(0, audSteps.Length)], stepVol);
         if (!isSprinting)
             yield return new WaitForSeconds(0.5f);
         else

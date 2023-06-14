@@ -11,6 +11,7 @@ public class minionAI : MonoBehaviour,IDamage
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Animator anim;
     [SerializeField] GameObject particleExplosion;
+    [SerializeField] GameObject floatingDmgText;
     [Header("\n~~~~~Minion Stats~~~~~")]
     [Range(1,100)] [SerializeField] int hp;
     [SerializeField] int turnSpeed;
@@ -47,6 +48,7 @@ public class minionAI : MonoBehaviour,IDamage
             StartCoroutine(Shoot());
         }    
     }
+
     public void TakeDamage(int dmg)
     {
         hp -= dmg;
@@ -68,9 +70,18 @@ public class minionAI : MonoBehaviour,IDamage
             agent.SetDestination(gameManager.instance.player.transform.position);
             
             StartCoroutine(DamageColor());
+            StartCoroutine(ShowDmgText(dmg));
         }
 
     }
+
+    IEnumerator ShowDmgText(int dmgAmt) {
+        GameObject dmgText = Instantiate(floatingDmgText, transform.position, Camera.main.transform.rotation, transform);
+        floatingText dmg = dmgText.GetComponent<floatingText>();
+        dmg.Initiate(dmgAmt);
+        yield return null;
+    }
+
     IEnumerator Shoot()
     {
 
@@ -80,16 +91,19 @@ public class minionAI : MonoBehaviour,IDamage
         yield return new WaitForSeconds(fireRate);
         isShooting = false;
     }
+
     public void CreateBullet()
     {
         Instantiate(projectile, transform.position, transform.rotation);
     }
+
     void FacePlayer()
     {
 
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x, 0, playerDir.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * turnSpeed);
     }
+
     IEnumerator DamageColor()
     {
         model.material.color = Color.red;

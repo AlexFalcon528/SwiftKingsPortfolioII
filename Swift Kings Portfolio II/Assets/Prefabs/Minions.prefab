@@ -89,6 +89,7 @@ MonoBehaviour:
   agent: {fileID: 383645450073051687}
   anim: {fileID: 447818002}
   particleExplosion: {fileID: 9156159418854897369, guid: 2c15c476dd893074183a4da8e66e8a40, type: 3}
+  floatingDmgText: {fileID: 6553024176115779417, guid: 50f88c6d12bcf6c46acee2eabb96d858, type: 3}
   hp: 3
   turnSpeed: 600
   fireRate: 2

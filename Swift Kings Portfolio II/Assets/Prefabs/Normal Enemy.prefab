@@ -322,7 +322,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3468450349055152742
 Transform:
   m_ObjectHideFlags: 0
@@ -360,6 +360,7 @@ MonoBehaviour:
   headPos: {fileID: 3468450349055152742}
   anim: {fileID: 1012194361}
   aud: {fileID: 0}
+  floatingDmgText: {fileID: 6553024176115779417, guid: 50f88c6d12bcf6c46acee2eabb96d858, type: 3}
   hp: 5
   turnSpeed: 300
   shootAngle: 20
@@ -377,9 +378,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: faf53b5b59d41a14e97c8858f4664122, type: 3}
   - {fileID: 8300000, guid: a715ddf00ff7f24469c72404e8df85e9, type: 3}
   - {fileID: 8300000, guid: e968c6ef8536cba4e98d5c8f4fdb9ccf, type: 3}
-  audDamageVol: 0.5
   audDeath: {fileID: 8300000, guid: 0e5edb6bccf05984dad128fb1a9fc914, type: 3}
-  audDeathVol: 0.5
 --- !u!195 &-1967139152464445983
 NavMeshAgent:
   m_ObjectHideFlags: 0

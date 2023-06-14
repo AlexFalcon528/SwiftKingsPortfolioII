@@ -12,7 +12,8 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
     [SerializeField] Transform minionSpawnPoint;//where minions spawn from
     [SerializeField] Transform headPos;
     [SerializeField] Transform shootPos;
-   
+    [SerializeField] GameObject floatingDmgText;
+
     [Header("\n----Enemy Stats------")]
     [Range(1, 100)] [SerializeField] int hp;
     [SerializeField] int turnSpeed;
@@ -210,13 +211,23 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
            agent.SetDestination(gameManager.instance.player.transform.position);
             playerInRange = true;
             StartCoroutine(DamageColor());
+            StartCoroutine(ShowDmgText(dmg));
         }
 
     }
+
     public void TakePushBack(Vector3 dir)
     {
         agent.velocity += dir;//enemy gets pushed by our shots
     }
+
+    IEnumerator ShowDmgText(int dmgAmt) {
+        GameObject dmgText = Instantiate(floatingDmgText, transform.position, Camera.main.transform.rotation, transform);
+        floatingText dmg = dmgText.GetComponent<floatingText>();
+        dmg.Initiate(dmgAmt);
+        yield return null;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -224,6 +235,7 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
             playerInRange = true;
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -232,6 +244,7 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
             agent.stoppingDistance = 0;
         }
     }
+
     IEnumerator Roam()
     {
         if (!destinationChosen && agent.remainingDistance < 0.05f)
@@ -250,6 +263,7 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
             agent.SetDestination(hit.position);
         }
     }
+
     IEnumerator Retreat(Vector3 retreatPos, float retreatTime)//takes in the position to retreat to and for how long
     {
         isRetreating = true;//sets retreating to true
