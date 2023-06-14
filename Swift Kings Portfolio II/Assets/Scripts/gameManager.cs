@@ -42,7 +42,6 @@ public class gameManager : MonoBehaviour
     public int wave;
     [SerializeField] int finalWave;
     public bool nextWave;
-    [Range(1, 3)]public int difficulty; 
     [Header("\n~~~~~~~~Minions Tracker~~~~~~~~~~~")]
     public int numberOfMinions;
     [Range(1, 30)] [SerializeField] public int maxNumberOfMinions;
@@ -54,7 +53,6 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindWithTag("Player"); //Find player
         spawnPoint = GameObject.FindWithTag("Spawnpoint"); //Find spawnpoint
         StatManager = GameObject.FindWithTag("StatManager");
-        difficulty = StatManager.gameObject.GetComponent<StatManagerVariables>().difficulty;
         DontDestroyOnLoad(StatManager);
 
         
