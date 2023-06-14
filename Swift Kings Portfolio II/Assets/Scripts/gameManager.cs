@@ -53,7 +53,7 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindWithTag("Player"); //Find player
         spawnPoint = GameObject.FindWithTag("Spawnpoint"); //Find spawnpoint
         StatManager = GameObject.FindWithTag("StatManager");
-        DontDestroyOnLoad(StatManager);
+       //DontDestroyOnLoad(StatManager);
 
         
         if (SceneManager.GetActiveScene().name != "LandingScene") {
@@ -100,6 +100,9 @@ public class gameManager : MonoBehaviour
         {
             nextWave = true;
             wave++;
+            points += 25;
+            currentScore += 25;
+            currPoints.text = $"{points}";
             if (wave > finalWave)
             {
                 StartCoroutine(YouWin());

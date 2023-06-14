@@ -133,7 +133,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
                 jumped++; //Jump
 
             }
-            if (transform.position.y >= jumpHeight)
+            if (transform.position.y >= jumpHeight || Input.GetButtonUp("Jump"))
             {
                 jumpPeak = true;
             }
