@@ -20,7 +20,6 @@ public class gameManager : MonoBehaviour
 
     [Header("~~~~~~~User Interface~~~~~~~")]
     private float origTimeScale = 1;
-    private float timescale;
 
     [SerializeField] GameObject lowHealthIndicator;
     public GameObject reticle;
@@ -99,10 +98,6 @@ public class gameManager : MonoBehaviour
     public void LoadHighScore()
     {
         PlayerPrefs.GetInt($"{SceneManager.GetActiveScene().name}", highScore);
-    }
-
-    private void Update() {
-        timescale = Time.timeScale;
     }
 
     public void UpdateMinionsCounter(int amount)
