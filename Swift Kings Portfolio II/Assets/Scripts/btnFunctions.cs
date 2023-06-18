@@ -1,10 +1,6 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 
 public class btnFunctions : MonoBehaviour {
@@ -23,6 +19,14 @@ public class btnFunctions : MonoBehaviour {
         gameManager.instance.wave = 1;
     }
 
+    public void OpenPauseOptions() {
+        menuManager.instance.OpenPauseOptions();
+    }
+
+    public void PauseBack() {
+        menuManager.instance.OpenPause();
+    }
+
     public void ReturnMenu() {
         StartCoroutine(SceneTransition("LandingScene")); // Load the Main Menu
         gameManager.instance.HandleReturnMenu();
@@ -32,6 +36,14 @@ public class btnFunctions : MonoBehaviour {
         gameManager.instance.UnpauseState(); // Unpause the game
         gameManager.instance.currentScore = 0;
         gameManager.instance.pScript.SpawnPlayer(); // Spawn the player through the player controller
+    }
+
+    public void PauseDifficulty() {
+        //
+    }
+
+    public void Continue() {
+        //
     }
 
     public void Exit() {
@@ -82,20 +94,24 @@ public class btnFunctions : MonoBehaviour {
     public void MainMenuBack() {
         menuManager.instance.OpenMain();
     }
+
     public void Difficulty() {
         menuManager.instance.OpenDifficulty();
     }
+
     public void Easy() {
         playerPrefsManager.instance.SetDifficulty(1);
         gameManager.instance.difficulty = 1;
         menuManager.instance.OpenMain();
     }
+
     public void Medium()
     {
         playerPrefsManager.instance.SetDifficulty(2);
         gameManager.instance.difficulty = 2;
         menuManager.instance.OpenMain();
     }
+
     public void Hard()
     {
         playerPrefsManager.instance.SetDifficulty(3);

@@ -18,7 +18,9 @@ public class menuManager : MonoBehaviour
     public GameObject optionsMenu;
     public GameObject creditsMenu;
     public GameObject pauseMenu;
+    public GameObject pauseOptionsMenu;
     public GameObject loseMenu;
+    public GameObject loseRespawn;
     public GameObject winMenu;
     public GameObject difficultyMenu;
 
@@ -35,6 +37,7 @@ public class menuManager : MonoBehaviour
     [SerializeField] private GameObject optionsFirst;
     [SerializeField] private GameObject creditsFirst;
     [SerializeField] private GameObject pauseFirst;
+    [SerializeField] private GameObject pauseOptionsFirst;
     [SerializeField] private GameObject winFirst;
     [SerializeField] private GameObject loseFirst;
     [SerializeField] private GameObject difficultyFirst;
@@ -83,6 +86,7 @@ public class menuManager : MonoBehaviour
         eliminateLvlsMenu.SetActive(false);
         creditsMenu.SetActive(false);
         pauseMenu.SetActive(false);
+        pauseOptionsMenu.SetActive(false);
         loseMenu.SetActive(false);
         winMenu.SetActive(false);
         difficultyMenu.SetActive(false);
@@ -102,8 +106,15 @@ public class menuManager : MonoBehaviour
         OpenMenu(pauseMenu, pauseFirst);
     }
 
-    public void OpenLose() {
+    public void OpenPauseOptions() {
+        OpenMenu(pauseOptionsMenu, pauseOptionsFirst);
+    }
 
+    public void OpenLose() {
+        // Disable Respawn if on survival
+        if(SceneManager.GetActiveScene().name == "Survive") {
+            loseRespawn.GetComponent<Button>().interactable = false;
+        }
         OpenMenu(loseMenu, loseFirst);
     }
 
