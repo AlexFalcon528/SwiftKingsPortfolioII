@@ -213,9 +213,9 @@ MonoBehaviour:
   hp: 20
   speed: 8
   sprintMult: 1.5
-  jumpHeight: 3.8
   gravity: 9
   jumps: 1
+  jumpHeight: 3
   jumpVelocity: 3
   pushBackResolve: 3
   pushBackAttackCD: 15

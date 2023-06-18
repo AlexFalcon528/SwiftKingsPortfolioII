@@ -26,9 +26,9 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [SerializeField] int hp;
     [SerializeField] float speed;
     [SerializeField] float sprintMult;
-    [SerializeField] float jumpHeight;
     [SerializeField] float gravity;
     [SerializeField] int jumps;
+    [SerializeField] float jumpHeight;
     [SerializeField][Range(3, 9)] float jumpVelocity;
     [SerializeField] float pushBackResolve;
     [SerializeField][Range(0,60)] int pushBackAttackCD;
@@ -53,7 +53,6 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [SerializeField] AudioClip[] audSteps;
 
     int grenadeNum;
-    int jumped;
     Vector3 move;
     Vector3 velocity;
     bool isGrounded;
@@ -64,7 +63,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     bool stepIsPlaying;
     public bool isPoweredUp;
     bool isUsingItem;
-    bool jumpPeak;
+    bool isJumping;
     bool dPadPressed;
     bool isPushing;
 
@@ -124,8 +123,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
             if(velocity.y < 0)
             {
                 velocity.y = 0f; //Reset vertical velocity
-                jumped = 0; //Reset times jumped
-                jumpPeak = false;
+                isJumping = false;
             }
 
         }
@@ -134,20 +132,11 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         futurePos.transform.position = controller.transform.localPosition + move * (speed * 0.3f);
 
         //Jump functionality
-        if (!jumpPeak && Input.GetButton("Jump"))  //If press jump and haven't jumped more than jumps
+        if (!isJumping && Input.GetButtonDown("Jump"))  //If press jump and are not jumping already
         {
-            if (Input.GetButtonDown("Jump") && jumped < jumps) //If press jump and haven't jumped more than jumps
-            {
-                aud.PlayOneShot(audJump[UnityEngine.Random.Range(0, audJump.Length)], audioManager.instance.audSFXVol);
-                jumped++; //Jump
-
-            }
-            if (transform.position.y >= jumpHeight || Input.GetButtonUp("Jump"))
-            {
-                jumpPeak = true;
-            }
-            velocity.y = jumpVelocity; //Move up
-
+            aud.PlayOneShot(audJump[UnityEngine.Random.Range(0, audJump.Length)], audioManager.instance.audSFXVol);
+            isJumping=true;
+            velocity.y += jumpHeight;
         }
 
         //Gravity
