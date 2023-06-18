@@ -205,10 +205,10 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         selectedGun = guns.Count - 1;
         UpdateUI();
     }
-    public void ammoPickup(int ammo)
+    public void ammoPickup(int ammo, int orbs)
     {
         heldAmmo += ammo;
-        orbCount++;
+        orbCount += orbs;
         UpdateUI();
     }
 
