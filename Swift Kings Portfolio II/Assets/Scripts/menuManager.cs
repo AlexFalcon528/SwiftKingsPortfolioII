@@ -120,10 +120,12 @@ public class menuManager : MonoBehaviour
     }
 
     public void OpenEliminateLvls() {
+        gameManager.instance.LoadHighScore();
         OpenMenu(eliminateLvlsMenu, eliminateLvlsFirst);
     }
 
     public void OpenSurvivalLvls() {
+        gameManager.instance.LoadHighScore();
         OpenMenu(surviveLvlsMenu, survivalLvlsFirst);
     }
 

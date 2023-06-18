@@ -84,7 +84,7 @@ public class gameManager : MonoBehaviour
             playerPrefsManager.instance.SetDifficulty(difficulty);
         }
         points = 50;
-        PlayerPrefs.GetInt($"{SceneManager.GetActiveScene().name}", highScore);
+        LoadHighScore();
 
         StartCoroutine(menuManager.instance.WaitToUnfade());
         // Start Menu Music if on Main Menu
@@ -94,6 +94,10 @@ public class gameManager : MonoBehaviour
         } else {
             audioManager.instance.playRandomGame();
         }
+    }
+    public void LoadHighScore()
+    {
+        PlayerPrefs.GetInt($"{SceneManager.GetActiveScene().name}", highScore);
     }
 
     private void Update() {
