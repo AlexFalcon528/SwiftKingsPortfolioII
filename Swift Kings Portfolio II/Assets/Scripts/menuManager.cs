@@ -59,7 +59,7 @@ public class menuManager : MonoBehaviour
     * Update
     */
     void Update() {
-        if (inputManager.instance.MenuOpenInput && !fadeBlackObj.activeSelf && activeMenu != loseMenu && SceneManager.GetActiveScene().name != "LandingScene") {
+        if (inputManager.instance.MenuOpenInput && !fadeBlackObj.activeSelf && activeMenu != loseMenu && activeMenu != winMenu && SceneManager.GetActiveScene().name != "LandingScene") {
             if (!gameManager.instance.isPaused) {
                 gameManager.instance.PauseState();
                 OpenPause();
