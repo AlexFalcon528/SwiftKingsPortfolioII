@@ -69,7 +69,6 @@ public class btnFunctions : MonoBehaviour {
 
     public void SurviveForestMaze() {
         StartCoroutine(SceneTransition("Survive")); // Load the Sample Scene (Survive Waves of Enemies Gamemode)
-        gameManager.instance.nextWave = true;
     }
 
     public void Options() {

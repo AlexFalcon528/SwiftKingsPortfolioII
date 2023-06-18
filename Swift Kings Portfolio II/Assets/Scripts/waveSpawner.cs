@@ -20,7 +20,8 @@ public class waveSpawner : MonoBehaviour
     void Start()
     {
         gameManager.instance.waveText.enabled = true;
-        
+        gameManager.instance.finalWave = 9999;
+
     }
 
     private void OnTriggerEnter(Collider other)
