@@ -415,6 +415,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         controller.enabled = false; //Disable CharacterController to allow manual position setting
         transform.position = gameManager.instance.spawnPoint.transform.position; //Set the position to where the player is supposed to spawn
         velocity = Vector3.zero; //Reset all velocity
+        move = Vector3.zero; // Reset all momentum
         controller.enabled = true; //Reenable controller to allow for the movement functions to work
         hp = hpOriginal; //Reset the player's hp to the original amount
         UpdateUI(); // Update the UI since variables updated
