@@ -15,7 +15,7 @@ public class explosion : MonoBehaviour
         IPhysics physicsable = other.GetComponent<IPhysics>();
         if (physicsable != null)
         {
-            Vector3 dir = other.transform.position - transform.position;
+            Vector3 dir = transform.position - other.transform.position;
             physicsable.TakePushBack(dir * pushbackAmount);
         }
         IDamage damageable = other.GetComponent<IDamage>();
