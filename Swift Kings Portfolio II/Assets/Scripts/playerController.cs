@@ -382,6 +382,8 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         }
         if (hp <= 0)//If hp is less than or = to 0
         {
+            if(hp < 0) hp = 0;
+
             gameManager.instance.HighHealth();
             if (!gameManager.instance.isDead)
             {
@@ -389,8 +391,10 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
                 gameManager.instance.YouLose(); //Lose the game
             }
         }
-        else {StartCoroutine(DamageFlash());
-    }
+        else {
+            StartCoroutine(DamageFlash());
+        }
+
         UpdateUI();
     }
     public void TakePushBack(Vector3 dir)
