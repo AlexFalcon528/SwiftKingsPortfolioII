@@ -23,6 +23,9 @@ public class menuManager : MonoBehaviour
     public GameObject loseRespawn;
     public GameObject winMenu;
     public GameObject difficultyMenu;
+    public GameObject difficultyEasy;
+    public GameObject difficultyNormal;
+    public GameObject difficultyHard;
 
     [Header("Screen Effects")]
     public GameObject fadeBlackObj;
@@ -149,7 +152,24 @@ public class menuManager : MonoBehaviour
     }
     public void OpenDifficulty()
     {
+        HandleDifficultyBorders();
         OpenMenu(difficultyMenu, difficultyFirst);
+    }
+
+    /**
+     * Difficulty Border Feedback
+     */
+    public void HandleDifficultyBorders() {
+        // Disable all borders
+        difficultyEasy.GetComponent<Image>().enabled = false;
+        difficultyNormal.GetComponent<Image>().enabled = false;
+        difficultyHard.GetComponent<Image>().enabled = false;
+
+        // Set Border
+        int currDifficulty = playerPrefsManager.instance.GetDifficulty();
+        if (currDifficulty == 2) difficultyNormal.GetComponent<Image>().enabled = true;
+        else if (currDifficulty == 3) difficultyHard.GetComponent<Image>().enabled = true;
+        else difficultyEasy.GetComponent<Image>().enabled = true;
     }
 
     /*
