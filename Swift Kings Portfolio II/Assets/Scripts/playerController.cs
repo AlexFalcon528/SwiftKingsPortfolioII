@@ -143,6 +143,8 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         velocity.y -= gravity * Time.deltaTime;
         controller.Move((velocity + pushBack) * Time.deltaTime);
         pushBack = Vector3.Lerp(pushBack, Vector3.zero, Time.deltaTime * pushBackResolve);
+
+        
     }
     IEnumerator DamageFlash()
     {
@@ -157,12 +159,20 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         {
             isSprinting = true; //Sprint
             speed *= sprintMult; //Apply speed multiplier
-            sprintEffect.enabled = true; // turns on sprint effect
         }
         else if (Input.GetButtonUp("Sprint")) //Once sprint button is let go
         {
             isSprinting = false; //Stop sprinting
             speed /= sprintMult; //Unapply speed multiplier
+            
+        }
+
+        if (isSprinting && move != Vector3.zero)
+        {
+            sprintEffect.enabled = true; // turns on sprint effect
+        }
+        else
+        {
             sprintEffect.enabled = false;//turns off sprint effect
         }
     }
