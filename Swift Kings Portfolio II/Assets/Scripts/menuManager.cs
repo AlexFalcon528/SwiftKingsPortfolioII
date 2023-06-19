@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -18,6 +20,7 @@ public class menuManager : MonoBehaviour
     public GameObject optionsMenu;
     public GameObject creditsMenu;
     public GameObject pauseMenu;
+    public GameObject pauseDifficulty;
     public GameObject pauseOptionsMenu;
     public GameObject loseMenu;
     public GameObject loseRespawn;
@@ -26,6 +29,15 @@ public class menuManager : MonoBehaviour
     public GameObject difficultyEasy;
     public GameObject difficultyNormal;
     public GameObject difficultyHard;
+    public GameObject pauseDifficultyEasy;
+    public GameObject pauseDifficultyNormal;
+    public GameObject pauseDifficultyHard;
+
+    [Header("Levels")]
+    public GameObject eliminateLvlOne;
+    public GameObject eliminateLvlTwo;
+    public GameObject eliminateLvlThree;
+    public GameObject surviveLvlOne;
 
     [Header("Screen Effects")]
     public GameObject fadeBlackObj;
@@ -44,6 +56,8 @@ public class menuManager : MonoBehaviour
     [SerializeField] private GameObject winFirst;
     [SerializeField] private GameObject loseFirst;
     [SerializeField] private GameObject difficultyFirst;
+    [SerializeField] private GameObject pauseDifficultyFirst;
+
 
     /**
     * Awake
@@ -113,6 +127,11 @@ public class menuManager : MonoBehaviour
         OpenMenu(pauseOptionsMenu, pauseOptionsFirst);
     }
 
+    public void OpenPauseDifficulty() {
+        HandleDifficultyBorders();
+        OpenMenu(pauseDifficulty, pauseDifficultyFirst);
+    }
+
     public void OpenLose() {
         // Disable Respawn if on survival
         if(SceneManager.GetActiveScene().name == "Survive") {
@@ -134,12 +153,26 @@ public class menuManager : MonoBehaviour
     }
 
     public void OpenEliminateLvls() {
+        // Handle Displayed Progress
+        int level = playerPrefsManager.instance.GetLevel();
+
+        // Load Level 1 Highscore
+        int lvlOneHS = playerPrefsManager.instance.GetHighscore("SampleScene");
+        eliminateLvlOne.transform.Find("High Score").GetComponent<TextMeshProUGUI>().text = "Highscore: " + lvlOneHS.ToString();
+
+        // Unlock Levels
+        if (level > 1) UnlockLevel(eliminateLvlTwo, "exterminate");
+
+        // Load the Menu
         gameManager.instance.LoadHighScore();
         OpenMenu(eliminateLvlsMenu, eliminateLvlsFirst);
     }
 
     public void OpenSurvivalLvls() {
-        gameManager.instance.LoadHighScore();
+        // Load Level 1 Highscore
+        int lvlOneHS = playerPrefsManager.instance.GetHighscore("Survive");
+        surviveLvlOne.transform.Find("High Score").GetComponent<TextMeshProUGUI>().text = "Highscore: " + lvlOneHS.ToString();
+
         OpenMenu(surviveLvlsMenu, survivalLvlsFirst);
     }
 
@@ -164,12 +197,42 @@ public class menuManager : MonoBehaviour
         difficultyEasy.GetComponent<Image>().enabled = false;
         difficultyNormal.GetComponent<Image>().enabled = false;
         difficultyHard.GetComponent<Image>().enabled = false;
+        pauseDifficultyEasy.GetComponent<Image>().enabled = false;
+        pauseDifficultyNormal.GetComponent<Image>().enabled = false;
+        pauseDifficultyHard.GetComponent<Image>().enabled = false;
 
         // Set Border
         int currDifficulty = playerPrefsManager.instance.GetDifficulty();
-        if (currDifficulty == 2) difficultyNormal.GetComponent<Image>().enabled = true;
-        else if (currDifficulty == 3) difficultyHard.GetComponent<Image>().enabled = true;
-        else difficultyEasy.GetComponent<Image>().enabled = true;
+        if (currDifficulty == 2) {
+            difficultyNormal.GetComponent<Image>().enabled = true;
+            pauseDifficultyNormal.GetComponent<Image>().enabled = true;
+        } else if (currDifficulty == 3) {
+            difficultyHard.GetComponent<Image>().enabled = true;
+            pauseDifficultyHard.GetComponent<Image>().enabled = true;
+        } else {
+            difficultyEasy.GetComponent<Image>().enabled = true;
+            pauseDifficultyEasy.GetComponent<Image>().enabled = true;
+
+        }
+    }
+
+    /**
+     * Unlock Level
+     */
+    public void UnlockLevel(GameObject button, string scene) {
+        // Load Highscore
+        int highscore = playerPrefsManager.instance.GetHighscore(scene);
+        button.transform.Find("High Score").GetComponent<TextMeshProUGUI>().text = "Highscore: " + highscore.ToString();
+
+        // Enable Button
+        button.GetComponent<Button>().interactable = true;
+        button.transform.Find("Locked").GetComponent<Image>().enabled = false;
+        button.transform.Find("Icon").GetComponent<Image>().enabled = true;
+
+        // Reset Color Multiplier
+        ColorBlock c = button.GetComponent<Button>().colors;
+        c.colorMultiplier = 1;
+        button.GetComponent<Button>().colors = c;
     }
 
     /*
