@@ -60,9 +60,6 @@ public class gameManager : MonoBehaviour
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 50;
 
-        
-
-
         if (SceneManager.GetActiveScene().name != "LandingScene") {
             gameplayUI.SetActive(true);
             mCamera = player.gameObject.GetComponentInChildren<Camera>();
@@ -83,6 +80,10 @@ public class gameManager : MonoBehaviour
         {
             playerPrefsManager.instance.SetDifficulty(difficulty);
         }
+
+        if(!playerPrefsManager.instance.HasLevel()) playerPrefsManager.instance.SetLevel(1);
+        if (!playerPrefsManager.instance.HasSurviveLevel()) playerPrefsManager.instance.SetSurviveLevel(1);
+
         points = 50;
         LoadHighScore();
 
@@ -172,8 +173,24 @@ public class gameManager : MonoBehaviour
             PlayerPrefs.SetInt($"{SceneManager.GetActiveScene().name}", highScore);
         }
         menuManager.instance.OpenWin();
+        WinProgression();
     }
 
+    public void WinProgression() {
+        // Get Currently Level & Scene
+        int eliminateLvl = playerPrefsManager.instance.GetLevel();
+        int surviveLvl = playerPrefsManager.instance.GetSurviveLevel();
+        string currentScene = SceneManager.GetActiveScene().name;
+
+        // Update Progression based off current level and completed scene
+        if (eliminateLvl < 2 && currentScene == "SampleScene") playerPrefsManager.instance.SetLevel(eliminateLvl + 1);
+        else if (eliminateLvl == 2 && currentScene == "Exterminate") playerPrefsManager.instance.SetLevel(eliminateLvl + 1);
+        else if (surviveLvl < 2 && currentScene == "Survive") playerPrefsManager.instance.SetSurviveLevel(surviveLvl + 1);
+    }
+
+    /**
+     * Health Feedback
+     */
     public void LowHealth()
     {
         lowHealthIndicator.SetActive(true);

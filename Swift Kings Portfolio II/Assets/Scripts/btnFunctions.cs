@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -27,6 +28,10 @@ public class btnFunctions : MonoBehaviour {
         menuManager.instance.OpenPause();
     }
 
+    public void LoseBack() {
+        menuManager.instance.OpenLose();
+    }
+
     public void ReturnMenu() {
         StartCoroutine(SceneTransition("LandingScene")); // Load the Main Menu
         gameManager.instance.HandleReturnMenu();
@@ -39,11 +44,21 @@ public class btnFunctions : MonoBehaviour {
     }
 
     public void PauseDifficulty() {
-        //
+        menuManager.instance.OpenPauseDifficulty();
     }
 
     public void Continue() {
-        //
+        // Get Active Scene
+        string activeScene = SceneManager.GetActiveScene().name;
+
+        // Eliminate
+        if (activeScene == "SampleScene") {
+            StartCoroutine(SceneTransition("Exterminate"));
+            gameManager.instance.UnpauseState();
+        } else if (activeScene == "Exterminate") { // Theres no level past this one at the moment
+            StartCoroutine(SceneTransition("Exterminate"));
+            gameManager.instance.UnpauseState();
+        }
     }
 
     public void Exit() {
@@ -57,21 +72,21 @@ public class btnFunctions : MonoBehaviour {
         menuManager.instance.OpenGamemodes();
     }
 
-    public void PlayElminate() {
+    public void PlayEliminate() {
         menuManager.instance.OpenEliminateLvls();
     }
 
     public void EliminateLvl1() {
-        StartCoroutine(SceneTransition("SampleScene")); // Load the Sample Scene (Elminate All Enmies Gamemode)
+        StartCoroutine(SceneTransition("SampleScene")); // Load the Sample Scene (Eliminate All Enemies Gamemode)
     }
 
     public void EliminateLvl2() {
-        StartCoroutine(SceneTransition("Exterminate")); // Load the Sample Scene (Elminate All Enmies Gamemode)
+        StartCoroutine(SceneTransition("Exterminate")); // Load the Sample Scene (Eliminate All Enemies Gamemode)
     }
 
 
     public void EliminateLvl3() {
-        StartCoroutine(SceneTransition("SampleScene")); // Load the Sample Scene (Elminate All Enmies Gamemode)
+        StartCoroutine(SceneTransition("SampleScene")); // Load the Sample Scene (Eliminate All Enemies Gamemode)
     }
 
 

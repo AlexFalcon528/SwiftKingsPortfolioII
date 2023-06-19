@@ -49,4 +49,32 @@ public class playerPrefsManager : MonoBehaviour
     public int GetDifficulty() {
         return PlayerPrefs.GetInt("Difficulty");
     }
+
+    public bool HasLevel() {
+        return PlayerPrefs.HasKey("Level");
+    }
+
+    public void SetLevel(int lvl) {
+        PlayerPrefs.SetInt("Level", lvl);
+    }
+
+    public int GetLevel() {
+        return PlayerPrefs.GetInt("Level");
+    }
+
+    public bool HasSurviveLevel() {
+        return PlayerPrefs.HasKey("SurviveLevel");
+    }
+
+    public void SetSurviveLevel(int lvl) {
+        PlayerPrefs.SetInt("SurviveLevel", lvl);
+    }
+
+    public int GetSurviveLevel() {
+        return PlayerPrefs.GetInt("SurviveLevel");
+    }
+
+    public int GetHighscore(string scene) {
+        return PlayerPrefs.GetInt(scene);
+    }
 }
