@@ -19,7 +19,6 @@ public class gameManager : MonoBehaviour
 
     [Header("~~~~~~~User Interface~~~~~~~")]
     private float origTimeScale = 1;
-
     [SerializeField] GameObject lowHealthIndicator;
     public GameObject reticle;
     public GameObject gameplayUI;
@@ -33,6 +32,7 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI heldAmmo;
     public TextMeshProUGUI heldGrenades;
     public TextMeshProUGUI heldOrbs;
+    public TextMeshProUGUI currScore;
     public TextMeshProUGUI  currPoints;
     public GameObject gunPickupIcon;
     public TextMeshProUGUI gunPrice;
@@ -95,6 +95,7 @@ public class gameManager : MonoBehaviour
             audioManager.instance.playRandomGame();
         }
     }
+
     public void LoadHighScore()
     {
         highScore = PlayerPrefs.GetInt($"{SceneManager.GetActiveScene().name}");
@@ -115,6 +116,7 @@ public class gameManager : MonoBehaviour
             pScript.GrenadePickUp();
             points += 25;
             currentScore += 25;
+            currScore.text = $"{currentScore}";
             currPoints.text = $"{points}";
             if (wave > finalWave)
             {
@@ -154,25 +156,24 @@ public class gameManager : MonoBehaviour
      * Win / Lose Condition Handling
      */
     public void YouLose() {
-        PauseState(); //Pause
-        if (highScore < currentScore)
-        {
-            highScore = currentScore;
-            PlayerPrefs.SetInt($"{SceneManager.GetActiveScene().name}", highScore);
-        }
+        // Update Highscore
+        if(currentScore > highScore)
+            PlayerPrefs.SetInt($"{SceneManager.GetActiveScene().name}", currentScore);
+
         menuManager.instance.OpenLose();
+        PauseState(); //Pause
     }
 
     public IEnumerator YouWin() {
         yield return new WaitForSeconds(1);
-        PauseState();
-        if (highScore < currentScore)
-        {
-            highScore = currentScore;
-            PlayerPrefs.SetInt($"{SceneManager.GetActiveScene().name}", highScore);
-        }
+
+        // Update Highscore
+        if (currentScore > highScore)
+            PlayerPrefs.SetInt($"{SceneManager.GetActiveScene().name}", currentScore);
+
         menuManager.instance.OpenWin();
         WinProgression();
+        PauseState();
     }
 
     public void WinProgression() {

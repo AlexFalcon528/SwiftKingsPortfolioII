@@ -39,7 +39,8 @@ public class btnFunctions : MonoBehaviour {
 
     public void Respawn() {
         gameManager.instance.UnpauseState(); // Unpause the game
-        gameManager.instance.currentScore = 0;
+        gameManager.instance.currentScore -= 25; // Subtract from Score. Don't reset
+        gameManager.instance.currScore.text = gameManager.instance.currentScore.ToString(); // Update UI String
         gameManager.instance.pScript.SpawnPlayer(); // Spawn the player through the player controller
     }
 
