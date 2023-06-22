@@ -434,8 +434,8 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
         gameManager.instance.Healthbar.fillAmount = (float)hp / hpOriginal; // Set Healthbar fill to the amount of hp compared to original
         gameManager.instance.healthBarText.text = hp.ToString(); // numerical display of hp
         gameManager.instance.heldAmmo.text = $"{heldAmmo}";
-        gameManager.instance.heldGrenades.text = $"{grenadeCount} Grenades";
-        gameManager.instance.heldOrbs.text = $"{orbCount} Orbs";
+        gameManager.instance.heldGrenades.text = $"(F) {grenadeCount} Grenades";
+        gameManager.instance.heldOrbs.text = $"(Q) {orbCount} Orbs";
         // Update Weapon Ammo Display
         
         if (guns.Count > 0)
