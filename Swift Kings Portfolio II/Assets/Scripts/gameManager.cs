@@ -97,7 +97,7 @@ public class gameManager : MonoBehaviour
     }
     public void LoadHighScore()
     {
-        PlayerPrefs.GetInt($"{SceneManager.GetActiveScene().name}", highScore);
+        highScore = PlayerPrefs.GetInt($"{SceneManager.GetActiveScene().name}");
     }
 
     public void UpdateMinionsCounter(int amount)
