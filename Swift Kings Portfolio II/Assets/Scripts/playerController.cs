@@ -37,7 +37,7 @@ public class playerController : MonoBehaviour, IDamage, IPhysics
     [Header("\n~~~Weapon~~~")]
     public List<gunStats> guns = new List<gunStats>();
     [SerializeField] int heldAmmo;
-    [SerializeField] int orbCount;
+    [SerializeField] public int orbCount;
     [SerializeField] int shootDist;
     [SerializeField] float shootRate;
     [SerializeField] int shootDamage;

@@ -203,7 +203,8 @@ public class necromancerAI : MonoBehaviour,IDamage,IPhysics
             gameManager.instance.UpdateGameGoal(-1);
             gameManager.instance.points += pointsWorth;
             gameManager.instance.currentScore += pointsWorth;
-            gameManager.instance.currPoints.text = $"{gameManager.instance.points}";
+            gameManager.instance.currScore.text = gameManager.instance.currentScore.ToString();
+            gameManager.instance.currPoints.text = gameManager.instance.points.ToString();
             anim.SetBool("Dead", true);
             agent.enabled = false;
             
